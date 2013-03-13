@@ -1,0 +1,22 @@
+<%-- 
+    Document   : JDBC
+    Created on : 9 nov. 2012, 11:55:16
+    Author     : Enji
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Tests JDBC</title>
+        <link type="text/css" rel="stylesheet" href="<c:url value="/inc/form.css"/>" />
+    </head>
+    <body>
+        <h1>Tests JDBC</h1>
+
+        <c:forEach items="${ messages }" var="message" varStatus="boucle">
+            <p>${ boucle.count }. ${ message }</p>
+        </c:forEach>
+    </body>
+</html>

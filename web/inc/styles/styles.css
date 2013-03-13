@@ -1,0 +1,301 @@
+/*  ------------------------------------------------ */
+
+/** 
+ *
+ *  styles.css
+ *	CSS code for site's theme
+ *  
+ *  This file is the principal theme of the site
+ *  
+ *  Copyright (c) 2012 Enji TRAN NGUYEN
+ *
+ **/
+
+/*  ------------------------------------------------ */
+
+html { 
+	background: url('../pictures/background.png') center center fixed; 
+        background-repeat: repeat-x;
+        -webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
+
+body{
+    font:12px/20px Arial, Helvetica, sans-serif;
+    color:#7c7876;
+    position:relative;
+    min-width:320px;
+}
+
+.content{
+    background-color:#FFFFFF;
+    width:920px; 
+    margin: 10px auto 0px auto;
+    padding: 15px; 
+    min-height: 700px;
+    
+}
+/*  ------------------------------ */
+
+/*---------------------------------
+ *  Title Style
+ *---------------------------------*/
+
+h1,h2,h3,h4{
+    line-height:1.2em;
+    color:#034694; 
+    font-weight:normal; 
+    font-family:Arial, Helvetica, sans-serif;
+}
+h1{
+    margin-top:-20px;
+    margin-bottom: -40px;
+    font-size:30px;
+    color:#034694;
+}
+h2{
+    font-size:30px;
+    font-weight:bold;
+    color:#034694;
+    padding:0 0 0 40px;
+}
+h3{
+    font-size:23px;
+    padding-bottom:0px;
+} 
+h4{
+    font-size:20px; 
+    padding-bottom:15px;
+}  
+h5{
+    color:white;
+    font-size:16px; 
+}
+
+
+/*  ------------------------------ */
+
+/*---------------------------------
+ *  Global Structure Style
+ *---------------------------------*/
+
+
+.texte_faq{
+    width:780px;
+    color:#FFFFFF;
+    display: block;
+    background:#034694;
+    border-top:1px solid #262626;
+    border-bottom:1px solid #161712;
+    padding:10px 15px 10px 15px;
+    margin:15px auto 30px auto;
+}
+li{
+    list-style-type : none;
+}
+
+#hidden {
+    display: none;
+}
+
+form,input,select{margin:0; padding:0;}
+
+.formContact {
+    margin:0 auto 40px;
+    width:500px;
+    background:#FFFFFF;
+    position:relative;
+    top:30px;
+
+}
+
+.formContact h1 { 
+    color:#ffffff;
+    font-size:18px;
+    text-transform:uppercase;
+    padding:5px 0 5px 5px;
+    border-bottom:1px solid #161712;
+    border-top:1px solid #161712; 
+}
+
+.formContact label {
+    width:100%;
+    color:#7c7876;
+    display: block;
+    background:#034694;
+    border-top:1px solid #262626;
+    border-bottom:1px solid #161712;
+    padding:10px 0 10px 0;
+}
+
+.formContact label span {
+    display: block;
+    color:#FFFFFF;
+    font-size:12px;
+    float:left;
+    width:100px;
+    text-align:right;
+    padding:5px 20px 0 0;
+}
+
+.formContact .input_text {
+    padding:10px 10px;
+    width:200px;
+    background:#FFFFFF;
+    border: 1px double #61696C;
+}
+
+.formContact .select_text {
+    padding:10px 10px;
+    width:220px;
+    background:#FFFFFF;
+    border: 1px double #61696C;
+}
+
+.formContact .buttonConnect
+{
+    margin:0 0 10px 0;
+    color:#FFFFFF;
+    padding:4px 7px;
+    background:#034694;
+    border:0px;
+    position: relative;
+    top:10px;
+    left:382px;
+    width:100px;
+    height:40px;
+    border: 1px double #03467c;
+}
+
+.formContact .buttonConnect:hover{
+    color: #61696C;
+}
+.buttonFAQ{
+    margin:15px 0 10px 0;
+    color:#FFFFFF;
+    padding:10px 10px 10px 10px;
+    background:#034694;
+    border:0px;
+    position: relative;
+    width:350px;
+    height:40px;
+    border: 1px double #03467c;
+}
+.aFAQ{
+    color:#FFFFFF;
+    font-size:15px;
+}
+.button
+{
+    margin:15px 30px 10px 0;
+    color:#FFFFFF;
+    padding:10px 10px 10px 10px;
+    background:#034694;
+    border:0px;
+    position: relative;
+    width:100px;
+    height:40px;
+    border: 1px double #03467c;
+    float:right;
+    cursor: pointer;
+}
+
+.validButton{
+    margin:15px 0 10px 0;
+    color:#FFFFFF;
+    padding:10px 10px 10px 10px;
+    background:#034694;
+    border:0px;
+    position: relative;
+    width:100px;
+    height:40px;
+    border: 1px double #03467c;
+}
+
+.validButton:hover{
+    color:#61696C;
+}
+/*  ------------------------------ */
+
+/*---------------------------------
+ *  txt,links,lines,titles Style
+ *---------------------------------*/
+p{
+    color:#61696C;
+}
+a {
+    color: #61696C;
+    font-family: Arial;
+    font-size:11px;
+    text-decoration:none}
+
+a img 
+{ 
+    border: none; 
+} 
+
+/*  ------------------------------ */
+
+/*---------------------------------
+ *  Header Style
+ *---------------------------------*/
+.header{
+    margin: -10px auto 0 auto;
+    width:950px;
+    background-image: url("../pictures/header.png");
+    background-repeat: no-repeat;
+    height:250px;
+}
+
+/*  ------------------------------ */
+
+/*---------------------------------
+ *  Menu Style
+ *---------------------------------*/
+
+.menu{
+    z-index: 99;
+    margin: 0 auto 0 220px ;
+    width: 650px;
+    background-color: #034694; }
+
+.menu ul{
+    margin: 0; padding: 0;
+    float: left;}
+
+.menu ul li{
+    display: inline;}
+
+.menu ul li a{
+    width:140px;
+    height:25px;
+    float: left; text-decoration: none;
+    text-align: center;
+    font-size: 18px;
+    color: white; 
+    padding: 33px 8px 27px 8px;
+    background-color: #034694; }
+
+.menu ul li a:hover, .menu ul li .current{
+    color: #61696C;
+    background-color:#FFFFFF;}
+
+/*  ------------------------------ */
+
+/*---------------------------------
+ *  Footer Style
+ *---------------------------------*/
+
+.footer{
+    margin: 0 auto 0 auto;
+    width:950px;
+    background-image: url("../pictures/footer.png");
+    background-repeat: no-repeat;
+    height:370px;
+    padding-bottom:-10px;
+}
+
+/*  ------------------------------ */
