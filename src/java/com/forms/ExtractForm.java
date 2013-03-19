@@ -31,9 +31,10 @@ public class ExtractForm {
 	private float totalCost, totalCostComplete, arpu;
 	private Label countryCell, contractNameCell, periodCell;
 	private jxl.write.Number quantityCell, totalCostCell, arpuCell;
+	private WritableCellFormat cellFormat;
 
 	@SuppressWarnings("empty-statement")
-	public ExtractForm(ExtractDao extractDao) {
+	public ExtractForm(ExtractDao extractDao) throws WriteException {
 		this.extractDao = extractDao;
 
 		this.country = null;
@@ -57,6 +58,9 @@ public class ExtractForm {
 		this.quantityCell = null;
 		this.totalCostCell = null;
 		this.arpuCell = null;
+		
+		this.cellFormat = new WritableCellFormat();
+		this.cellFormat.setAlignment(jxl.format.Alignment.CENTRE);
 	}
 
 	public Map<Integer, ExtractTab> extractMonth(String typeExtract, String nameExtract, int month, int year) {
@@ -105,12 +109,12 @@ public class ExtractForm {
 		totalCostComplete = totalCostComplete + totalCost;
 		arpu = extract.getArpu();
 
-		countryCell = new Label(0, numLine, country);
-		contractNameCell = new Label(1, numLine, contractName);
-		periodCell = new Label(2, numLine, Integer.toString(month) + "/" + Integer.toString(year));
-		quantityCell = new jxl.write.Number(3, numLine, quantity);
-		totalCostCell = new jxl.write.Number(4, numLine, totalCost);
-		arpuCell = new jxl.write.Number(5, numLine, arpu);
+		countryCell = new Label(0, numLine, country, cellFormat);
+		contractNameCell = new Label(1, numLine, contractName, cellFormat);
+		periodCell = new Label(2, numLine, Integer.toString(month) + "/" + Integer.toString(year), cellFormat);
+		quantityCell = new jxl.write.Number(3, numLine, quantity, cellFormat);
+		totalCostCell = new jxl.write.Number(4, numLine, totalCost, cellFormat);
+		arpuCell = new jxl.write.Number(5, numLine, arpu, cellFormat);
 
 		workbook.getSheet(sheetIndex).addCell(countryCell);
 		workbook.getSheet(sheetIndex).addCell(contractNameCell);
@@ -124,14 +128,14 @@ public class ExtractForm {
 
 	public WritableWorkbook addTotalRow(WritableWorkbook workbook, int sheetIndex) throws WriteException {
 
-		countryCell = new Label(0, numLine, country);
-		contractNameCell = new Label(1, numLine, contractName);
-		periodCell = new Label(2, numLine, Integer.toString(firstMonth) + "/" + Integer.toString(year) + " - " + Integer.toString(month) + "/" + Integer.toString(year) + " (" + Integer.toString(nbMonth - nbEmptyLine) + " months)");
-		quantityCell = new jxl.write.Number(3, numLine, quantityComplete);
-		totalCostCell = new jxl.write.Number(4, numLine, totalCostComplete);
+		countryCell = new Label(0, numLine, country, cellFormat);
+		contractNameCell = new Label(1, numLine, contractName, cellFormat);
+		periodCell = new Label(2, numLine, Integer.toString(firstMonth) + "/" + Integer.toString(year) + " - " + Integer.toString(month) + "/" + Integer.toString(year) + " (" + Integer.toString(nbMonth - nbEmptyLine) + " months)", cellFormat);
+		quantityCell = new jxl.write.Number(3, numLine, quantityComplete, cellFormat);
+		totalCostCell = new jxl.write.Number(4, numLine, totalCostComplete, cellFormat);
 		arpu = (totalCostComplete / (quantityComplete / (nbMonth - nbEmptyLine)));
-		arpuCell = new jxl.write.Number(5, numLine, arpu);
-
+		arpuCell = new jxl.write.Number(5, numLine, arpu, cellFormat);
+		
 		workbook.getSheet(sheetIndex).addCell(countryCell);
 		workbook.getSheet(sheetIndex).addCell(contractNameCell);
 		workbook.getSheet(sheetIndex).addCell(periodCell);
@@ -148,20 +152,36 @@ public class ExtractForm {
 
 			WritableSheet fixSheet = workbook.createSheet("Fix Report", 0);
 			WritableSheet mobileSheet = workbook.createSheet("Mobile Report", 1);
-
-			fixSheet.addCell(new Label(0, 0, "Country Code"));
-			fixSheet.addCell(new Label(1, 0, "Contract Name"));
-			fixSheet.addCell(new Label(2, 0, "Date / Period"));
-			fixSheet.addCell(new Label(3, 0, "Line Count"));
-			fixSheet.addCell(new Label(4, 0, "Total Cost"));
-			fixSheet.addCell(new Label(5, 0, "ARPU"));
-
-			mobileSheet.addCell(new Label(0, 0, "Country Code"));
-			mobileSheet.addCell(new Label(1, 0, "Contract Name"));
-			mobileSheet.addCell(new Label(2, 0, "Date / Period"));
-			mobileSheet.addCell(new Label(3, 0, "Line Count"));
-			mobileSheet.addCell(new Label(4, 0, "Total Cost"));
-			mobileSheet.addCell(new Label(5, 0, "ARPU"));
+			WritableCellFormat titleFormat = new WritableCellFormat();
+			titleFormat.setAlignment(jxl.format.Alignment.CENTRE);
+			titleFormat.setBackground(jxl.format.Colour.ORANGE);
+			titleFormat.setBorder(jxl.format.Border.ALL, jxl.format.BorderLineStyle.MEDIUM, jxl.format.Colour.BLACK);
+			
+			fixSheet.setColumnView(0, 25);
+			fixSheet.setColumnView(1, 25);
+			fixSheet.setColumnView(2, 25);
+			fixSheet.setColumnView(3, 25);
+			fixSheet.setColumnView(4, 25);
+			fixSheet.setColumnView(5, 25);
+			fixSheet.addCell(new Label(0, 0, "Country Code", titleFormat));
+			fixSheet.addCell(new Label(1, 0, "Contract Name", titleFormat));
+			fixSheet.addCell(new Label(2, 0, "Date / Period", titleFormat));
+			fixSheet.addCell(new Label(3, 0, "Line Count", titleFormat));
+			fixSheet.addCell(new Label(4, 0, "Total Cost", titleFormat));
+			fixSheet.addCell(new Label(5, 0, "ARPU", titleFormat));
+			
+			mobileSheet.setColumnView(0, 25);
+			mobileSheet.setColumnView(1, 25);
+			mobileSheet.setColumnView(2, 25);
+			mobileSheet.setColumnView(3, 25);
+			mobileSheet.setColumnView(4, 25);
+			mobileSheet.setColumnView(5, 25);
+			mobileSheet.addCell(new Label(0, 0, "Country Code", titleFormat));
+			mobileSheet.addCell(new Label(1, 0, "Contract Name", titleFormat));
+			mobileSheet.addCell(new Label(2, 0, "Date / Period", titleFormat));
+			mobileSheet.addCell(new Label(3, 0, "Line Count", titleFormat));
+			mobileSheet.addCell(new Label(4, 0, "Total Cost", titleFormat));
+			mobileSheet.addCell(new Label(5, 0, "ARPU", titleFormat));
 
 			int numSheet = 0;
 
