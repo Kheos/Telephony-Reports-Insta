@@ -148,6 +148,10 @@
         <servlet-name>Download_Extract_Result</servlet-name>
         <servlet-class>com.servlets.Download_Extract_Result</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Work_In_Progress</servlet-name>
+        <servlet-class>com.servlets.Work_In_Progress</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Home</servlet-name>
         <url-pattern>/Home</url-pattern>
@@ -275,6 +279,10 @@
     <servlet-mapping>
         <servlet-name>Download_Extract_Result</servlet-name>
         <url-pattern>/Download_Extract_Result</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Work_In_Progress</servlet-name>
+        <url-pattern>/Work_In_Progress</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

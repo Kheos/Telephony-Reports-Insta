@@ -81,7 +81,7 @@
                         <tr>
                             <td style="padding:3px; padding: 15px 80px 0 80px; border: none; text-align: center;"><center><a href="Add_Unit_Reports"><img src="inc/pictures/add.png" alt="" width="35px" style="margin-top:-15px;"/></a></center></td>
                             <td style="padding:3px;padding: 15px 80px 0 80px; border: none;  text-align: center;"><center><a href="Delete_Unit_Reports"><img src="inc/pictures/trash.png" alt="" width="35px" style="margin-top:-15px;"/></a></center></td>
-                            <td style="padding:3px; padding: 15px 80px 0 80px; border: none;  text-align: center;"><center><a href="Modify_Unit_Reports"><img src="inc/pictures/edit.png" alt="" width="35px" style="margin-top:-15px;"/></a></center></td>
+                            <td style="padding:3px; padding: 15px 80px 0 80px; border: none;  text-align: center;"><center><a href="Work_In_Progress"><img src="inc/pictures/edit.png" alt="" width="35px" style="margin-top:-15px;"/></a></center></td>
                         </tr>
                         <tr>
                             <td style="padding:3px; padding:10px 80px 0 80px; border: none;  text-align: center;"><center><a href="Add_Unit_Reports"><p><strong>Add</strong></p></a></center></td>

@@ -77,7 +77,7 @@
         <!---------------------- CONTENT START --------------------------->       
         <div class="content">
             <h2>
-                <img src="inc/pictures/Download.png" alt="" width="50px" style="margin-top:0px;"/> &nbsp  Download Data
+                <img src="inc/pictures/Download.png" alt="" width="50px" style="margin-top:0px;"/> &nbsp  Data Extract
             </h2><br />
             <p>In this module, you could download tha data of a report in the .xls format.
                 Register the name and a date of the contract which you want download by the way of the lists :</p>
