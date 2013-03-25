@@ -27,7 +27,7 @@ public class ExtractForm {
 
 	private ExtractDao extractDao;
 	private String country, contractName, type;
-	private int firstMonth, month, nbMonth, year, quantity, quantityComplete, numLine, nbEmptyLine;
+	private int firstMonth, lastMonth, month, nbMonth, year, fiscalYear, quantity, quantityComplete, numLine, nbEmptyLine;
 	private float totalCost, totalCostComplete, arpu;
 	private Label countryCell, contractNameCell, periodCell;
 	private jxl.write.Number quantityCell, totalCostCell, arpuCell;
@@ -41,9 +41,11 @@ public class ExtractForm {
 		this.contractName = null;
 		this.type = null;
 		this.firstMonth = 0;
+		this.lastMonth = 0;
 		this.month = 0;
 		this.nbMonth = 0;
 		this.year = 0;
+		this.fiscalYear = 0;
 		this.quantity = 0;
 		this.quantityComplete = 0;
 		this.totalCost = 0;
@@ -78,7 +80,7 @@ public class ExtractForm {
 		if ("country".equals(typeExtract)) {
 			extractMap = extractDao.extractCountryMonth(extractMap, nameExtract, calendar, allMonth);
 		} else {
-			extractMap = extractDao.extractCountryMonth(extractMap, nameExtract, calendar, allMonth);
+			extractMap = extractDao.extractContractMonth(extractMap, nameExtract, calendar, allMonth);
 		}
 
 		return extractMap;
@@ -130,10 +132,15 @@ public class ExtractForm {
 
 		countryCell = new Label(0, numLine, country, cellFormat);
 		contractNameCell = new Label(1, numLine, contractName, cellFormat);
-		periodCell = new Label(2, numLine, Integer.toString(firstMonth) + "/" + Integer.toString(year) + " - " + Integer.toString(month) + "/" + Integer.toString(year) + " (" + Integer.toString(nbMonth - nbEmptyLine) + " months)", cellFormat);
+		if (fiscalYear != 0) {
+			periodCell = new Label(2, numLine, Integer.toString(firstMonth) + "/" + Integer.toString(fiscalYear) + " - " + Integer.toString(lastMonth) + "/" + Integer.toString(fiscalYear + 1) + " (" + Integer.toString(12 - nbEmptyLine) + " months)", cellFormat);
+			arpu = (totalCostComplete / (quantityComplete / (12 - nbEmptyLine)));
+		} else {
+			periodCell = new Label(2, numLine, Integer.toString(firstMonth) + "/" + Integer.toString(year) + " - " + Integer.toString(lastMonth) + "/" + Integer.toString(year) + " (" + Integer.toString(nbMonth - nbEmptyLine) + " months)", cellFormat);
+			arpu = (totalCostComplete / (quantityComplete / (nbMonth - nbEmptyLine)));
+		}
 		quantityCell = new jxl.write.Number(3, numLine, quantityComplete, cellFormat);
 		totalCostCell = new jxl.write.Number(4, numLine, totalCostComplete, cellFormat);
-		arpu = (totalCostComplete / (quantityComplete / (nbMonth - nbEmptyLine)));
 		arpuCell = new jxl.write.Number(5, numLine, arpu, cellFormat);
 		
 		workbook.getSheet(sheetIndex).addCell(countryCell);
@@ -146,7 +153,7 @@ public class ExtractForm {
 		return workbook;
 	}
 
-	public WritableWorkbook constructExtract(Map<Integer, ExtractTab> extractMap, WritableWorkbook workbook) throws WriteException, IOException {
+	public WritableWorkbook constructExtract(Map<Integer, ExtractTab> extractMap, WritableWorkbook workbook, int firstMonth, int lastMonth, int fiscalYear) throws WriteException, IOException {
 
 		try {
 
@@ -187,21 +194,36 @@ public class ExtractForm {
 
 			contractName = extractMap.get(0).getContractName();
 			type = extractMap.get(0).getType();
-			firstMonth = 1;
 			month = extractMap.get(0).getMonth();
+			this.firstMonth = firstMonth;
+			this.lastMonth = lastMonth;
+			this.fiscalYear = fiscalYear;
 
 			for (int i = 0; i <= extractMap.size(); i++) {
 				System.out.println("i : " + i + " / nbMonth : " + nbMonth + " / month : " + month + " / contractName : " + contractName);
 				ExtractTab extract = extractMap.get(i);
 				if (i == (extractMap.size())) {
-					if ((nbMonth - nbEmptyLine) > 1) {
+					if ((nbMonth - nbEmptyLine) > 1 || (this.fiscalYear != 0 && nbEmptyLine < 11)) {
+						while (nbMonth < lastMonth) {
+							System.out.println("MOIS MANQUANT");
+							numLine++;
+							nbMonth++;
+							nbEmptyLine++;
+						}
 						workbook = addTotalRow(workbook, numSheet);
 					}
 				} else if (!contractName.equals(extract.getContractName()) || !type.equals(extract.getType())) {
 					System.out.println("TOTAL");
-					if ((nbMonth - nbEmptyLine) > 1) {
+					if ((nbMonth - nbEmptyLine) > 1 || (this.fiscalYear != 0 && nbEmptyLine < 11)) {
+						while (nbMonth < lastMonth) {
+							System.out.println("MOIS MANQUANT");
+							numLine++;
+							nbMonth++;
+							nbEmptyLine++;
+						}
 						workbook = addTotalRow(workbook, numSheet);
 					}
+					
 					if (!type.equals(extract.getType())) {
 						numLine = 1;
 						numSheet = 1;
@@ -209,6 +231,8 @@ public class ExtractForm {
 					} else {
 						numLine++;
 					}
+					
+					firstMonth = this.firstMonth;
 					quantityComplete = 0;
 					totalCostComplete = 0;
 					nbMonth = 0;
@@ -226,7 +250,22 @@ public class ExtractForm {
 						nbMonth++;
 						numLine++;
 					}
-				} else if (nbMonth <= 12 && (nbMonth + firstMonth) != (extract.getMonth())) {
+				} else if (this.firstMonth == 4 && nbMonth >= 8) {
+					System.out.println("ANNEE FISCALE");
+					if ((nbMonth + firstMonth) != (extract.getMonth())) {
+						System.out.println("MOIS MANQUANT");
+						nbEmptyLine++;
+						i--;
+					}
+					else {
+						System.out.println("SIMPLE");
+						workbook = addSimpleRow(workbook, numSheet, extract);
+					}
+					firstMonth = 1;
+					nbMonth = 0;
+					numLine++;
+				}
+				else if (nbMonth <= 12 && (nbMonth + firstMonth) != (extract.getMonth())) {
 					System.out.println("MOIS MANQUANT");
 					numLine++;
 					nbMonth++;

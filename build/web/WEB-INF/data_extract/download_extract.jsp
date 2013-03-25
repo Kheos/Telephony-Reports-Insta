@@ -81,6 +81,9 @@
             </h2><br />
             <p>In this module, you could download tha data of a report in the .xls format.
                 Register the name and a date of the contract which you want download by the way of the lists :</p>
+			<p class="errors">
+				<c:out value="${error}"/>
+			</p>
             <div id="filter" style=" width:960px; margin:auto; padding: 5px;">
                 <form action="Download_Extract" method="POST" class="formContact">
                     <label for="type"><span>Type of Contract :</span>
@@ -98,7 +101,7 @@
                         <br />
                         <label>
                             <span>Country :</span>
-                            <select name="nameExtract" id="nameExtractCountry" tabindex="10" style="width:290px; margin-right: 20px;" onclick="Date();">
+                            <select name="nameExtractCountry" id="nameExtractCountry" tabindex="10" style="width:290px; margin-right: 20px;" onclick="Date();">
                                 <option value="">- Choose a country -</option> 
                                 ${ messageCountry }
                             </select>
@@ -106,7 +109,7 @@
                         <div id="dateModeCountry" style="display:none">
                             <label>
                                 <span>Period :</span>
-                                <select name="dateMode" id="selectDateModeCountry" tabindex="10" style="width:290px; margin-right: 20px;" onclick="DateDetail();">
+                                <select name="dateModeCountry" id="selectDateModeCountry" tabindex="10" style="width:290px; margin-right: 20px;" onclick="DateDetail();">
                                     <option value="">- Choose a period -</option> 
                                     <option value="monthlyMode">Monthly</option>
                                     <option value="fiscalYearMode">Fiscal Year</option>                                
@@ -116,14 +119,14 @@
                         </div>
                         <div id="dateMonthlyCountry" style="display:none">
                             <label><span>Month :</span>
-                                <select name="month" id="monthCountry" tabindex="40" style="width:290px; margin-right: 20px;" >
+                                <select name="monthCountry" id="monthCountry" tabindex="40" style="width:290px; margin-right: 20px;" >
                                     <option value="0">All</option>
                                     <c:forEach var="i" begin="1" end="12" step="1">
                                         <option value="<c:out value='${i}'/>"><c:out value='${monthList[i]}'/></option>
                                     </c:forEach>
                                 </select></label><br />
                             <label><span>Year :</span>
-                                <select id='yearCountry' name='year' tabindex="30" style="width:290px; margin-right: 20px;" >
+                                <select id='yearCountry' name='yearCountry' tabindex="30" style="width:290px; margin-right: 20px;" >
                                     <c:forEach var="i" begin="2011" end="${currentYear}" step="1">
                                         <option value="<c:out value='${i}'/>"><c:out value='${i}'/></option>
                                     </c:forEach>
@@ -132,7 +135,7 @@
                         </div>
                         <div id="dateFiscalYearCountry" style="display:none">
                             <label><span>Fiscal Year :</span>
-                                <select id='fiscalYear' name='fiscalYear' fiscalYear="30" style="width:290px; margin-right: 20px;" >
+                                <select id='fiscalYearCountry' name='fiscalYearCountry' fiscalYear="30" style="width:290px; margin-right: 20px;" >
                                     <c:choose>
                                         <c:when test="${currentMonth > 3}">
                                             <c:forEach var="i" begin="2011" end="${currentYear}" step="1">
@@ -197,7 +200,7 @@
                         <label>
                             <span>Contract :</span>
 
-                            <select name="nameExtract" id="nameExtractContract" tabindex="10" style="width:290px; margin-right: 20px;" onclick="Date();">
+                            <select name="nameExtractContract" id="nameExtractContract" tabindex="10" style="width:290px; margin-right: 20px;" onclick="Date();">
                                 <option value="">- Choose a contract -</option> 
                                 ${ messageNameUnitReports }
                             </select>
@@ -205,7 +208,7 @@
                         <div id="dateModeContract" style="display:none">
                             <label>
                                 <span>Period :</span>
-                                <select name="dateMode" id="selectDateModeContract" tabindex="10" style="width:290px; margin-right: 20px;" onclick="DateDetail();">
+                                <select name="dateModeContract" id="selectDateModeContract" tabindex="10" style="width:290px; margin-right: 20px;" onclick="DateDetail();">
                                     <option value="">- Choose a period -</option> 
                                     <option value="monthlyMode">Monthly</option>
                                     <option value="fiscalYearMode">Fiscal Year</option>                                
@@ -215,14 +218,14 @@
                         </div>
                         <div id="dateMonthlyContract" style="display:none">
                             <label><span>Month :</span>
-                                <select name="month" id="monthContract" tabindex="40" style="width:290px; margin-right: 20px;" >
+                                <select name="monthContract" id="monthContract" tabindex="40" style="width:290px; margin-right: 20px;" >
                                     <option value="0">All</option>
                                     <c:forEach var="i" begin="1" end="12" step="1">
                                         <option value="<c:out value='${i}'/>"><c:out value='${monthList[i]}'/></option>
                                     </c:forEach>
                                 </select></label><br />
                             <label><span>Year :</span>
-                                <select id='yearContract' name='year' tabindex="30" style="width:290px; margin-right: 20px;" >
+                                <select id='yearContract' name='yearContract' tabindex="30" style="width:290px; margin-right: 20px;" >
                                     <c:forEach var="i" begin="2011" end="${currentYear}" step="1">
                                         <option value="<c:out value='${i}'/>"><c:out value='${i}'/></option>
                                     </c:forEach>
@@ -231,7 +234,7 @@
                         </div>
                         <div id="dateFiscalYearContract" style="display:none">
                             <label><span>Fiscal Year :</span>
-                                <select id='fiscalYearContract' name='fiscalYear' tabindex="30" style="width:290px; margin-right: 20px;" >
+                                <select id='fiscalYearContract' name='fiscalYearContract' tabindex="30" style="width:290px; margin-right: 20px;" >
                                     <c:choose>
                                         <c:when test="${currentMonth > 3}">
                                             <c:forEach var="i" begin="2011" end="${currentYear}" step="1">

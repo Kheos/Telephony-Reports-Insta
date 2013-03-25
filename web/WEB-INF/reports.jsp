@@ -65,12 +65,6 @@
                 text-align: center;
             }
 
-            .errors {
-                margin-left: 10px;
-                margin-bottom: 10px;
-                color: red;
-            }
-
             .valid {
                 margin-left: 20px;
                 margin-bottom: 10px;

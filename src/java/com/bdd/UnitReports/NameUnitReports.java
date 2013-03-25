@@ -51,7 +51,7 @@ public class NameUnitReports {
                 String nameUnitReports = resultat.getString("CONTRACT_NAME");
                 System.out.println (nameUnitReports);
                 /* Formatage des données pour affichage dans la JSP finale. */
-                messageNameOption.add("<option value=\"" + nameUnitReports + "\">" + nameUnitReports + "</option>");
+                messageNameOption.add("<option value='" + nameUnitReports + "'>" + nameUnitReports + "</option>");
             }
         } catch (SQLException e) {
             /* Erreur lors de la connexion */

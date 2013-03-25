@@ -44,6 +44,7 @@ public class Download_Extract extends HttpServlet {
     public static final String ATT_MONTH_LIST = "monthList";
     public static final String ATT_CURRENT_YEAR = "currentYear";
     public static final String ATT_CURRENT_MONTH = "currentMonth";
+	public static final String ATT_ERROR = "error";
     public static final String CONF_DAO_FACTORY = "daofactory";
     public static final String VUE = "/WEB-INF/data_extract/download_extract.jsp";
     private ExtractDao extractDao;
@@ -110,6 +111,19 @@ public class Download_Extract extends HttpServlet {
         request.setAttribute(ATT_MONTH_LIST, this.monthList);
         request.setAttribute(ATT_CURRENT_MONTH, currentMonth);
         request.setAttribute(ATT_CURRENT_YEAR, currentYear);
+		
+		NameUnitReports connect = new NameUnitReports();
+        List<String> messageNameUnitReports = connect.execute(request);
+
+        request.setAttribute(ATT_MESSAGES_NAME_UNITREPORTS, messageNameUnitReports);
+
+        CountryUnitReports connect2 = new CountryUnitReports();
+        List<String> messageCountry = connect2.execute(request);
+        request.setAttribute(ATT_MESSAGES_COUNTRY, messageCountry);
+
+        DateMonthExtract connect3 = new DateMonthExtract();
+        List<String> messageDateMonth = connect3.execute(request);
+        request.setAttribute(ATT_MESSAGES_DATE_MONTH, messageDateMonth);
 
         return request;
     }
@@ -129,19 +143,6 @@ public class Download_Extract extends HttpServlet {
             throws ServletException, IOException {
         request = actionsGetPost(request);
 
-        NameUnitReports connect = new NameUnitReports();
-        List<String> messageNameUnitReports = connect.execute(request);
-
-        request.setAttribute(ATT_MESSAGES_NAME_UNITREPORTS, messageNameUnitReports);
-
-        CountryUnitReports connect2 = new CountryUnitReports();
-        List<String> messageCountry = connect2.execute(request);
-        request.setAttribute(ATT_MESSAGES_COUNTRY, messageCountry);
-
-        DateMonthExtract connect3 = new DateMonthExtract();
-        List<String> messageDateMonth = connect3.execute(request);
-        request.setAttribute(ATT_MESSAGES_DATE_MONTH, messageDateMonth);
-
         this.getServletContext().getRequestDispatcher(VUE).forward(request, response);
     }
 
@@ -159,16 +160,38 @@ public class Download_Extract extends HttpServlet {
             throws ServletException, IOException {
 
         request = actionsGetPost(request);
-
-        ExtractForm form = new ExtractForm(extractDao);
+		
+		ExtractForm form = null;
+		
+		try {
+			form = new ExtractForm(extractDao);
+		} catch (WriteException ex) {
+			Logger.getLogger(Download_Extract.class.getName()).log(Level.SEVERE, null, ex);
+		}
 
         String typeExtract = request.getParameter("typeExtract");
-        String nameExtract = request.getParameter("nameExtract");
-        String dateMode = request.getParameter("dateMode");
-        int month = Integer.parseInt(request.getParameter("month"));
-        int year = Integer.parseInt(request.getParameter("year"));
-        int fiscalYear = Integer.parseInt(request.getParameter("fiscalYear"));
+		String nameExtract = null;
+        String dateMode = null;
+        int month = 0;
+        int year = 0;
+        int fiscalYear = 0;
+		
+		if ("country".equals(typeExtract)) {
+			nameExtract = request.getParameter("nameExtractCountry");
+			dateMode = request.getParameter("dateModeCountry");
+			month = Integer.parseInt(request.getParameter("monthCountry"));
+			year = Integer.parseInt(request.getParameter("yearCountry"));
+			fiscalYear = Integer.parseInt(request.getParameter("fiscalYearCountry"));
+		} else {
+			nameExtract = request.getParameter("nameExtractContract");
+			dateMode = request.getParameter("dateModeContract");
+			month = Integer.parseInt(request.getParameter("monthContract"));
+			year = Integer.parseInt(request.getParameter("yearContract"));
+			fiscalYear = Integer.parseInt(request.getParameter("fiscalYearContract"));
+		}
+		
         System.out.println(typeExtract);
+		System.out.println(nameExtract);
         Map<Integer, ExtractTab> extractMap = null;
 
         if ("monthlyMode".equals(dateMode)) {
@@ -176,16 +199,36 @@ public class Download_Extract extends HttpServlet {
         } else {
             extractMap = form.extractFiscalYear(typeExtract, nameExtract, fiscalYear);
         }
-
+		
         WritableWorkbook workbook = null;
-
+		
         try {
+			if (extractMap.size() != 0) {
             response.setContentType("application/vnd.ms-excel");
             
             workbook = Workbook.createWorkbook(response.getOutputStream());
-            workbook = form.constructExtract(extractMap, workbook);
+			int firstMonth = 0;
+			int firstYear = 0;
+			int lastMonth = 0;
+			if ("monthlyMode".equals(dateMode) && month != 0) {
+				firstMonth = month;
+			}
+			else if ("fiscalYearMode".equals(dateMode)) {
+				firstMonth = 4;
+				firstYear = fiscalYear;
+				lastMonth = 3;
+			}
+			else {
+				firstMonth = 1;
+				lastMonth = 12;
+			}
+            workbook = form.constructExtract(extractMap, workbook, firstMonth, lastMonth, firstYear);
             workbook.write();
             workbook.close();
+			}
+			else {
+				request.setAttribute(ATT_ERROR, "Error : Data not found. Please fill the reports on Reporting page and then, you will can extract data.");
+			}
         
         } catch (WriteException ex) {
             Logger.getLogger(Download_Extract.class.getName()).log(Level.SEVERE, null, ex);
