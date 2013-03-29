@@ -51,7 +51,6 @@ class ExtractDaoImpl implements ExtractDao {
 
         return extractTab;
     }
-    
     private static final String SQL_SELECT_COUNTRY_ONE_MONTH = "SELECT UC.REF_COUNTRY_CODE, C.REF_UNITCONTRACT, L.LINE_NUMBER, C.TOTAL, CASE WHEN C.SERVICE_TYPE = 'Fix' THEN 'Fix' ELSE 'Mobile' END AS CATEGORIE FROM WEBIDMINT.TELEPHONY_UNITCONTRACT UC, WEBIDMINT.TELEPHONY_CONSUMPTION C, WEBIDMINT.TELEPHONY_LINECOUNT L WHERE UC.CONTRACT_NAME = L.REF_UNITREPORTS AND L.REF_UNITREPORTS = C.REF_UNITCONTRACT AND UC.REF_COUNTRY_CODE = ? AND C.DATE_REPORTS = L.DATE_CREATION AND C.SERVICE_TYPE = L.SERVICE_TYPE AND EXTRACT(MONTH FROM C.DATE_REPORTS) = ? AND EXTRACT(YEAR FROM C.DATE_REPORTS) = ? ORDER BY CATEGORIE, UC.CONTRACT_NAME, C.DATE_REPORTS";
     private static final String SQL_SELECT_COUNTRY_ALL_MONTH = "SELECT UC.REF_COUNTRY_CODE, EXTRACT(MONTH FROM C.DATE_REPORTS) AS MONTH, C.REF_UNITCONTRACT, L.LINE_NUMBER, C.TOTAL, CASE WHEN C.SERVICE_TYPE = 'Fix' THEN 'Fix' ELSE 'Mobile' END AS CATEGORIE FROM WEBIDMINT.TELEPHONY_UNITCONTRACT UC, WEBIDMINT.TELEPHONY_CONSUMPTION C, WEBIDMINT.TELEPHONY_LINECOUNT L WHERE UC.CONTRACT_NAME = L.REF_UNITREPORTS AND L.REF_UNITREPORTS = C.REF_UNITCONTRACT AND UC.REF_COUNTRY_CODE = ? AND C.DATE_REPORTS = L.DATE_CREATION AND C.SERVICE_TYPE = L.SERVICE_TYPE AND EXTRACT(YEAR FROM C.DATE_REPORTS) = ? ORDER BY CATEGORIE, UC.CONTRACT_NAME, C.DATE_REPORTS";
 
@@ -91,8 +90,8 @@ class ExtractDaoImpl implements ExtractDao {
                     extract = mapExtractTabMonth(resultSet, extract);
                     nbTimes++;
                     if ("Fix".equals(extract.getType()) && nbTimes == 2 || "Mobile".equals(extract.getType()) && nbTimes == 6) {
-                        extract.setArpu(extract.getTotalCost() / extract.getQuantity());
                         extract.setQuantity(extract.getQuantity() / 2);
+                        extract.setArpu(extract.getTotalCost() / extract.getQuantity());
                         extract.setExtractStatus(2);
                         extractMap.put(i, extract);
                         i++;
@@ -100,8 +99,7 @@ class ExtractDaoImpl implements ExtractDao {
                         nbTimes = 0;
                     }
                 }
-            }
-            else {
+            } else {
                 int nbTimes = 0;
                 int i = 0;
 
@@ -113,8 +111,8 @@ class ExtractDaoImpl implements ExtractDao {
                     extract = mapExtractTabMonth(resultSet, extract);
                     nbTimes++;
                     if ("Fix".equals(extract.getType()) && nbTimes == 2 || "Mobile".equals(extract.getType()) && nbTimes == 6) {
-                        extract.setArpu(extract.getTotalCost() / extract.getQuantity());
                         extract.setQuantity(extract.getQuantity() / 2);
+                        extract.setArpu(extract.getTotalCost() / extract.getQuantity());
                         extract.setExtractStatus(2);
                         extractMap.put(i, extract);
                         i++;
@@ -130,13 +128,12 @@ class ExtractDaoImpl implements ExtractDao {
 
         return extractMap;
     }
-    
     private static final String SQL_SELECT_CONTRACT_ONE_MONTH = "SELECT UC.REF_COUNTRY_CODE, C.REF_UNITCONTRACT, L.LINE_NUMBER, C.TOTAL, CASE WHEN C.SERVICE_TYPE = 'Fix' THEN 'Fix' ELSE 'Mobile' END AS CATEGORIE FROM WEBIDMINT.TELEPHONY_UNITCONTRACT UC, WEBIDMINT.TELEPHONY_CONSUMPTION C, WEBIDMINT.TELEPHONY_LINECOUNT L WHERE UC.CONTRACT_NAME = L.REF_UNITREPORTS AND L.REF_UNITREPORTS = C.REF_UNITCONTRACT AND UC.CONTRACT_NAME = ? AND C.DATE_REPORTS = L.DATE_CREATION AND C.SERVICE_TYPE = L.SERVICE_TYPE AND EXTRACT(MONTH FROM C.DATE_REPORTS) = ? AND EXTRACT(YEAR FROM C.DATE_REPORTS) = ? ORDER BY CATEGORIE, C.DATE_REPORTS";
     private static final String SQL_SELECT_CONTRACT_ALL_MONTH = "SELECT UC.REF_COUNTRY_CODE, EXTRACT(MONTH FROM C.DATE_REPORTS) AS MONTH, C.REF_UNITCONTRACT, L.LINE_NUMBER, C.TOTAL, CASE WHEN C.SERVICE_TYPE = 'Fix' THEN 'Fix' ELSE 'Mobile' END AS CATEGORIE FROM WEBIDMINT.TELEPHONY_UNITCONTRACT UC, WEBIDMINT.TELEPHONY_CONSUMPTION C, WEBIDMINT.TELEPHONY_LINECOUNT L WHERE UC.CONTRACT_NAME = L.REF_UNITREPORTS AND L.REF_UNITREPORTS = C.REF_UNITCONTRACT AND UC.CONTRACT_NAME = ? AND C.DATE_REPORTS = L.DATE_CREATION AND C.SERVICE_TYPE = L.SERVICE_TYPE AND EXTRACT(YEAR FROM C.DATE_REPORTS) = ? ORDER BY CATEGORIE, C.DATE_REPORTS";
-    
+
     public Map<Integer, ExtractTab> extractContractMonth(Map<Integer, ExtractTab> extractMap, String nameExtract, GregorianCalendar calendar, Boolean allMonth) {
-        
-		Connection connexion = null;
+
+        Connection connexion = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
         ExtractTab extract = null;
@@ -170,8 +167,8 @@ class ExtractDaoImpl implements ExtractDao {
                     extract = mapExtractTabMonth(resultSet, extract);
                     nbTimes++;
                     if ("Fix".equals(extract.getType()) && nbTimes == 2 || "Mobile".equals(extract.getType()) && nbTimes == 6) {
-                        extract.setArpu(extract.getTotalCost() / extract.getQuantity());
                         extract.setQuantity(extract.getQuantity() / 2);
+                        extract.setArpu(extract.getTotalCost() / extract.getQuantity());
                         extract.setExtractStatus(2);
                         extractMap.put(i, extract);
                         i++;
@@ -179,8 +176,7 @@ class ExtractDaoImpl implements ExtractDao {
                         nbTimes = 0;
                     }
                 }
-            }
-            else {
+            } else {
                 int nbTimes = 0;
                 int i = 0;
 
@@ -192,8 +188,8 @@ class ExtractDaoImpl implements ExtractDao {
                     extract = mapExtractTabMonth(resultSet, extract);
                     nbTimes++;
                     if ("Fix".equals(extract.getType()) && nbTimes == 2 || "Mobile".equals(extract.getType()) && nbTimes == 6) {
-                        extract.setArpu(extract.getTotalCost() / extract.getQuantity());
                         extract.setQuantity(extract.getQuantity() / 2);
+                        extract.setArpu(extract.getTotalCost() / extract.getQuantity());
                         extract.setExtractStatus(2);
                         extractMap.put(i, extract);
                         i++;
@@ -209,12 +205,11 @@ class ExtractDaoImpl implements ExtractDao {
 
         return extractMap;
     }
-    
     private static final String SQL_SELECT_COUNTRY_FISCAL_YEAR = "SELECT UC.REF_COUNTRY_CODE, EXTRACT(MONTH FROM C.DATE_REPORTS) AS MONTH, EXTRACT(YEAR FROM C.DATE_REPORTS) AS YEAR, C.REF_UNITCONTRACT, L.LINE_NUMBER, C.TOTAL, CASE WHEN C.SERVICE_TYPE = 'Fix' THEN 'Fix' ELSE 'Mobile' END AS CATEGORIE FROM WEBIDMINT.TELEPHONY_UNITCONTRACT UC, WEBIDMINT.TELEPHONY_CONSUMPTION C, WEBIDMINT.TELEPHONY_LINECOUNT L WHERE UC.CONTRACT_NAME = L.REF_UNITREPORTS AND L.REF_UNITREPORTS = C.REF_UNITCONTRACT AND UC.REF_COUNTRY_CODE = ? AND C.DATE_REPORTS = L.DATE_CREATION AND C.SERVICE_TYPE = L.SERVICE_TYPE AND ((EXTRACT(YEAR FROM C.DATE_REPORTS) = ? AND EXTRACT(MONTH FROM C.DATE_REPORTS) >= 4) OR (EXTRACT(YEAR FROM C.DATE_REPORTS) = ? AND EXTRACT(MONTH FROM C.DATE_REPORTS) <= 3)) ORDER BY CATEGORIE, UC.CONTRACT_NAME, C.DATE_REPORTS";
-    
+
     public Map<Integer, ExtractTab> extractCountryFiscalYear(Map<Integer, ExtractTab> extractMap, String nameExtract, int year) {
-        
-		Connection connexion = null;
+
+        Connection connexion = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
         ExtractTab extract = null;
@@ -229,32 +224,32 @@ class ExtractDaoImpl implements ExtractDao {
             } catch (SQLException ex) {
                 Logger.getLogger(ExtractDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
             }
-			
-			preparedStatement = initPreparedRequest(connexion, SQL_SELECT_COUNTRY_FISCAL_YEAR, false, nameExtract, year, year + 1);
+
+            preparedStatement = initPreparedRequest(connexion, SQL_SELECT_COUNTRY_FISCAL_YEAR, false, nameExtract, year, year + 1);
 
             resultSet = preparedStatement.executeQuery();
 
-            
-                int nbTimes = 0;
-                int i = 0;
 
-                while (resultSet.next()) {
-                    if (nbTimes == 0) {
-                        month = resultSet.getInt("MONTH");
-						year = resultSet.getInt("YEAR");
-                        extract = new ExtractTab(month, year);
-                    }
-                    extract = mapExtractTabMonth(resultSet, extract);
-                    nbTimes++;
-                    if ("Fix".equals(extract.getType()) && nbTimes == 2 || "Mobile".equals(extract.getType()) && nbTimes == 6) {
-                        extract.setArpu(extract.getTotalCost() / extract.getQuantity());
-                        extract.setQuantity(extract.getQuantity() / 2);
-                        extract.setExtractStatus(2);
-                        extractMap.put(i, extract);
-                        i++;
-                        nbTimes = 0;
-                    }
+            int nbTimes = 0;
+            int i = 0;
+
+            while (resultSet.next()) {
+                if (nbTimes == 0) {
+                    month = resultSet.getInt("MONTH");
+                    year = resultSet.getInt("YEAR");
+                    extract = new ExtractTab(month, year);
                 }
+                extract = mapExtractTabMonth(resultSet, extract);
+                nbTimes++;
+                if ("Fix".equals(extract.getType()) && nbTimes == 2 || "Mobile".equals(extract.getType()) && nbTimes == 6) {
+                    extract.setQuantity(extract.getQuantity() / 2);
+                    extract.setArpu(extract.getTotalCost() / extract.getQuantity());
+                    extract.setExtractStatus(2);
+                    extractMap.put(i, extract);
+                    i++;
+                    nbTimes = 0;
+                }
+            }
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
@@ -262,14 +257,13 @@ class ExtractDaoImpl implements ExtractDao {
         }
 
         return extractMap;
-		
+
     }
-    
     private static final String SQL_SELECT_CONTRACT_FISCAL_YEAR = "SELECT UC.REF_COUNTRY_CODE, EXTRACT(MONTH FROM C.DATE_REPORTS) AS MONTH, EXTRACT(YEAR FROM C.DATE_REPORTS) AS YEAR, C.REF_UNITCONTRACT, L.LINE_NUMBER, C.TOTAL, CASE WHEN C.SERVICE_TYPE = 'Fix' THEN 'Fix' ELSE 'Mobile' END AS CATEGORIE FROM WEBIDMINT.TELEPHONY_UNITCONTRACT UC, WEBIDMINT.TELEPHONY_CONSUMPTION C, WEBIDMINT.TELEPHONY_LINECOUNT L WHERE UC.CONTRACT_NAME = L.REF_UNITREPORTS AND L.REF_UNITREPORTS = C.REF_UNITCONTRACT AND UC.CONTRACT_NAME = ? AND C.DATE_REPORTS = L.DATE_CREATION AND C.SERVICE_TYPE = L.SERVICE_TYPE AND ((EXTRACT(YEAR FROM C.DATE_REPORTS) = ? AND EXTRACT(MONTH FROM C.DATE_REPORTS) >= 4) OR (EXTRACT(YEAR FROM C.DATE_REPORTS) = ? AND EXTRACT(MONTH FROM C.DATE_REPORTS) <= 3)) ORDER BY CATEGORIE, C.DATE_REPORTS";
-    
+
     public Map<Integer, ExtractTab> extractContractFiscalYear(Map<Integer, ExtractTab> extractMap, String nameExtract, int year) {
-        
-		Connection connexion = null;
+
+        Connection connexion = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
         ExtractTab extract = null;
@@ -284,32 +278,32 @@ class ExtractDaoImpl implements ExtractDao {
             } catch (SQLException ex) {
                 Logger.getLogger(ExtractDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
             }
-			
-			preparedStatement = initPreparedRequest(connexion, SQL_SELECT_CONTRACT_FISCAL_YEAR, false, nameExtract, year, year + 1);
+
+            preparedStatement = initPreparedRequest(connexion, SQL_SELECT_CONTRACT_FISCAL_YEAR, false, nameExtract, year, year + 1);
 
             resultSet = preparedStatement.executeQuery();
 
-            
-                int nbTimes = 0;
-                int i = 0;
 
-                while (resultSet.next()) {
-                    if (nbTimes == 0) {
-                        month = resultSet.getInt("MONTH");
-						year = resultSet.getInt("YEAR");
-                        extract = new ExtractTab(month, year);
-                    }
-                    extract = mapExtractTabMonth(resultSet, extract);
-                    nbTimes++;
-                    if ("Fix".equals(extract.getType()) && nbTimes == 2 || "Mobile".equals(extract.getType()) && nbTimes == 6) {
-                        extract.setArpu(extract.getTotalCost() / extract.getQuantity());
-                        extract.setQuantity(extract.getQuantity() / 2);
-                        extract.setExtractStatus(2);
-                        extractMap.put(i, extract);
-                        i++;
-                        nbTimes = 0;
-                    }
+            int nbTimes = 0;
+            int i = 0;
+
+            while (resultSet.next()) {
+                if (nbTimes == 0) {
+                    month = resultSet.getInt("MONTH");
+                    year = resultSet.getInt("YEAR");
+                    extract = new ExtractTab(month, year);
                 }
+                extract = mapExtractTabMonth(resultSet, extract);
+                nbTimes++;
+                if ("Fix".equals(extract.getType()) && nbTimes == 2 || "Mobile".equals(extract.getType()) && nbTimes == 6) {
+                    extract.setQuantity(extract.getQuantity() / 2);
+                    extract.setArpu(extract.getTotalCost() / extract.getQuantity());
+                    extract.setExtractStatus(2);
+                    extractMap.put(i, extract);
+                    i++;
+                    nbTimes = 0;
+                }
+            }
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
@@ -317,6 +311,6 @@ class ExtractDaoImpl implements ExtractDao {
         }
 
         return extractMap;
-		
+
     }
 }

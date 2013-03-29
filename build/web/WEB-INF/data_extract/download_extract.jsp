@@ -81,12 +81,12 @@
             </h2><br />
             <p>In this module, you could download tha data of a report in the .xls format.
                 Register the name and a date of the contract which you want download by the way of the lists :</p>
-			<p class="errors">
-				<c:out value="${error}"/>
-			</p>
+            <p class="errors">
+                <c:out value="${error}"/>
+            </p>
             <div id="filter" style=" width:960px; margin:auto; padding: 5px;">
                 <form action="Download_Extract" method="POST" class="formContact">
-                    <label for="type"><span>Type of Contract :</span>
+                    <label for="type"><span>Type of Extract :</span>
                         <select name="typeExtract" id="typeExtract" tabindex="10" style="width:290px; margin-right: 20px;" onclick="changementType();" >
                             <option value="">- Choose a type -</option>
                             <option value="country">Country</option>	   
