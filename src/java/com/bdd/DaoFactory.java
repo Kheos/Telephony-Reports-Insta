@@ -78,18 +78,26 @@ public class DaoFactory {
         return DriverManager.getConnection( PROPERTY_URL, PROPERTY_NOM_UTILISATEUR, PROPERTY_MOT_DE_PASSE );
     }
 	
-	/*
-     * Méthodes de récupération de l'implémentation des différents DAO
-     * (uniquement deux dans le cadre de ce TP)
-     */
-    public ReportDao getReportDao() {
+    /**
+	 * Méthode de récupération de l'implémentation du DAO de la partie Report
+	 * @return Instance de l'implémentation du DAO de la partie Report
+	 */
+	public ReportDao getReportDao() {
         return new ReportDaoImpl( this );
     }
     
-    public ExtractDao getExtractDao() {
+    /**
+	 * Méthode de récupération de l'implémentation du DAO de la partie Extract
+	 * @return Instance de l'implémentation du DAO de la partie Extract
+	 */
+	public ExtractDao getExtractDao() {
         return new ExtractDaoImpl( this );
     }
 	
+	/**
+	 * Méthode de récupération de l'implémentation du DAO de la partie Connexion (seulement en local)
+	 * @return Instance de l'implémentation du DAO de la partie Connexion
+	 */
 	public ConnectionDao getConnectionDao() {
         return new ConnectionDaoImpl( this );
     }

@@ -28,10 +28,14 @@ class ExtractDaoImpl implements ExtractDao {
     ExtractDaoImpl(DaoFactory daoFactory) {
         this.daoFactory = daoFactory;
     }
-
-    /*
-     * Method which encapsulate resultSet datas lines in a Report bean.
-     */
+	
+	/**
+	 *
+	 * @param resultSet Ligne sur laquelle effectuer le mapping
+	 * @param extractTab Bean où encapasuler les paramètres récupérés du ResultSet
+	 * @return Bean d'extract complet (mappé)
+	 * @throws DaoException
+	 */
     private static ExtractTab mapExtractTabMonth(ResultSet resultSet, ExtractTab extractTab) throws SQLException {
 
         int status = extractTab.getExtractStatus();
@@ -51,6 +55,7 @@ class ExtractDaoImpl implements ExtractDao {
 
         return extractTab;
     }
+	
     private static final String SQL_SELECT_COUNTRY_ONE_MONTH = "SELECT UC.REF_COUNTRY_CODE, C.REF_UNITCONTRACT, L.LINE_NUMBER, C.TOTAL, CASE WHEN C.SERVICE_TYPE = 'Fix' THEN 'Fix' ELSE 'Mobile' END AS CATEGORIE FROM WEBIDMINT.TELEPHONY_UNITCONTRACT UC, WEBIDMINT.TELEPHONY_CONSUMPTION C, WEBIDMINT.TELEPHONY_LINECOUNT L WHERE UC.CONTRACT_NAME = L.REF_UNITREPORTS AND L.REF_UNITREPORTS = C.REF_UNITCONTRACT AND UC.REF_COUNTRY_CODE = ? AND C.DATE_REPORTS = L.DATE_CREATION AND C.SERVICE_TYPE = L.SERVICE_TYPE AND EXTRACT(MONTH FROM C.DATE_REPORTS) = ? AND EXTRACT(YEAR FROM C.DATE_REPORTS) = ? ORDER BY CATEGORIE, UC.CONTRACT_NAME, C.DATE_REPORTS";
     private static final String SQL_SELECT_COUNTRY_ALL_MONTH = "SELECT UC.REF_COUNTRY_CODE, EXTRACT(MONTH FROM C.DATE_REPORTS) AS MONTH, C.REF_UNITCONTRACT, L.LINE_NUMBER, C.TOTAL, CASE WHEN C.SERVICE_TYPE = 'Fix' THEN 'Fix' ELSE 'Mobile' END AS CATEGORIE FROM WEBIDMINT.TELEPHONY_UNITCONTRACT UC, WEBIDMINT.TELEPHONY_CONSUMPTION C, WEBIDMINT.TELEPHONY_LINECOUNT L WHERE UC.CONTRACT_NAME = L.REF_UNITREPORTS AND L.REF_UNITREPORTS = C.REF_UNITCONTRACT AND UC.REF_COUNTRY_CODE = ? AND C.DATE_REPORTS = L.DATE_CREATION AND C.SERVICE_TYPE = L.SERVICE_TYPE AND EXTRACT(YEAR FROM C.DATE_REPORTS) = ? ORDER BY CATEGORIE, UC.CONTRACT_NAME, C.DATE_REPORTS";
 

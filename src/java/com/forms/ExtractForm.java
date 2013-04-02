@@ -34,7 +34,12 @@ public class ExtractForm {
     private WritableCellFormat cellFormat, totalCellFormat;
     private WritableFont totalFont;
 
-    @SuppressWarnings("empty-statement")
+    /**
+	 *
+	 * @param extractDao
+	 * @throws WriteException
+	 */
+	@SuppressWarnings("empty-statement")
     public ExtractForm(ExtractDao extractDao) throws WriteException {
         this.extractDao = extractDao;
 
@@ -69,7 +74,15 @@ public class ExtractForm {
         totalCellFormat.setAlignment(jxl.format.Alignment.CENTRE);
     }
 
-    public Map<Integer, ExtractTab> extractMonth(String typeExtract, String nameExtract, int month, int year) {
+    /**
+	 *
+	 * @param typeExtract Type d'extract ("country" ou "contract")
+	 * @param nameExtract Nom du contrat ou du pays selon le type d'extract
+	 * @param month Mois de l'extract demandé
+	 * @param year Année de l'extract demandé
+	 * @return Map contenant le ou les mois de l'extract demandé
+	 */
+	public Map<Integer, ExtractTab> extractMonth(String typeExtract, String nameExtract, int month, int year) {
 
         Map<Integer, ExtractTab> extractMap = new HashMap<Integer, ExtractTab>();
         java.lang.Boolean allMonth = false;
@@ -90,7 +103,14 @@ public class ExtractForm {
         return extractMap;
     }
 
-    public Map<Integer, ExtractTab> extractFiscalYear(String typeExtract, String nameExtract, int year) {
+    /**
+	 *
+	 * @param typeExtract Type d'extract ("country" ou "contract")
+	 * @param nameExtract Nom du contrat ou du pays selon le type d'extract
+	 * @param year Première année de l'année fiscale demandée à extraire
+	 * @return Map contenant les mois de l'année fiscale demandée
+	 */
+	public Map<Integer, ExtractTab> extractFiscalYear(String typeExtract, String nameExtract, int year) {
 
         Map<Integer, ExtractTab> extractMap = new HashMap<Integer, ExtractTab>();
 
@@ -103,7 +123,15 @@ public class ExtractForm {
         return extractMap;
     }
 
-    public WritableWorkbook addSimpleRow(WritableWorkbook workbook, int sheetIndex, ExtractTab extract) throws WriteException {
+    /**
+	 *
+	 * @param workbook Workbook en construction
+	 * @param sheetIndex Index de la feuille sur laquelle écrire
+	 * @param extract Bean de la ligne d'extract à ajouter au Workbook
+	 * @return Workbook en construction avec la ligne ajoutée
+	 * @throws WriteException
+	 */
+	public WritableWorkbook addSimpleRow(WritableWorkbook workbook, int sheetIndex, ExtractTab extract) throws WriteException {
 
         country = extract.getCountry();
         contractName = extract.getContractName();
@@ -132,7 +160,14 @@ public class ExtractForm {
         return workbook;
     }
 
-    public WritableWorkbook addTotalRow(WritableWorkbook workbook, int sheetIndex) throws WriteException {
+    /**
+	 *
+	 * @param workbook Workbook en construction
+	 * @param sheetIndex Index de la feuille sur laquelle écrire
+	 * @return Workbook en construction avec la ligne de total ajoutée
+	 * @throws WriteException
+	 */
+	public WritableWorkbook addTotalRow(WritableWorkbook workbook, int sheetIndex) throws WriteException {
 
         countryCell = new Label(0, numLine, country, totalCellFormat);
         contractNameCell = new Label(1, numLine, contractName, totalCellFormat);
@@ -156,7 +191,18 @@ public class ExtractForm {
         return workbook;
     }
 
-    public WritableWorkbook constructExtract(Map<Integer, ExtractTab> extractMap, WritableWorkbook workbook, int firstMonth, int lastMonth, int fiscalYear) throws WriteException, IOException {
+    /**
+	 *
+	 * @param extractMap Map contenant les Beans d'extract à insérer dans le Workbook
+	 * @param workbook Workbook en construction
+	 * @param firstMonth Premier mois de l'extract à réaliser
+	 * @param lastMonth Dernier mois de l'extract à réaliser
+	 * @param fiscalYear Première année de l'année fiscale demandée (si c'est un extract par année fiscale, fiscalYear vaut 0)
+	 * @return Workbook complété à envoyer en téléchargement
+	 * @throws WriteException
+	 * @throws IOException
+	 */
+	public WritableWorkbook constructExtract(Map<Integer, ExtractTab> extractMap, WritableWorkbook workbook, int firstMonth, int lastMonth, int fiscalYear) throws WriteException, IOException {
 
         try {
 

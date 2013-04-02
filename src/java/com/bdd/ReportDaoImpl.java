@@ -30,10 +30,14 @@ class ReportDaoImpl implements ReportDao {
     ReportDaoImpl(DaoFactory daoFactory) {
         this.daoFactory = daoFactory;
     }
-
-    /*
-     * Method which encapsulate resultSet datas consmption in a Report bean.
-     */
+	
+	/**
+	 *
+	 * @param resultSet Ligne sur laquelle effectuer le mapping
+	 * @param report Bean où encapasuler les paramètres récupérés du ResultSet
+	 * @return Bean de Report complet pour les consommations (mappé)
+	 * @throws DaoException
+	 */
     private static Report mapConsumption(ResultSet resultSet, Report report) throws SQLException {
 
         String serviceType = resultSet.getString("SERVICE_TYPE");
@@ -92,9 +96,13 @@ class ReportDaoImpl implements ReportDao {
         return report;
     }
 
-    /*
-     * Method which encapsulate resultSet datas lines in a Report bean.
-     */
+    /**
+	 *
+	 * @param resultSet Ligne sur laquelle effectuer le mapping
+	 * @param report Bean où encapasuler les paramètres récupérés du ResultSet
+	 * @return Bean de Report complet pour les nombres de lignes (mappé)
+	 * @throws DaoException
+	 */
     private static Report mapLineCount(ResultSet resultSet, Report report) throws SQLException {
 
         String serviceType = resultSet.getString("SERVICE_TYPE");
@@ -274,7 +282,7 @@ class ReportDaoImpl implements ReportDao {
      */
     private static final String SQL_SELECT_SITES = "SELECT CONTRACT_NAME FROM WEBIDMINT.TELEPHONY_UNITCONTRACT ORDER BY CONTRACT_NAME";
 
-    public Map<Integer, String> siteList(Map<Integer, String> siteList, String login) throws DaoException {
+    public Map<Integer, String> siteList(Map<Integer, String> siteList) throws DaoException {
 
         Connection connexion = null;
         PreparedStatement preparedStatement = null;

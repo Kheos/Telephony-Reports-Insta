@@ -112,7 +112,7 @@ public class Reports extends HttpServlet {
         HttpSession session = request.getSession();
         String login = (String) session.getAttribute(ATT_SESSION_USER);
 
-        Map<Integer, String> siteList = form.constructSiteList(login);
+        Map<Integer, String> siteList = form.constructSiteList();
 
         request.setAttribute(ATT_SITE_LIST, siteList);
 
@@ -178,7 +178,7 @@ public class Reports extends HttpServlet {
                 reportMap.put(idReport, form.updateReport(refContract, type, month, year, request));
             }
 
-            Map<Integer, String> siteList = form.constructSiteList(login);
+            Map<Integer, String> siteList = form.constructSiteList();
 
             String result = form.getResult();
 
@@ -342,7 +342,7 @@ public class Reports extends HttpServlet {
                 }
             }
 
-            Map<Integer, String> siteList = form.constructSiteList(login);
+            Map<Integer, String> siteList = form.constructSiteList();
 
             Map<String, String> filter = new HashMap<String, String>();
 

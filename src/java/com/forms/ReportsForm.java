@@ -68,65 +68,66 @@ public class ReportsForm {
     private static final String FIELD_VAR_LOCAL_DATA_BB = "varLocalDataBB";
     private static final String FIELD_VAR_INTERNATIONAL_DATA_BB = "varInternationalDataBB";
     private static final String FIELD_VAR_TOTAL_BB = "varTotalBB";
-    private Boolean valid;
-    private int month;
-    private int year;
     private String result;
     private Map<String, String> errors = new HashMap<String, String>();
 
-    public ReportsForm(ReportDao reportDao) {
+    /**
+	 *
+	 * @param reportDao
+	 */
+	public ReportsForm(ReportDao reportDao) {
         this.reportDao = reportDao;
     }
 
-    public Boolean getValid() {
-        return valid;
-    }
-
-    public void setValid(Boolean valid) {
-        this.valid = valid;
-    }
-
-    public int getMonth() {
-        return month;
-    }
-
-    public void setMonth(int month) {
-        this.month = month;
-    }
-
-    public int getYear() {
-        return year;
-    }
-
-    public void setYear(int year) {
-        this.year = year;
-    }
-
-    public String getResult() {
+    /**
+	 *
+	 * @return String à afficher en résultat dans la vue ("Report Saved" ou "Error(s) :")
+	 */
+	public String getResult() {
         return result;
     }
 
-    public Map<String, String> getErrors() {
+    /**
+	 *
+	 * @return Map d'erreurs construite après validation
+	 */
+	public Map<String, String> getErrors() {
         return errors;
     }
 
-    public String getType(String refContract) {
+    /**
+	 *
+	 * @param refContract Nom du contrat du Report
+	 * @return Type de contrat du Report
+	 */
+	public String getType(String refContract) {
 
         String type = reportDao.getType(refContract);
 
         return type;
     }
 
-    public Map<Integer, String> constructSiteList(String login) {
+    /**
+	 *
+	 * @return Map contenant la liste des contrats
+	 */
+	public Map<Integer, String> constructSiteList() {
 
         Map<Integer, String> siteList = new HashMap<Integer, String>();
 
-        siteList = reportDao.siteList(siteList, login);
+        siteList = reportDao.siteList(siteList);
 
         return siteList;
     }
 
-    public Map<Integer, Report> constructList(String refContract, int month, int year) {
+    /**
+	 *
+	 * @param refContract Nom du contrat du Report
+	 * @param month Mois du Report
+	 * @param year Année du Report
+	 * @return Map contenant les Beans des Reports
+	 */
+	public Map<Integer, Report> constructList(String refContract, int month, int year) {
 
         Map<Integer, Report> reportMap = new HashMap<Integer, Report>();
         Boolean allMonth = false;
@@ -144,8 +145,12 @@ public class ReportsForm {
     }
 
     /**
-     * @param request
-     * @return Report bean
+	 * @param refContract Nom du contrat du Report
+	 * @param type Type du contrat
+	 * @param request Requête envoyée
+	 * @param month Mois du Report
+	 * @param year Année du Report
+	 * @return Bean du report sauvegardé
      */
     public Report saveReport(String refContract, String type, int month, int year, HttpServletRequest request) {
 
@@ -295,7 +300,16 @@ public class ReportsForm {
         return report;
     }
 
-    public Report updateReport(String refContract, String type, int month, int year, HttpServletRequest request) {
+    /**
+	 *
+	 * @param refContract Nom du contrat du Report
+	 * @param type Type du contrat
+	 * @param month Mois du contrat
+	 * @param year Année du contrat
+	 * @param request Requête envoyée
+	 * @return Bean du report mis à jour
+	 */
+	public Report updateReport(String refContract, String type, int month, int year, HttpServletRequest request) {
 
         /*
          * Fix Telephony
