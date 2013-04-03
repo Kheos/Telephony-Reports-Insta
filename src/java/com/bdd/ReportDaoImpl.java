@@ -137,14 +137,17 @@ class ReportDaoImpl implements ReportDao {
         String selectOptionLineNumber = null;
         Report report = null;
         int selectValueSearched = 0;
+		//Récupération du mois et de l'année contenus dans le calendrier
         int month = calendar.get(Calendar.MONTH) + 1;
         int year = calendar.get(Calendar.YEAR);
 
         if (allMonth) {
+			//Si tous les mois ont été demandées, les requêtes à envoyer sont celles sur l'année
             selectOptionConsumption = SQL_SELECT_CONSUMPTION_BY_YEAR;
             selectOptionLineNumber = SQL_SELECT_LINE_NUMBER_BY_YEAR;
             selectValueSearched = year;
         } else {
+			//Sinon, les requêtes à envoyer sont celles sur le mois
             selectOptionConsumption = SQL_SELECT_CONSUMPTION_BY_MONTH;
             selectOptionLineNumber = SQL_SELECT_LINE_NUMBER_BY_MONTH;
             selectValueSearched = month;
@@ -152,13 +155,12 @@ class ReportDaoImpl implements ReportDao {
 
         try {
             try {
-                /*
-                 * Récupération d'une connexion depuis la Factory
-                 */
+                //Récupération d'une connexion depuis la Factory
                 connexion = daoFactory.getConnection();
             } catch (SQLException ex) {
                 Logger.getLogger(ReportDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
             }
+			//On prépare les requêtes SQL en les construisant avec la méthode "initPreparedRequest"
             if (allMonth) {
                 preparedStatementConsumption = initPreparedRequest(connexion, selectOptionConsumption, false, refContract, selectValueSearched, selectValueSearched + 1);
                 preparedStatementLineCount = initPreparedRequest(connexion, selectOptionLineNumber, false, refContract, selectValueSearched, selectValueSearched + 1);
@@ -167,77 +169,115 @@ class ReportDaoImpl implements ReportDao {
                 preparedStatementLineCount = initPreparedRequest(connexion, selectOptionLineNumber, false, refContract, selectValueSearched, year);
             }
             preparedStatementType = initPreparedRequest(connexion, SQL_SELECT_TYPE, false, refContract);
+			//On exécute les requêtes en récupérant les ResultSet
             resultSetType = preparedStatementType.executeQuery();
             resultSetConsumption = preparedStatementConsumption.executeQuery();
             resultSetLineCount = preparedStatementLineCount.executeQuery();
-            /*
-             * Parcours de la ligne de données de l'éventuel ResulSet retourné
-             */
-
+			
+			//Parcours des lignes de données des éventuels ResulSet retournés
+			
             if (!allMonth) {
-
+				//Si un seul mois à été demandé
+				//Création de 3 booléens de vérification pour savoir si chaque ResultSet a bien été parcouru
                 boolean consumption = false;
                 boolean lineCount = false;
                 boolean type = false;
-
+				//Instanciation d'un Bean de Report qui contiendra les données des ResultSet
                 report = new Report();
 
                 while (resultSetConsumption.next()) {
+					/*
+					 * Tant que le ResultSet des consommations contient une ligne, on effectue le mapping de cette ligne
+					 * et on passe le booléen de vérification à true
+					 */
                     report = mapConsumption(resultSetConsumption, report);
                     consumption = true;
                 }
                 while (resultSetLineCount.next()) {
+					/*
+					 * Tant que le ResultSet du nombre de lignes contient une ligne, on effectue le mapping de cette ligne
+					 * et on passe le booléen de vérification à true
+					 */
                     report = mapLineCount(resultSetLineCount, report);
                     lineCount = true;
                 }
+				
+				//On insère les informations générales du Report dans le Bean
                 report = handleInformations(refContract, month, year, false, report);
+				
                 if (resultSetType.next()) {
+					/*
+					 * Si le ResultSet du type contient une ligne, on effectue le mapping de cette ligne
+					 * et on passe le booléen de vérification à true
+					 */
                     report.setType(resultSetType.getString("DESCRIPTION"));
                     type = true;
                 }
                 if (consumption && lineCount && type) {
+					//Si tous les ResultSet ont bien été parcourus, on insère le Bean de Report dans la Map des Reports
                     reportMap.put(month, report);
                 }
             } else {
-
+				/*
+				 * Si tous les mois ont été demandés, on crée un format de date permettant de récupérer le mois d'une date,
+				 * deux entiers pour le mois correspondant à la ligne du ResultSet parcourue,
+				 * un booléen pour savoir quand on doit changer de Bean à remplir
+				 * et une chaîne de caractères pour avoir le type du contrat
+				 */
                 DateFormat dateFormat = new SimpleDateFormat("MM");
                 int rsConsumptionMonth = 0;
                 int rsLineCountMonth = 0;
                 boolean dateChange = true;
                 String type = null;
+				
+				//Récupération du type du contrat
                 if (resultSetType.next()) {
                     type = resultSetType.getString("DESCRIPTION");
                 }
-
+				
                 while (resultSetConsumption.next()) {
+					//Tant que le ResultSet des consommations contient une ligne, on effectue le mapping de cette ligne et on passe le booléen de vérification à true
                     if (dateChange) {
+						//Si le mois n'est plus le même, on instancie une nouveau Bean de Report et on réattribue la variable du mois parcouru
                         report = new Report();
                         rsConsumptionMonth = Integer.parseInt(dateFormat.format(resultSetConsumption.getDate("DATE_REPORTS")));
                         dateChange = false;
                     }
 
                     if (Integer.parseInt(dateFormat.format(resultSetConsumption.getDate("DATE_REPORTS"))) == rsConsumptionMonth) {
-                        report = mapConsumption(resultSetConsumption, report);
+						/*
+						 * Si le mois de la ligne du ResultSet parcourue est égal à la variable du mois, on effectue le mapping de la ligne
+						 * et on insère le Bean dans la Map des Reports
+						 */ 
+						report = mapConsumption(resultSetConsumption, report);
                         reportMap.put(rsConsumptionMonth, report);
                     } else {
+						//Si le mois de la ligne du ResultSet parcourue n'est pas égal à la variable du mois
                         if (resultSetConsumption.previous()) {
+							//On revient une ligne en arrière dans le ResultSet et on passe le booléen de changement de Bean à true
                             dateChange = true;
                         }
                     }
                 }
-
+				
+				//Réinitialisation des variables dateChange et report
                 dateChange = true;
                 report = null;
 
                 while (resultSetLineCount.next()) {
+                    //Tant que le ResultSet du nombre de lignes contient une ligne
                     if (dateChange) {
+						//Si le mois n'est plus le même, on réattribue la variable du mois parcouru
                         rsLineCountMonth = Integer.parseInt(dateFormat.format(resultSetLineCount.getDate("DATE_CREATION")));
                         dateChange = false;
                         if (reportMap.containsKey(rsLineCountMonth)) {
+							//Si la Map de Report contient un Bean de Report pour le mois de la ligne parcourue, on récupère ce Bean
                             report = reportMap.get(rsLineCountMonth);
                             if (rsConsumptionMonth >= 4) {
+								//Si le mois parcouru est dans la première année de l'année fiscale demandée
                                 report = handleInformations(refContract, rsConsumptionMonth, year, false, report);
                             } else {
+								//Si le mois parcouru est dans la dernière année de l'année fiscale demandée
                                 report = handleInformations(refContract, rsConsumptionMonth, year + 1, false, report);
                             }
                             report.setType(type);
@@ -245,10 +285,16 @@ class ReportDaoImpl implements ReportDao {
                     }
 
                     if (Integer.parseInt(dateFormat.format(resultSetLineCount.getDate("DATE_CREATION"))) == rsLineCountMonth) {
+						/*
+						 * Si le mois de la ligne du ResultSet parcourue est égal à la variable du mois, on effectue le mapping de la ligne
+						 * et on insère le Bean dans la Map des Reports
+						 */ 
                         report = mapLineCount(resultSetLineCount, report);
                         reportMap.put(rsLineCountMonth, report);
                     } else {
+						//Si le mois de la ligne du ResultSet parcourue n'est pas égal à la variable du mois
                         if (resultSetLineCount.previous()) {
+							//On revient une ligne en arrière dans le ResultSet et on passe le booléen de changement de Bean à true
                             dateChange = true;
                         }
                     }
@@ -257,6 +303,7 @@ class ReportDaoImpl implements ReportDao {
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
+			//On ferme les ResultSet, les PreparedStatement et les connexions
             silentClosures(resultSetConsumption, preparedStatementConsumption, connexion);
             silentClosures(resultSetLineCount, preparedStatementLineCount, connexion);
             silentClosures(resultSetType, preparedStatementType, connexion);
@@ -266,7 +313,9 @@ class ReportDaoImpl implements ReportDao {
     }
 
     public Report handleInformations(String refContract, int month, int year, Boolean editable, Report report) {
-
+		
+		//On encapsule les informations générale dans le Bean "report"
+		
         report.setEditable(editable);
         report.setSite(refContract);
         report.setMonth(month);
@@ -304,19 +353,23 @@ class ReportDaoImpl implements ReportDao {
              * preparedStatement = initPreparedRequest(connexion, SQL_SELECT_SITES, false, login);
              * 
              */
+			
+			//On prépare la requête SQL en la construisant avec la méthode "initPreparedRequest" et on récupère le ResultSet en l'exécutant
             preparedStatement = initPreparedRequest(connexion, SQL_SELECT_SITES, false);
             resultSet = preparedStatement.executeQuery();
-            /*
-             * Parcours de la ligne de données de l'éventuel ResulSet retourné
-             */
+			
+            //Parcours des lignes de données de l'éventuel ResulSet retourné
+			
             int i = 0;
             while (resultSet.next()) {
+				//Tant que le ResultSet contient une ligne, on insère le nom du contrat dans la Map des contrats
                 siteList.put(i, resultSet.getString("CONTRACT_NAME"));
                 i++;
             }
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
+			//On ferme le ResultSet, le PreparedStatement et la connexion
             silentClosures(resultSet, preparedStatement, connexion);
         }
 
@@ -326,7 +379,7 @@ class ReportDaoImpl implements ReportDao {
     private static final String SQL_INSERT_LINE_NUMBER = "INSERT INTO WEBIDMINT.TELEPHONY_LINECOUNT (SERVICE_TYPE, LINE_NUMBER, REF_UNITREPORTS, DATE_CREATION) VALUES (?, ?, ?, ?)";
 
     public Report save(int month, int year, String serviceType, String refContract, Report report) {
-
+		
         Connection connexion = null;
         PreparedStatement preparedStatementFixConsumption = null;
         ResultSet resultSetFixConsumption = null;
@@ -341,7 +394,8 @@ class ReportDaoImpl implements ReportDao {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         dateFormat.format(calendar.getTime());
         java.sql.Date date = new java.sql.Date(calendar.getTimeInMillis());
-
+		
+		//Initialisation d'entiers pour calculer le coûts totaux
         int lineCount = 0;
         int fixLocalCall = 0;
         int fixLocalData = 0;
@@ -353,7 +407,8 @@ class ReportDaoImpl implements ReportDao {
         int varInternationalCall = 0;
         int varInternationalData = 0;
         int varTotal = 0;
-
+		
+		//Calcul du coût total selon le type de service
         if ("Fix".equals(serviceType)) {
             lineCount = Integer.parseInt(report.getLinesFix());
 
@@ -478,13 +533,12 @@ class ReportDaoImpl implements ReportDao {
 
         try {
             try {
-                /*
-                 * Récupération d'une connexion depuis la Factory
-                 */
+                //Récupération d'une connexion depuis la Factory
                 connexion = daoFactory.getConnection();
             } catch (SQLException ex) {
                 Logger.getLogger(ReportDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
             }
+			//On prépare les requêtes SQL en les construisant avec la méthode "initPreparedRequest" puis on les exécute
             preparedStatementFixConsumption = initPreparedRequest(connexion, SQL_INSERT_CONSUMPTION, false, serviceType, "Fix", fixLocalCall, fixLocalData, fixInternationalCall, fixInternationalData, fixTotal, refContract, date);
             preparedStatementFixConsumption.executeUpdate();
             preparedStatementVarConsumption = initPreparedRequest(connexion, SQL_INSERT_CONSUMPTION, false, serviceType, "Var", varLocalCall, varLocalData, varInternationalCall, varInternationalData, varTotal, refContract, date);
@@ -494,6 +548,7 @@ class ReportDaoImpl implements ReportDao {
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
+			//Fermetures des PreparedStatements, des ResultSets et des connexions
             silentClosures(resultSetFixConsumption, preparedStatementFixConsumption, connexion);
             silentClosures(resultSetVarConsumption, preparedStatementVarConsumption, connexion);
             silentClosures(resultSetLineCount, preparedStatementLineCount, connexion);
@@ -513,7 +568,8 @@ class ReportDaoImpl implements ReportDao {
         ResultSet resultSetVarConsumption = null;
         PreparedStatement preparedStatementLineCount = null;
         ResultSet resultSetLineCount = null;
-
+		
+		//Initialisation d'entiers pour calculer le coûts totaux
         int lineCount = 0;
         int fixLocalCall = 0;
         int fixLocalData = 0;
@@ -525,7 +581,8 @@ class ReportDaoImpl implements ReportDao {
         int varInternationalCall = 0;
         int varInternationalData = 0;
         int varTotal = 0;
-
+		
+		//Calcul du coût total selon le type de service
         if ("Fix".equals(serviceType)) {
             lineCount = Integer.parseInt(report.getLinesFix());
 
@@ -651,13 +708,12 @@ class ReportDaoImpl implements ReportDao {
 
         try {
             try {
-                /*
-                 * Récupération d'une connexion depuis la Factory
-                 */
+                //Récupération d'une connexion depuis la Factory
                 connexion = daoFactory.getConnection();
             } catch (SQLException ex) {
                 Logger.getLogger(ReportDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
             }
+			//On prépare les requêtes SQL en les construisant avec la méthode "initPreparedRequest" puis on les exécute
             preparedStatementFixConsumption = initPreparedRequest(connexion, SQL_UPDATE_CONSUMPTION, false, fixLocalCall, fixLocalData, fixInternationalCall, fixInternationalData, fixTotal, serviceType, "Fix", refContract, month, year);
             resultSetFixConsumption = preparedStatementFixConsumption.executeQuery();
             preparedStatementVarConsumption = initPreparedRequest(connexion, SQL_UPDATE_CONSUMPTION, false, varLocalCall, varLocalData, varInternationalCall, varInternationalData, varTotal, serviceType, "Var", refContract, month, year);
@@ -667,6 +723,7 @@ class ReportDaoImpl implements ReportDao {
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
+			//Fermetures des PreparedStatements, des ResultSets et des connexions
             silentClosures(resultSetFixConsumption, preparedStatementFixConsumption, connexion);
             silentClosures(resultSetVarConsumption, preparedStatementVarConsumption, connexion);
             silentClosures(resultSetLineCount, preparedStatementLineCount, connexion);
@@ -683,19 +740,17 @@ class ReportDaoImpl implements ReportDao {
 
         try {
             try {
-                /*
-                 * Récupération d'une connexion depuis la Factory
-                 */
+                //Récupération d'une connexion depuis la Factory
                 connexion = daoFactory.getConnection();
             } catch (SQLException ex) {
                 Logger.getLogger(ReportDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
             }
+			//On prépare la requête SQL en la construisant avec la méthode "initPreparedRequest" puis on l'exécute
             preparedStatementType = initPreparedRequest(connexion, SQL_SELECT_TYPE, false, refContract);
             resultSetType = preparedStatementType.executeQuery();
-            /*
-             * Parcours de la ligne de données de l'éventuel ResulSet retourné
-             */
-
+            
+			//Parcours de la ligne de données de l'éventuel ResulSet retourné
+             
             if (resultSetType.next()) {
                 type = resultSetType.getString("DESCRIPTION");
             }
@@ -703,6 +758,7 @@ class ReportDaoImpl implements ReportDao {
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
+			//Fermetures du PreparedStatement, du ResultSet et de la connexion
             silentClosures(resultSetType, preparedStatementType, connexion);
         }
 

@@ -4,14 +4,11 @@
  */
 package com.forms;
 
-import com.beans.Report;
-import java.util.HashMap;
-import java.util.Map;
-import javax.servlet.http.HttpServletRequest;
-
 import com.bdd.DaoException;
 import com.bdd.ReportDao;
+import com.beans.Report;
 import java.util.*;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  *
@@ -112,9 +109,11 @@ public class ReportsForm {
 	 * @return Map contenant la liste des contrats
 	 */
 	public Map<Integer, String> constructSiteList() {
-
+		
+		//Instanciation d'une Map qui contiendra la liste des contrats
         Map<Integer, String> siteList = new HashMap<Integer, String>();
-
+		
+		//Appel de la méthode de récupération des contrats qui retourne la Map de contrats complète
         siteList = reportDao.siteList(siteList);
 
         return siteList;
@@ -128,17 +127,25 @@ public class ReportsForm {
 	 * @return Map contenant les Beans des Reports
 	 */
 	public Map<Integer, Report> constructList(String refContract, int month, int year) {
-
+		
+		/*
+		 * Instanciation d'une Map qui contiendra les Beans des Reports
+		 * Instanciation d'un booléen permettant de savoir si tous les mois ont été demandés
+		 * Instanciation d'un calendrier auquel on attribue l'année demandée dans le filtre
+		 */
         Map<Integer, Report> reportMap = new HashMap<Integer, Report>();
         Boolean allMonth = false;
         GregorianCalendar calendar = new GregorianCalendar();
         calendar.set(GregorianCalendar.YEAR, year);
         if (month != 0) {
+			//Si la variable mois du filtre est différente de "All" (soit, tous les mois), on attribue au calendrier le mois demandé
             calendar.set(GregorianCalendar.MONTH, month - 1);
         } else {
+			//Si tous les mois ont été demandées, on passe le booléen à true
             allMonth = true;
         }
-
+		
+		//Appel de la méthode de récupération de données selon les paramètres du filtre
         reportMap = reportDao.list(reportMap, refContract, calendar, allMonth);
 
         return reportMap;
@@ -205,8 +212,10 @@ public class ReportsForm {
         String varLocalDataBB = "";
         String varInternationalDataBB = "";
         String varTotalBB = "";
-
+		
+		//Récupération des variables de tout le formulaire envoyée dans des variables locales
         if ("Fixed".equals(type) || "Both".equals(type)) {
+			//Si le contrat est de type fixe ou mixte (fixe et mobile)
             linesFix = getFieldValue(request, FIELD_LINES_FIX);
             fixLocalCallsFix = getFieldValue(request, FIELD_FIX_LOCAL_CALLS_FIX);
             fixInternationalCallsFix = getFieldValue(request, FIELD_FIX_INTERNATIONAL_CALLS_FIX);
@@ -217,6 +226,7 @@ public class ReportsForm {
         }
 
         if ("Mobile".equals(type) || "Both".equals(type)) {
+			//Si le contrat est de type mobile ou mixte (fixe et mobile)
             lines3G = getFieldValue(request, FIELD_LINES_3G);
             fixLocalData3G = getFieldValue(request, FIELD_FIX_LOCAL_DATA_3G);
             fixInternationalData3G = getFieldValue(request, FIELD_FIX_INTERNATIONAL_DATA_3G);
@@ -249,17 +259,21 @@ public class ReportsForm {
             varInternationalDataBB = getFieldValue(request, FIELD_VAR_INTERNATIONAL_DATA_BB);
             varTotalBB = getFieldValue(request, FIELD_VAR_TOTAL_BB);
         }
-
+		
+		//Instanciation d'un Bean de Report
         Report report = new Report();
 
         try {
+			//On vérifie que tout est bien rempli grâce à des méthodes de validation puis on insère la valeur dans le bean s'il n'y a pas d'erreur
             if ("Fixed".equals(type) || "Both".equals(type)) {
+				//Si le contrat est de type fixe ou mixte (fixe et mobile)
                 handleLinesFix(linesFix, report);
                 handleFixFix(fixLocalCallsFix, fixInternationalCallsFix, fixTotalFix, report);
                 handleVarFix(varLocalCallsFix, varInternationalCallsFix, varTotalFix, report);
             }
 
             if ("Mobile".equals(type) || "Both".equals(type)) {
+				//Si le contrat est de type mobile ou mixte (fixe et mobile)
                 handleLines3G(lines3G, report);
                 handleFix3G(fixLocalData3G, fixInternationalData3G, fixTotal3G, report);
                 handleVar3G(varLocalData3G, varInternationalData3G, varTotal3G, report);
@@ -274,17 +288,21 @@ public class ReportsForm {
             }
 
             if (errors.isEmpty()) {
+				//Si la Map d'erreurs est vide, on insère les informations générales du Report dans le Bean
                 report = reportDao.handleInformations(refContract, month, year, false, report);
                 if ("Fixed".equals(type) || "Both".equals(type)) {
+					//Si le contrat est de type fixe ou mixte (fixe et mobile), on appelle la méthode de sauvegarde en base de données pour la partie fixe
                     report = reportDao.save(month, year, "Fix", refContract, report);
                 }
                 if ("Mobile".equals(type) || "Both".equals(type)) {
+					//Si le contrat est de type mobile ou mixte (fixe et mobile), on appelle la méthode de sauvegarde en base de données pour la partie mobile
                     report = reportDao.save(month, year, "3G", refContract, report);
                     report = reportDao.save(month, year, "Mobile", refContract, report);
                     report = reportDao.save(month, year, "Blackberry", refContract, report);
                 }
                 result = "Report saved !";
             } else {
+				//Si la Map d'erreurs contient au moins une erreur
                 report = reportDao.handleInformations(refContract, month, year, true, report);
                 if (errors.size() > 1) {
                     result = "Errors :";
@@ -293,10 +311,12 @@ public class ReportsForm {
                 }
             }
         } catch (DaoException e) {
+			//Si une erreur innatendue se produit dans la partie DAO
             result = "Save fail : an enexpected error was returned, thanks to try again in few seconds.";
             e.printStackTrace();
         }
-
+		
+		//Retourne le nouveau Bean de Report complété
         return report;
     }
 
@@ -363,7 +383,9 @@ public class ReportsForm {
         String varInternationalDataBB = "";
         String varTotalBB = "";
 
+        //Récupération des variables de tout le formulaire envoyée dans des variables locales
         if ("Fixed".equals(type) || "Both".equals(type)) {
+			//Si le contrat est de type fixe ou mixte (fixe et mobile)
             linesFix = getFieldValue(request, FIELD_LINES_FIX);
             fixLocalCallsFix = getFieldValue(request, FIELD_FIX_LOCAL_CALLS_FIX);
             fixInternationalCallsFix = getFieldValue(request, FIELD_FIX_INTERNATIONAL_CALLS_FIX);
@@ -374,6 +396,7 @@ public class ReportsForm {
         }
 
         if ("Mobile".equals(type) || "Both".equals(type)) {
+			//Si le contrat est de type mobile ou mixte (fixe et mobile)
             lines3G = getFieldValue(request, FIELD_LINES_3G);
             fixLocalData3G = getFieldValue(request, FIELD_FIX_LOCAL_DATA_3G);
             fixInternationalData3G = getFieldValue(request, FIELD_FIX_INTERNATIONAL_DATA_3G);
@@ -406,17 +429,21 @@ public class ReportsForm {
             varInternationalDataBB = getFieldValue(request, FIELD_VAR_INTERNATIONAL_DATA_BB);
             varTotalBB = getFieldValue(request, FIELD_VAR_TOTAL_BB);
         }
-
+		
+		//Instanciation d'un Bean de Report
         Report report = new Report();
 
         try {
+            //On vérifie que tout est bien rempli grâce à des méthodes de validation puis on insère la valeur dans le bean s'il n'y a pas d'erreur
             if ("Fixed".equals(type) || "Both".equals(type)) {
+				//Si le contrat est de type fixe ou mixte (fixe et mobile)
                 handleLinesFix(linesFix, report);
                 handleFixFix(fixLocalCallsFix, fixInternationalCallsFix, fixTotalFix, report);
                 handleVarFix(varLocalCallsFix, varInternationalCallsFix, varTotalFix, report);
             }
 
             if ("Mobile".equals(type) || "Both".equals(type)) {
+				//Si le contrat est de type mobile ou mixte (fixe et mobile)
                 handleLines3G(lines3G, report);
                 handleFix3G(fixLocalData3G, fixInternationalData3G, fixTotal3G, report);
                 handleVar3G(varLocalData3G, varInternationalData3G, varTotal3G, report);
@@ -431,11 +458,14 @@ public class ReportsForm {
             }
 
             if (errors.isEmpty()) {
+                //Si la Map d'erreurs est vide, on insère les informations générales du Report dans le Bean
                 report = reportDao.handleInformations(refContract, month, year, false, report);
                 if ("Fixed".equals(type) || "Both".equals(type)) {
+					//Si le contrat est de type fixe ou mixte (fixe et mobile), on appelle la méthode de sauvegarde en base de données pour la partie fixe
                     report = reportDao.update(month, year, "Fix", refContract, report);
                 }
                 if ("Mobile".equals(type) || "Both".equals(type)) {
+					//Si le contrat est de type mobile ou mixte (fixe et mobile), on appelle la méthode de sauvegarde en base de données pour la partie mobile
                     report = reportDao.update(month, year, "3G", refContract, report);
                     report = reportDao.update(month, year, "Mobile", refContract, report);
                     report = reportDao.update(month, year, "Blackberry", refContract, report);
@@ -450,10 +480,12 @@ public class ReportsForm {
                 }
             }
         } catch (DaoException e) {
+			//Si une erreur innatendue se produit dans la partie DAO
             result = "Save fail : an enexpected error was returned, thanks to try again in few seconds.";
             e.printStackTrace();
         }
-
+		
+		//Retourne le nouveau Bean de Report complété
         return report;
     }
 
