@@ -133,20 +133,12 @@
         <servlet-class>com.servlets.Download_Extract</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>Download_Graphic</servlet-name>
-        <servlet-class>com.servlets.Download_Graphic</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>Date_Download_Extract</servlet-name>
         <servlet-class>com.servlets.Date_Download_Extract</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>Type_Download_Extract</servlet-name>
         <servlet-class>com.servlets.Type_Download_Extract</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>Download_Extract_Result</servlet-name>
-        <servlet-class>com.servlets.Download_Extract_Result</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>Work_In_Progress</servlet-name>
@@ -265,20 +257,12 @@
         <url-pattern>/Download_Extract</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>Download_Graphic</servlet-name>
-        <url-pattern>/Download_Graphic</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>Date_Download_Extract</servlet-name>
         <url-pattern>/Date_Download_Extract</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>Type_Download_Extract</servlet-name>
         <url-pattern>/Type_Download_Extract</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>Download_Extract_Result</servlet-name>
-        <url-pattern>/Download_Extract_Result</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>Work_In_Progress</servlet-name>

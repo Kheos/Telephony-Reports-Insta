@@ -50,7 +50,8 @@ public class Reports extends HttpServlet {
 		 * Récupération d'une instance de notre DAO Utilisateur
 		 */
 		this.reportDao = ((DaoFactory) getServletContext().getAttribute(CONF_DAO_FACTORY)).getReportDao();
-
+		
+		//Configuration d'une liste de mois
 		this.monthList.put(1, "January");
 		this.monthList.put(2, "February");
 		this.monthList.put(3, "March");
