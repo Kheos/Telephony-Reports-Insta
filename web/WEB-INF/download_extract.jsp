@@ -77,7 +77,7 @@
         <!---------------------- CONTENT START --------------------------->       
         <div class="content">
             <h2>
-                <img src="inc/pictures/Download.png" alt="" width="50px" style="margin-top:0px;"/> &nbsp  Data Extract
+                <img src="inc/pictures/excel.png" alt="" width="50px" style="margin-bottom:-10px;"/> &nbsp  Data Extract in Excel Mode
             </h2><br />
             <p>In this module, you could download tha data of a report in the .xls format.
                 Register the name and a date of the contract which you want download by the way of the lists :</p>
@@ -279,7 +279,6 @@
                             <br />
                             <input id="buttonDelete" class="button" type="submit" value="Generate >" tabindex="30" />
                         </div>
-
                 </form>
             </div>
         </div>

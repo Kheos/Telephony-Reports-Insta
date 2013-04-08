@@ -16,9 +16,22 @@
         <!--------------------------------------------------------------->
         <!---------------------- FOOTER START --------------------------->
         <div class="footer">
-            <p style ="padding-top: 310px; width:960px; margin: 0px auto 40px auto; text-align: center;">
-                <a href="Support" style ="color:#FFFFFF;">Our team</a>&nbsp; | &nbsp; <a href="Faq" style ="color:#FFFFFF;">Help</a>
-            </p>
+            <div class="footerContent">
+                <div class="linkFooter">
+                    <p><a href="" class="alinkFooter">Site</a></p>
+                    <p><a href="Support" class="alinkFooter">Support</a></p>
+                    <p><a href="Faq" class="alinkFooter">Help</a></p>
+                </div>
+                <div>
+                    <img src="inc/pictures/logoFooter.png" alt="Logo" class="logoFooter"/>
+                </div>
+                <div class="copyright">
+                    <p style ="color:#FFFFFF;">
+                        <a href="Support" class="linkCopyright">Our team</a>&nbsp; | &nbsp; <a href="Faq" class="linkCopyright">Help</a>
+                    </p>
+                    <p style ="color:#FFFFFF; font-size:11px;">© Copyright ALSTOM 2013</p>
+                </div>
+            </div>
         </div>
         <!---------------------- FOOTER END -----------------------------> 
         <!--------------------------------------------------------------->

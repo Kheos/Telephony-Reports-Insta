@@ -22,6 +22,15 @@
                     document.getElementById("operationModifyUnitReports").style.display="none"; 
                 } 
             }
+            function appearsAddReport(){
+                var valeur_visibility = document.getElementById("resultAddReport").style.display;
+                if (valeur_visibility == "none"){
+                    document.getElementById("resultAddReport").style.display = "block";
+
+                } else {
+                    document.getElementById("resultAddReport").style.display = "none";
+                }
+            }
         </script>
         <style type='text/css'>
             .tableeN {
@@ -73,40 +82,58 @@
             <h2>
                 <img src="inc/pictures/Database.png" alt="" width="70px" style="margin-top:-15px;"/> &nbsp  Unit Contract
             </h2><br />
-            <h3>Actions</h3>
-            <p>Choose below an action to realize :</p><br />
-            <div style="width:960px; margin:auto;">
-                <center>
-                    <table style="display: inline-block; text-align: center; color:black; margin-bottom: 20px;">
-                        <tr>
-                            <td style="padding:3px; padding: 15px 80px 0 80px; border: none; text-align: center;"><center><a href="Add_Unit_Reports"><img src="inc/pictures/add.png" alt="" width="35px" style="margin-top:-15px;"/></a></center></td>
-                            <td style="padding:3px;padding: 15px 80px 0 80px; border: none;  text-align: center;"><center><a href="Delete_Unit_Reports"><img src="inc/pictures/trash.png" alt="" width="35px" style="margin-top:-15px;"/></a></center></td>
-                            <td style="padding:3px; padding: 15px 80px 0 80px; border: none;  text-align: center;"><center><a href="Work_In_Progress"><img src="inc/pictures/edit.png" alt="" width="35px" style="margin-top:-15px;"/></a></center></td>
-                        </tr>
-                        <tr>
-                            <td style="padding:3px; padding:10px 80px 0 80px; border: none;  text-align: center;"><center><a href="Add_Unit_Reports"><p><strong>Add</strong></p></a></center></td>
-                            <td style="padding:3px; padding:10px 80px 0 80px; border: none;  text-align: center;"><center><a href="Delete_Unit_Reports"><p><strong>Delete</strong></p></a></center></td>
-                            <td style="padding:3px; padding:10px 80px 0 80px; border: none;  text-align: center;"><center><a href="Modify_Unit_Reports"><p><strong>Modify</strong></p></a></center></td>
-                        </tr>  
-                    </table>
-                </center>
-            </div>
-            <h3>Existing Contracts</h3>
+            <h3>
+                <img src="inc/pictures/workProgress.png" alt="Unit Contract" width="35px" style="margin-bottom:-5px;"/> &nbsp Actions
+            </h3>
+            <p>This part let the management of the Unit Contract.Choose below an action to realize :</p><br />
+            <table class="tableDisplayOption">
+                <tr>
+                    <div id="displayAddReport">
+                        <td>
+                            <a href="Add_Unit_Reports">
+                                <h4><img src="inc/pictures/add.png" alt="" width="30px" style="margin-bottom: -5px;" /> &nbsp Add a UnitContract</h4>
+                                <p>This part let you to create a Unit Contract.</p>
+                            </a>
+                        </td>
+                    </div>
+                    <div id="displayModifyUnitContract"> 
+                        <td>
+                            <a href="Modify_Unit_Reports">
+                                <h4><img src="inc/pictures/edit.png" alt="" height="30px" style="margin-bottom: -5px;" /> &nbsp Modify a UnitContract</h4>
+                                <p>This part let you to modify a Unit Contract.</p>
+                            </a>
+                        </td>
+                    </div>
+                </tr>
+                <tr>
+                    <div id="displayDeleteUnitContract"> 
+                        <td>
+                            <a href="Delete_Unit_Reports">
+                                <h4><img src="inc/pictures/trash.png" alt="" width="30px" style="margin-bottom: -5px;" /> &nbsp Delete a UnitContract</h4>
+                                <p>This part let you to delete a Unit Contract.</p>
+                            </a>
+                        </td>
+                    </div>
+                </tr>
+            </table><br /><br />
+            <h3>
+                <img src="inc/pictures/contract.png" alt="Unit Contract" width="35px" style="margin-bottom:-5px;"/> &nbsp Existing Contracts
+            </h3>
             <p>Find below the existing contracts :</p>
             <form action="Modify_Unit_Reports_Site" method="GET" class="formContact">
 
-                    <label for="site">
+                <label for="site">
 
-                        <table style="margin-left:40px;">
-                            <tr>
-                                <td style="width:40px;"><h3 style="text-align:center; color:#FFFFFF;">Select</h3></td><td><h3 style="text-align:center; padding-left:10px; color:#FFFFFF;">Contract name</h3></td><td><h3 style="text-align:center; padding-left:15px; color:#FFFFFF;">Contract Type</h3></td>
-                            </tr>
-                            ${ messageListUnitReports }
-                        </table>
+                    <table style="margin-left:40px;">
+                        <tr>
+                            <td style="width:40px;"><h3 style="text-align:center; color:#FFFFFF;">Select</h3></td><td><h3 style="text-align:center; padding-left:10px; color:#FFFFFF;">Contract name</h3></td><td><h3 style="text-align:center; padding-left:15px; color:#FFFFFF;">Contract Type</h3></td>
+                        </tr>
+                        ${ messageListUnitReports }
+                    </table>
 
-                    </label><br />
+                </label><br />
 
-               
+
                 <div id="operationModifyUnitReports" style="display: none;">
                     <label><span>Operation :</span>
                         <select name="operationUnitReports" id="operationUnitReports" tabindex="10" style="width:290px; margin-right: 20px;" onclick="modifyUnitContractValidate();">
