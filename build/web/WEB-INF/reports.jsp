@@ -129,9 +129,13 @@
         <!---------------------------------------------------------------->
         <!---------------------- CONTENT START --------------------------->
         <div class="content">
+           
+            
             <h2>
                 <img src="inc/pictures/reportsPart.png" alt="" width="70px" style="margin-top:-15px;"/> &nbsp Reports per Contract
             </h2>
+            
+            
             <c:choose>
                 <c:when test="${fn:length(reportMap) == 0 and form != null}">
                     <p class="errors" style="font-size:15px; font-weight: bold;">Error :</p>

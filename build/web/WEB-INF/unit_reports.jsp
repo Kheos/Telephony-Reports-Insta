@@ -94,7 +94,7 @@
                     <div id="displayAddReport">
                         <td>
                             <a href="Add_Unit_Reports">
-                                <h4><img src="inc/pictures/add.png" alt="" width="30px" style="margin-bottom: -5px;" /> &nbsp Add a UnitContract</h4>
+                                <h6><img src="inc/pictures/add.png" alt="" width="30px" style="margin-bottom: -5px;" /> &nbsp Add a UnitContract</h6>
                                 <p>This part let you to create a Unit Contract.</p>
                             </a>
                         </td>
@@ -102,7 +102,7 @@
                     <div id="displayModifyUnitContract"> 
                         <td>
                             <a href="Modify_Unit_Reports">
-                                <h4><img src="inc/pictures/edit.png" alt="" height="30px" style="margin-bottom: -5px;" /> &nbsp Modify a UnitContract</h4>
+                                <h6><img src="inc/pictures/edit.png" alt="" height="30px" style="margin-bottom: -5px;" /> &nbsp Modify a UnitContract</h6>
                                 <p>This part let you to modify a Unit Contract.</p>
                             </a>
                         </td>

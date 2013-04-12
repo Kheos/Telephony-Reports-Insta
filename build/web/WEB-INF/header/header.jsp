@@ -28,11 +28,16 @@
                     </ul>
                     <br style="clear:left"/>
                 </div>
-                <%-- Vérification de la présence d'un objet utilisateur en session --%>
-                <c:if test="${!empty sessionScope.sessionUtilisateur}">
-                    <%-- Si l'utilisateur existe en session, alors on affiche son adresse email. --%>
-                    <p class="succes">Vous êtes connecté(e) avec le login : ${sessionScope.sessionUtilisateur.login}</p>
-                </c:if>
+                <div class="infoUser">
+                    <div class="user">
+                        <span>Welcome <c:out value='${sessionUser}'/></span>
+                    </div><br />
+                    <div class="deconnexion">
+                        <a href="Disconnection" class="deconnexionLink">
+                            <img src="inc/pictures/shutdown.png" alt="Shutdown" class="Shutdown" width="30px;"/> &nbsp; Disconnection
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
         <!---------------------- HEADER END ------------------------------>

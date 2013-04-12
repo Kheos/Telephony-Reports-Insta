@@ -11,110 +11,113 @@
         <title>FAQ</title>
         <link href="styles/styles.css" rel="stylesheet" type="text/css" />
         <link rel="stylesheet" href="styles/styles.css" type="text/css" media="screen"/>
-        <link rel="shortcut icon" href="pictures/oAlstom.ico" type="image/x-icon"/> 
-        <link rel="icon" href="pictures/oAlstom.ico" type="image/x-icon"/>   
-        <style type="text/css">
-            .step{
-                font-weight: bold;
-                text-decoration: underline;
-            }
-            .faq{
-                color:white;
-                text-align: left;
-            }
-            .imgFAQ{
-                border: 1px solid #E9E8E2;
-                margin:auto;
-                width:550px;
-                text-align:center;
-            }
-            .warning{
-                color:red;
-                font-weight: bold;
-                font-size: 14px;
-            }
+        <meta content="TRAN-NGUYEN" name="author" />
+        <meta content="Telephony Reports" name="description" />
+        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+            <link href="inc/pictures/icone.png" rel="shortcut icon" type="image/x-icon" />
+            <link href="inc/pictures/icone.png" rel="icon" type="image/x-icon" /> 
+            <style type="text/css">
+                .step{
+                    font-weight: bold;
+                    text-decoration: underline;
+                }
+                .faq{
+                    color:white;
+                    text-align: left;
+                }
+                .imgFAQ{
+                    border: 1px solid #E9E8E2;
+                    margin:auto;
+                    width:550px;
+                    text-align:center;
+                }
+                .warning{
+                    color:red;
+                    font-weight: bold;
+                    font-size: 14px;
+                }
 
-        </style>
-        <script language="Javascript"> 
-            function appearsAddReport(){
-                var valeur_visibility = document.getElementById("resultAddReport").style.display;
-                if (valeur_visibility == "none"){
-                    document.getElementById("resultAddReport").style.display = "block";
-                    document.getElementById("resultModifyReport").style.display = "none";
-                    document.getElementById("resultAddUnitContract").style.display = "none";
-                    document.getElementById("resultModifyUnitContract").style.display = "none";
-                    document.getElementById("resultDeleteUnitContract").style.display = "none";
-                    document.getElementById("resultExportReport").style.display = "none";
-                } else {
-                    document.getElementById("resultAddReport").style.display = "none";
+            </style>
+            <script language="Javascript"> 
+                function appearsAddReport(){
+                    var valeur_visibility = document.getElementById("resultAddReport").style.display;
+                    if (valeur_visibility == "none"){
+                        document.getElementById("resultAddReport").style.display = "block";
+                        document.getElementById("resultModifyReport").style.display = "none";
+                        document.getElementById("resultAddUnitContract").style.display = "none";
+                        document.getElementById("resultModifyUnitContract").style.display = "none";
+                        document.getElementById("resultDeleteUnitContract").style.display = "none";
+                        document.getElementById("resultExportReport").style.display = "none";
+                    } else {
+                        document.getElementById("resultAddReport").style.display = "none";
+                    }
+                }   
+                function appearsModifyReport(){
+                    var valeur_visibility = document.getElementById("resultModifyReport").style.display;
+                    if (valeur_visibility == "none"){
+                        document.getElementById("resultModifyReport").style.display = "block";
+                        document.getElementById("resultAddReport").style.display = "none";
+                        document.getElementById("resultAddUnitContract").style.display = "none";
+                        document.getElementById("resultModifyUnitContract").style.display = "none";
+                        document.getElementById("resultDeleteUnitContract").style.display = "none";
+                        document.getElementById("resultExportReport").style.display = "none";
+                    } else {
+                        document.getElementById("resultModifyReport").style.display = "none";
+                    }
                 }
-            }   
-            function appearsModifyReport(){
-                var valeur_visibility = document.getElementById("resultModifyReport").style.display;
-                if (valeur_visibility == "none"){
-                    document.getElementById("resultModifyReport").style.display = "block";
-                    document.getElementById("resultAddReport").style.display = "none";
-                    document.getElementById("resultAddUnitContract").style.display = "none";
-                    document.getElementById("resultModifyUnitContract").style.display = "none";
-                    document.getElementById("resultDeleteUnitContract").style.display = "none";
-                    document.getElementById("resultExportReport").style.display = "none";
-                } else {
-                    document.getElementById("resultModifyReport").style.display = "none";
+                function appearsAddUnitContract(){
+                    var valeur_visibility = document.getElementById("resultAddUnitContract").style.display;
+                    if (valeur_visibility == "none"){
+                        document.getElementById("resultAddUnitContract").style.display = "block";
+                        document.getElementById("resultAddReport").style.display = "none";
+                        document.getElementById("resultModifyReport").style.display = "none";
+                        document.getElementById("resultModifyUnitContract").style.display = "none";
+                        document.getElementById("resultDeleteUnitContract").style.display = "none";
+                        document.getElementById("resultExportReport").style.display = "none";
+                    } else {
+                        document.getElementById("resultAddUnitContract").style.display = "none";
+                    }
                 }
-            }
-            function appearsAddUnitContract(){
-                var valeur_visibility = document.getElementById("resultAddUnitContract").style.display;
-                if (valeur_visibility == "none"){
-                    document.getElementById("resultAddUnitContract").style.display = "block";
-                    document.getElementById("resultAddReport").style.display = "none";
-                    document.getElementById("resultModifyReport").style.display = "none";
-                    document.getElementById("resultModifyUnitContract").style.display = "none";
-                    document.getElementById("resultDeleteUnitContract").style.display = "none";
-                    document.getElementById("resultExportReport").style.display = "none";
-                } else {
-                    document.getElementById("resultAddUnitContract").style.display = "none";
+                function appearsModifyUnitContract(){
+                    var valeur_visibility = document.getElementById("resultModifyUnitContract").style.display;
+                    if (valeur_visibility == "none"){
+                        document.getElementById("resultModifyUnitContract").style.display = "block";
+                        document.getElementById("resultAddReport").style.display = "none";
+                        document.getElementById("resultModifyReport").style.display = "none";
+                        document.getElementById("resultAddUnitContract").style.display = "none";
+                        document.getElementById("resultDeleteUnitContract").style.display = "none";
+                        document.getElementById("resultExportReport").style.display = "none";
+                    } else {
+                        document.getElementById("resultModifyUnitContract").style.display = "none";
+                    }
                 }
-            }
-            function appearsModifyUnitContract(){
-                var valeur_visibility = document.getElementById("resultModifyUnitContract").style.display;
-                if (valeur_visibility == "none"){
-                    document.getElementById("resultModifyUnitContract").style.display = "block";
-                    document.getElementById("resultAddReport").style.display = "none";
-                    document.getElementById("resultModifyReport").style.display = "none";
-                    document.getElementById("resultAddUnitContract").style.display = "none";
-                    document.getElementById("resultDeleteUnitContract").style.display = "none";
-                    document.getElementById("resultExportReport").style.display = "none";
-                } else {
-                    document.getElementById("resultModifyUnitContract").style.display = "none";
+                function appearsDeleteUnitContract(){
+                    var valeur_visibility = document.getElementById("resultDeleteUnitContract").style.display;
+                    if (valeur_visibility == "none"){
+                        document.getElementById("resultDeleteUnitContract").style.display = "block";
+                        document.getElementById("resultAddReport").style.display = "none";
+                        document.getElementById("resultModifyReport").style.display = "none";
+                        document.getElementById("resultAddUnitContract").style.display = "none";
+                        document.getElementById("resultModifyUnitContract").style.display = "none";
+                        document.getElementById("resultExportReport").style.display = "none";
+                    } else {
+                        document.getElementById("resultDeleteUnitContract").style.display = "none";
+                    }
                 }
-            }
-            function appearsDeleteUnitContract(){
-                var valeur_visibility = document.getElementById("resultDeleteUnitContract").style.display;
-                if (valeur_visibility == "none"){
-                    document.getElementById("resultDeleteUnitContract").style.display = "block";
-                    document.getElementById("resultAddReport").style.display = "none";
-                    document.getElementById("resultModifyReport").style.display = "none";
-                    document.getElementById("resultAddUnitContract").style.display = "none";
-                    document.getElementById("resultModifyUnitContract").style.display = "none";
-                    document.getElementById("resultExportReport").style.display = "none";
-                } else {
-                    document.getElementById("resultDeleteUnitContract").style.display = "none";
+                function appearsExportReport(){
+                    var valeur_visibility = document.getElementById("resultExportReport").style.display;
+                    if (valeur_visibility == "none"){
+                        document.getElementById("resultExportReport").style.display = "block";
+                        document.getElementById("resultAddReport").style.display = "none";
+                        document.getElementById("resultModifyReport").style.display = "none";
+                        document.getElementById("resultAddUnitContract").style.display = "none";
+                        document.getElementById("resultModifyUnitContract").style.display = "none";
+                        document.getElementById("resultDeleteUnitContract").style.display = "none";
+                    } else {
+                        document.getElementById("resultExportReport").style.display = "none";
+                    }
                 }
-            }
-            function appearsExportReport(){
-                var valeur_visibility = document.getElementById("resultExportReport").style.display;
-                if (valeur_visibility == "none"){
-                    document.getElementById("resultExportReport").style.display = "block";
-                    document.getElementById("resultAddReport").style.display = "none";
-                    document.getElementById("resultModifyReport").style.display = "none";
-                    document.getElementById("resultAddUnitContract").style.display = "none";
-                    document.getElementById("resultModifyUnitContract").style.display = "none";
-                    document.getElementById("resultDeleteUnitContract").style.display = "none";
-                } else {
-                    document.getElementById("resultExportReport").style.display = "none";
-                }
-            }
-        </script>
+            </script>
     </head>
     <body>
         <!---------------------------------------------------------------->
@@ -312,7 +315,7 @@
                 <img src="inc/pictures/help.png" alt="" width="50px" style="margin-bottom:-10px;"/> &nbsp  FAQ
             </h2><br />
             <h3>
-                <img src="inc/pictures/reportsPart.png" alt="Reports" width="35px"/> &nbsp Reports
+                <img src="inc/pictures/reportsPart.png" alt="Reports" width="35px" style="margin-bottom:-5px;"/> &nbsp Reports
             </h3>
             <table class="tableDisplayOption">
                 <tr>
@@ -335,7 +338,7 @@
                 </tr>
             </table><br /><br />
             <h3>
-                <img src="inc/pictures/Database.png" alt="Unit Contract" width="35px"/> &nbsp Unit Contract
+                <img src="inc/pictures/Database.png" alt="Unit Contract" width="35px" style="margin-bottom:-5px;"/> &nbsp Unit Contract
             </h3>
             <table class="tableDisplayOption">
                 <tr>
@@ -368,7 +371,7 @@
                 </tr>
             </table><br /><br />
             <h3>
-                <img src="inc/pictures/Download.png" alt="Export" width="35px"/> &nbsp Export
+                <img src="inc/pictures/Download.png" alt="Export" width="35px" style="margin-bottom:-5px;"/> &nbsp Export
             </h3>
             <table class="tableDisplayOption">
                 <tr>
@@ -381,10 +384,22 @@
                         </td>
                     </div>
                 </tr>    
+            </table><br /><br />
+            <h3>
+                <img src="inc/pictures/imagePc.jpg" alt="Support" width="35px" style="margin-bottom:-5px;"/> &nbsp Other Problems
+            </h3>
+            <table class="tableDisplayOption">
+                <tr>
+                    <div id="displayExportReport">
+                        <td>
+                            <a href="Support" >
+                                <h6><img src="inc/pictures/contact.png" alt="" width="30px" style="margin-bottom: -5px;" /> &nbsp Contact the support</h6>
+                                <p>If you encounter other problems, contact us !</p>
+                            </a>
+                        </td>
+                    </div>
+                </tr>    
             </table><br />
-            <div style="width:960px; margin:auto; text-align:center;">
-                <p>If you encounter other problems, contact us : <a href="Support">here</a></p>
-            </div>
         </div>
         <!---------------------- CONTENT END ---------------------------->
         <!--------------------------------------------------------------->

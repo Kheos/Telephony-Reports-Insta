@@ -41,10 +41,6 @@
         <servlet-class>com.servlets.Support</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>Add_Report</servlet-name>
-        <servlet-class>com.servlets.Add_Report</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>Unit_Reports</servlet-name>
         <servlet-class>com.servlets.Unit_Reports</servlet-class>
     </servlet>
@@ -136,6 +132,14 @@
         <servlet-name>Data_Extract</servlet-name>
         <servlet-class>com.servlets.Data_Extract</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Disconnection</servlet-name>
+        <servlet-class>com.servlets.Disconnection</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Site</servlet-name>
+        <servlet-class>com.servlets.Site</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Home</servlet-name>
         <url-pattern>/Home</url-pattern>
@@ -155,10 +159,6 @@
     <servlet-mapping>
         <servlet-name>Support</servlet-name>
         <url-pattern>/Support</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>Add_Report</servlet-name>
-        <url-pattern>/Add_Report</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>Unit_Reports</servlet-name>
@@ -251,6 +251,14 @@
     <servlet-mapping>
         <servlet-name>Data_Extract</servlet-name>
         <url-pattern>/Data_Extract</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Disconnection</servlet-name>
+        <url-pattern>/Disconnection</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Site</servlet-name>
+        <url-pattern>/Site</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
