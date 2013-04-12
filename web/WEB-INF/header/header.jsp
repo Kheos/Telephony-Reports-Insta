@@ -17,14 +17,14 @@
         <div class="header">
             <div class="headerContent">
                 <div>
-                    <img src="inc/pictures/logoHeader.png" alt="Logo" class="logoHeader"/>
+                    <a href="Reports"><img src="inc/pictures/logoHeader.png" alt="Logo" class="logoHeader"/></a>
                 </div>
                 <div class="menu">
                     <ul>         
                         <li><a href="Reports">Reports Contract</a></li>
                         <li><a href="Unit_Reports">Unit Contract</a></li>
                         <li><a href="Data_Extract">Data Extract</a></li>
-                        <li><a href="Faq">Support Reports</a></li>
+                        <li><a href="Faq">FAQ</a></li>
                     </ul>
                     <br style="clear:left"/>
                 </div>

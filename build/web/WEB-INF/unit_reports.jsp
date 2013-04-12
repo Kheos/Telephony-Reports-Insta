@@ -11,65 +11,68 @@
         <title>Unit Reports</title>
         <link href="inc/styles/styles.css" rel="stylesheet" type="text/css" />
         <link rel="stylesheet" href="inc/styles/styles.css" type="text/css" media="screen"/>
-        <link rel="shortcut icon" href="/pictures/oAlstom.ico" type="image/x-icon"/> 
-        <link rel="icon" href="/pictures/oAlstom.ico" type="image/x-icon"/>  
-        <script language="Javascript">
-            function modifyUnitContractSelectOperation(){
-                var nameUnitReports = document.getElementById("nameUnitReports").value; 
-                if (nameUnitReports != "") { 
-                    document.getElementById("operationModifyUnitReports").style.display="block"; 
-                } else{ 
-                    document.getElementById("operationModifyUnitReports").style.display="none"; 
-                } 
-            }
-            function appearsAddReport(){
-                var valeur_visibility = document.getElementById("resultAddReport").style.display;
-                if (valeur_visibility == "none"){
-                    document.getElementById("resultAddReport").style.display = "block";
-
-                } else {
-                    document.getElementById("resultAddReport").style.display = "none";
+        <meta content="TRAN-NGUYEN" name="author" />
+        <meta content="Telephony Reports" name="description" />
+        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+            <link href="inc/pictures/icone.png" rel="shortcut icon" type="image/x-icon" />
+            <link href="inc/pictures/icone.png" rel="icon" type="image/x-icon" />  
+            <script language="Javascript">
+                function modifyUnitContractSelectOperation(){
+                    var nameUnitReports = document.getElementById("nameUnitReports").value; 
+                    if (nameUnitReports != "") { 
+                        document.getElementById("operationModifyUnitReports").style.display="block"; 
+                    } else{ 
+                        document.getElementById("operationModifyUnitReports").style.display="none"; 
+                    } 
                 }
-            }
-        </script>
-        <style type='text/css'>
-            .tableeN {
-                font-family: Arial; 
-                font-size: 12px;  
-                width: 60%; 
-                text-align: left; 
-                border-collapse: collapse;
-            }
-            .tableeN th {
-                text-align: center; 
-                font-size: 13px;
-                font-weight: bold; 
-                padding: 8px; 
-                border-top: 2px solid white; 
-                background: #034694 url('gradhead.png') repeat-x; 
-                border-bottom: 1px solid #fff; 
-                color: #FFFFFF;
-            }
-            .tableeN td {
-                text-align: center;
-                padding: 8px;
-                border-bottom: 1px solid #fff;
-                color: #034694;
-                border-top: 1px solid #fff;
-                background: #e8edff url('gradback.png') repeat-x;
-            }
-            .tableeN tbody tr:hover td {
-                background: #d0dafd url('gradhover.png') repeat-x;
-                color: #034694;
-            }
-            .tableeN a:hover {
-                text-decoration:underline;
-            }
-            #form {
-                border: 1px black solid;
-                padding: 10px;
-            }
-        </style>
+                function appearsAddReport(){
+                    var valeur_visibility = document.getElementById("resultAddReport").style.display;
+                    if (valeur_visibility == "none"){
+                        document.getElementById("resultAddReport").style.display = "block";
+
+                    } else {
+                        document.getElementById("resultAddReport").style.display = "none";
+                    }
+                }
+            </script>
+            <style type='text/css'>
+                .tableeN {
+                    font-family: Arial; 
+                    font-size: 12px;  
+                    width: 60%; 
+                    text-align: left; 
+                    border-collapse: collapse;
+                }
+                .tableeN th {
+                    text-align: center; 
+                    font-size: 13px;
+                    font-weight: bold; 
+                    padding: 8px; 
+                    border-top: 2px solid white; 
+                    background: #034694 url('gradhead.png') repeat-x; 
+                    border-bottom: 1px solid #fff; 
+                    color: #FFFFFF;
+                }
+                .tableeN td {
+                    text-align: center;
+                    padding: 8px;
+                    border-bottom: 1px solid #fff;
+                    color: #034694;
+                    border-top: 1px solid #fff;
+                    background: #e8edff url('gradback.png') repeat-x;
+                }
+                .tableeN tbody tr:hover td {
+                    background: #d0dafd url('gradhover.png') repeat-x;
+                    color: #034694;
+                }
+                .tableeN a:hover {
+                    text-decoration:underline;
+                }
+                #form {
+                    border: 1px black solid;
+                    padding: 10px;
+                }
+            </style>
     </head>
     <body>     
         <!---------------------------------------------------------------->

@@ -11,8 +11,11 @@
         <title>Support Reports</title>
         <link href="styles/styles.css" rel="stylesheet" type="text/css" />
         <link rel="stylesheet" href="styles/styles.css" type="text/css" media="screen"/>
-        <link rel="shortcut icon" href="pictures/oAlstom.ico" type="image/x-icon"/> 
-        <link rel="icon" href="pictures/oAlstom.ico" type="image/x-icon"/>   
+        <meta content="TRAN-NGUYEN" name="author" />
+        <meta content="Telephony Reports" name="description" />
+        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+            <link href="inc/pictures/icone.png" rel="shortcut icon" type="image/x-icon" />
+            <link href="inc/pictures/icone.png" rel="icon" type="image/x-icon" />   
     </head>
     <body>
         <!---------------------------------------------------------------->

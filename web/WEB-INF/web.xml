@@ -45,14 +45,6 @@
         <servlet-class>com.servlets.Add_Report</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>Edit_Report</servlet-name>
-        <servlet-class>com.servlets.Edit_Report</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>Search_Report</servlet-name>
-        <servlet-class>com.servlets.Search_Report</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>Unit_Reports</servlet-name>
         <servlet-class>com.servlets.Unit_Reports</servlet-class>
     </servlet>
@@ -67,10 +59,6 @@
     <servlet>
         <servlet-name>Delete_Unit_Reports</servlet-name>
         <servlet-class>com.servlets.Delete_Unit_Reports</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>GestionJDBC</servlet-name>
-        <servlet-class>com.servlets.GestionJDBC</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>Display_Unit_Reports</servlet-name>
@@ -173,14 +161,6 @@
         <url-pattern>/Add_Report</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>Edit_Report</servlet-name>
-        <url-pattern>/Edit_Report</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>Search_Report</servlet-name>
-        <url-pattern>/Search_Report</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>Unit_Reports</servlet-name>
         <url-pattern>/Unit_Reports</url-pattern>
     </servlet-mapping>
@@ -195,10 +175,6 @@
     <servlet-mapping>
         <servlet-name>Delete_Unit_Reports</servlet-name>
         <url-pattern>/Delete_Unit_Reports</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>GestionJDBC</servlet-name>
-        <url-pattern>/GestionJDBC</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>Display_Unit_Reports</servlet-name>

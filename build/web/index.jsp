@@ -10,8 +10,11 @@
         <title>Login</title>
         <link href="inc/styles/styles.css" rel="stylesheet" type="text/css" />
         <link rel="stylesheet" href="inc/styles/styles.css" type="text/css" media="screen"/>
-        <link rel="shortcut icon" href="pictures/oAlstom.ico" type="image/x-icon"/> 
-        <link rel="icon" href="pictures/oAlstom.ico" type="image/x-icon"/>
+        <meta content="TRAN-NGUYEN" name="author" />
+        <meta content="Telephony Reports" name="description" />
+        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+            <link href="inc/pictures/icone.png" rel="shortcut icon" type="image/x-icon" />
+            <link href="inc/pictures/icone.png" rel="icon" type="image/x-icon" />
     </head>
 
     <!---------------------------------------------------------------->
@@ -27,23 +30,23 @@
             <h2>
                 <img src="inc/pictures/secure.png" alt="" width="70px" style="margin-top:-15px;"/> &nbsp  Log in
             </h2>
-			<c:if test="${redirectBool}">
-				<p style="color: red; font-weight: bold;">
-					Warning : You have to be connected to be able to access to the other pages.
-				</p>
-			</c:if>
+            <c:if test="${redirectBool}">
+                <p style="color: red; font-weight: bold;">
+                    Warning : You have to be connected to be able to access to the other pages.
+                </p>
+            </c:if>
             <form method="POST" action="Index" class="formContact">
-                    <a href="Trouble" style="float:right; margin-top:-20px;">Trouble ?</a>
-                    <label for="login"><span>Login :</span>
-                        <input type="text" id="login" class="input_text" name="login" value="" size="20" maxlength="60" />
-                    </label>
-                    <br />
-                    <label for="password"><span>Password :</span>
-                        <input type="password" id="password" class="input_text" name="password" value="" size="20" maxlength="20" />
-                    </label>
-                    <br />
-                    <input type="submit" value="Connect" class="buttonConnect" />
-                    <br />
+                <a href="Trouble" style="float:right; margin-top:-20px;">Trouble ?</a>
+                <label for="login"><span>Login :</span>
+                    <input type="text" id="login" class="input_text" name="login" value="" size="20" maxlength="60" />
+                </label>
+                <br />
+                <label for="password"><span>Password :</span>
+                    <input type="password" id="password" class="input_text" name="password" value="" size="20" maxlength="20" />
+                </label>
+                <br />
+                <input type="submit" value="Connect" class="buttonConnect" />
+                <br />
             </form>
         </div>
         <!---------------------- CONTENT END ---------------------------->

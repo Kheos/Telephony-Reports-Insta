@@ -41,6 +41,8 @@ body{
     padding: 15px; 
     min-height: 600px;
     border:1px #034694 solid;
+    box-shadow: 1px 5px 5px 1px rgba(0, 0, 0, 0.5) inset, 1px 5px 5px 1px rgba(255, 255, 255, 0.5);
+
 }
 /*  ------------------------------ */
 
@@ -77,6 +79,11 @@ h4{
 h5{
     color:white;
     font-size:16px; 
+}
+h6{
+    color:#034694;
+    font-style: italic;
+    font-size:15px;
 }
 
 
@@ -299,6 +306,7 @@ a img{
     background-color: #034694;
     height:85px;
     border-bottom: 2px #03467c solid;
+    box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.5);
 }
 
 .headerContent{
@@ -322,7 +330,10 @@ a img{
     z-index: 99;
     margin:  0 auto 0 260px ;
     width: 690px;
-    background-color: #034694; }
+    background-color: #034694; 
+    
+
+}
 
 .menu ul{
     margin: 0; 
@@ -347,6 +358,7 @@ a img{
     color: #61696C;
     background-color:#FFFFFF;
     font-weight: bolder;
+    box-shadow: 1px 5px 5px 1px rgba(0, 0, 0, 0.5) inset, 1px 5px 5px 1px rgba(255, 255, 255, 0.5);
 }
 
 /*  ------------------------------ */
@@ -361,6 +373,7 @@ a img{
     background-color: #034694;
     height:150px;
     border-top: 2px #03467c solid;
+    box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.5) inset;
 }
 .logoFooter{
     height:80px;

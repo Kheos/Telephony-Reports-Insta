@@ -9,10 +9,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <title>Data Extract</title>
-        <link href="styles/styles.css" rel="stylesheet" type="text/css" />
-        <link rel="stylesheet" href="styles/styles.css" type="text/css" media="screen"/>
-        <link rel="shortcut icon" href="pictures/oAlstom.ico" type="image/x-icon"/> 
-        <link rel="icon" href="pictures/oAlstom.ico" type="image/x-icon"/>   
+        <meta content="TRAN-NGUYEN" name="author" />
+        <meta content="Telephony Reports" name="description" />
+        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+            <link href="inc/pictures/icone.png" rel="shortcut icon" type="image/x-icon" />
+            <link href="inc/pictures/icone.png" rel="icon" type="image/x-icon" />
+            <link href="styles/styles.css" rel="stylesheet" type="text/css" />
+            <link rel="stylesheet" href="styles/styles.css" type="text/css" media="screen"/>  
     </head>
     <body>
         <!---------------------------------------------------------------->
@@ -27,7 +30,7 @@
             </h2><br />
             <p>In this module, you could download tha data of a report.
                 Select below the mode of data that you want:</p>
-            
+
             <h3>
                 <img src="inc/pictures/workProgress.png" alt="Unit Contract" width="35px" style="margin-bottom:-5px;"/> &nbsp Actions
             </h3>

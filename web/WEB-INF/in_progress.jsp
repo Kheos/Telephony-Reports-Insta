@@ -4,8 +4,11 @@
     <head>
         <title>Work In Progress</title>
         <link href="styles/styles.css" rel="stylesheet" type="text/css" />
-        <link rel="shortcut icon" href="pictures/oAlstom.ico" type="image/x-icon"/> 
-        <link rel="icon" href="pictures/oAlstom.ico" type="image/x-icon"/>   
+        <meta content="TRAN-NGUYEN" name="author" />
+        <meta content="Telephony Reports" name="description" />
+        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+            <link href="inc/pictures/icone.png" rel="shortcut icon" type="image/x-icon" />
+            <link href="inc/pictures/icone.png" rel="icon" type="image/x-icon" />  
     </head>
     <body>
         <!---------------------------------------------------------------->
@@ -18,7 +21,7 @@
             <h2>
                 <img src="inc/pictures/workProgress.png" alt="" width="50px" style="margin-top:-8px;"/> &nbsp  Work in Progress
             </h2><br />
- 
+
             <div style="width:960px; margin:auto; text-align:center;">
                 <img src="inc/pictures/imageCle.jpg" alt="" width="160px" style=""/><br />
                 <p style="font-size:26px;">Sorry, We are currently working on this page.</p><br />

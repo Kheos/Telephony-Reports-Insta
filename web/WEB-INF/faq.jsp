@@ -8,7 +8,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
-        <title>Support Reports</title>
+        <title>FAQ</title>
         <link href="styles/styles.css" rel="stylesheet" type="text/css" />
         <link rel="stylesheet" href="styles/styles.css" type="text/css" media="screen"/>
         <link rel="shortcut icon" href="pictures/oAlstom.ico" type="image/x-icon"/> 
@@ -309,7 +309,7 @@
                 <h3><img src="inc/pictures/imagePc.jpg" alt="" width="30px" style="margin-bottom: -5px;" /> &nbsp Contact Us</h3>
             </div>
             <h2>
-                <img src="inc/pictures/help.png" alt="" width="50px" style="margin-bottom:-10px;"/> &nbsp  Support Reports
+                <img src="inc/pictures/help.png" alt="" width="50px" style="margin-bottom:-10px;"/> &nbsp  FAQ
             </h2><br />
             <h3>
                 <img src="inc/pictures/reportsPart.png" alt="Reports" width="35px"/> &nbsp Reports
@@ -319,7 +319,7 @@
                     <div id="displayAddReport">
                         <td>
                             <a href="#" onclick="appearsAddReport();">
-                                <h4><img src="inc/pictures/add.png" alt="" width="25px" style="margin-bottom: -5px;" /> &nbsp Add a Report</h4>
+                                <h6><img src="inc/pictures/add.png" alt="" width="25px" style="margin-bottom: -5px;" /> &nbsp Add a Report</h6>
                                 <p>This part help you to add a report.</p>
                             </a>
                         </td>
@@ -327,7 +327,7 @@
                     <div id="displayModifyReport"> 
                         <td>
                             <a href="#" onclick="appearsModifyReport();">
-                                <h4><img src="inc/pictures/edit.png" alt="" height="25px" style="margin-bottom: -5px;" /> &nbsp Modify a Report</h4>
+                                <h6><img src="inc/pictures/edit.png" alt="" height="25px" style="margin-bottom: -5px;" /> &nbsp Modify a Report</h6>
                                 <p>This part help you to modify a report.</p>
                             </a>
                         </td>
@@ -342,7 +342,7 @@
                     <div id="displayAddReport">
                         <td>
                             <a href="#" onclick="appearsAddUnitContract();">
-                                <h4><img src="inc/pictures/add.png" alt="" width="25px" style="margin-bottom: -5px;" /> &nbsp Add a UnitContract</h4>
+                                <h6><img src="inc/pictures/add.png" alt="" width="25px" style="margin-bottom: -5px;" /> &nbsp Add a UnitContract</h6>
                                 <p>This part help you to create a Unit Contract.</p>
                             </a>
                         </td>
@@ -350,7 +350,7 @@
                     <div id="displayModifyUnitContract"> 
                         <td>
                             <a href="#" onclick="appearsModifyUnitContract();">
-                                <h4><img src="inc/pictures/edit.png" alt="" height="25px" style="margin-bottom: -5px;" /> &nbsp Modify a UnitContract</h4>
+                                <h6><img src="inc/pictures/edit.png" alt="" height="25px" style="margin-bottom: -5px;" /> &nbsp Modify a UnitContract</h6>
                                 <p>This part help you to modify a Unit Contract.</p>
                             </a>
                         </td>
@@ -360,7 +360,7 @@
                     <div id="displayDeleteUnitContract"> 
                         <td>
                             <a href="#" onclick="appearsDeleteUnitContract();">
-                                <h4><img src="inc/pictures/trash.png" alt="" width="25px" style="margin-bottom: -5px;" /> &nbsp Delete a UnitContract</h4>
+                                <h6><img src="inc/pictures/trash.png" alt="" width="25px" style="margin-bottom: -5px;" /> &nbsp Delete a UnitContract</h6>
                                 <p>This part help you to delete a Unit Contract.</p>
                             </a>
                         </td>
@@ -375,7 +375,7 @@
                     <div id="displayExportReport">
                         <td>
                             <a href="#" onclick="appearsExportReport();">
-                                <h4><img src="inc/pictures/add.png" alt="" width="25px" style="margin-bottom: -5px;" /> &nbsp Create a report</h4>
+                                <h6><img src="inc/pictures/add.png" alt="" width="25px" style="margin-bottom: -5px;" /> &nbsp Create a report</h6>
                                 <p>This part help you to learn how export an export in a Microsoft Excel document.</p>
                             </a>
                         </td>

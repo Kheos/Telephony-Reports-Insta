@@ -10,113 +10,116 @@
     <head>
         <title>Reports</title>
         <link href="styles/styles.css" rel="stylesheet" type="text/css" />
-        <link rel="shortcut icon" href="pictures/oAlstom.ico" type="image/x-icon"/> 
-        <link rel="icon" href="pictures/oAlstom.ico" type="image/x-icon"/>
-        <script type="text/javascript" src="inc/scripts/slide.js"></script>
-        <script type="text/javascript" src="inc/scripts/bubulle.v2.min.js"></script>
-        <script type="text/javascript" src="inc/scripts/calculForm.js"></script>
-        <script type="text/javascript" src="inc/scripts/onlyKeys.js"></script>
-        <style>
-            table {
-                color: black;
-                width: 836px;
-                margin: auto;
-                margin-bottom: 20px;
-            }
-
-            td {
-                text-align: center;
-                padding: 3px;
-                min-width: 100px;
-                border: 1px solid black;
-            }
-
-            .double_td {
-                min-width: 280px;
-            }
-
-            .local {
-                background-color: orange;
-                font-weight: bold;
-            }
-
-            .international {
-                background-color: #00aca8;
-                font-weight: bold;
-            }
-
-            .total {
-                background-color: red;
-                font-weight: bold;
-            }
-
-            .total_cost {
-                color: red;
-            }
-
-            #form {
-                border: 1px black solid;
-                padding: 10px;
-            }
-
-            .submit {
-                width: 836px;
-                margin: auto;
-                text-align: center;
-            }
-
-            .valid {
-                margin-left: 20px;
-                margin-bottom: 10px;
-                color: green;
-                font-weight: bold;
-            }
-
-            td.info {
-                min-width: 130px;
-            }
-
-            td.info:hover {
-                z-index: 500; /* On définit une valeur pour l'ordre d'affichage. */
-
-                cursor: help; /* On change le curseur par défaut par un curseur d'aide. */
-            }
-
-            #bubulle {
-                max-width: 350px;
-
-                background: #daeeed;
-
-                color: #00aca8;
-                padding: 3px;
-
-                border: 1px solid #00aca8;
-                border-radius: 5px;
-                border-left: 4px solid #00aca8;
-
-                box-shadow: 2px 2px 2px grey;
-
-                z-index: 600;
-
-                overflow: auto;
-            }
-        </style>
-        <script language="JavaScript" type="text/javascript">
-			
-            function editReport(div) {
-		
-                var allInput = document.getElementById(div).getElementsByTagName('input');
-		
-                for (var i = 0; i < (allInput.length - 2); i++) {
-                    allInput[i].removeAttribute('readonly');
-                    allInput[i].removeAttribute('style');
+        <meta content="TRAN-NGUYEN" name="author" />
+        <meta content="Telephony Reports" name="description" />
+        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+            <link href="inc/pictures/icone.png" rel="shortcut icon" type="image/x-icon" />
+            <link href="inc/pictures/icone.png" rel="icon" type="image/x-icon" />
+            <script type="text/javascript" src="inc/scripts/slide.js"></script>
+            <script type="text/javascript" src="inc/scripts/bubulle.v2.min.js"></script>
+            <script type="text/javascript" src="inc/scripts/calculForm.js"></script>
+            <script type="text/javascript" src="inc/scripts/onlyKeys.js"></script>
+            <style>
+                table {
+                    color: black;
+                    width: 836px;
+                    margin: auto;
+                    margin-bottom: 20px;
                 }
-				
-                allInput[allInput.length - 2].setAttribute('style', 'display: none;');
-                allInput[allInput.length - 1].setAttribute('style', 'display: inline;');
-            }
+
+                td {
+                    text-align: center;
+                    padding: 3px;
+                    min-width: 100px;
+                    border: 1px solid black;
+                }
+
+                .double_td {
+                    min-width: 280px;
+                }
+
+                .local {
+                    background-color: orange;
+                    font-weight: bold;
+                }
+
+                .international {
+                    background-color: #00aca8;
+                    font-weight: bold;
+                }
+
+                .total {
+                    background-color: red;
+                    font-weight: bold;
+                }
+
+                .total_cost {
+                    color: red;
+                }
+
+                #form {
+                    border: 1px black solid;
+                    padding: 10px;
+                }
+
+                .submit {
+                    width: 836px;
+                    margin: auto;
+                    text-align: center;
+                }
+
+                .valid {
+                    margin-left: 20px;
+                    margin-bottom: 10px;
+                    color: green;
+                    font-weight: bold;
+                }
+
+                td.info {
+                    min-width: 130px;
+                }
+
+                td.info:hover {
+                    z-index: 500; /* On définit une valeur pour l'ordre d'affichage. */
+
+                    cursor: help; /* On change le curseur par défaut par un curseur d'aide. */
+                }
+
+                #bubulle {
+                    max-width: 350px;
+
+                    background: #daeeed;
+
+                    color: #00aca8;
+                    padding: 3px;
+
+                    border: 1px solid #00aca8;
+                    border-radius: 5px;
+                    border-left: 4px solid #00aca8;
+
+                    box-shadow: 2px 2px 2px grey;
+
+                    z-index: 600;
+
+                    overflow: auto;
+                }
+            </style>
+            <script language="JavaScript" type="text/javascript">
 			
-        </script>
+                function editReport(div) {
+		
+                    var allInput = document.getElementById(div).getElementsByTagName('input');
+		
+                    for (var i = 0; i < (allInput.length - 2); i++) {
+                        allInput[i].removeAttribute('readonly');
+                        allInput[i].removeAttribute('style');
+                    }
+				
+                    allInput[allInput.length - 2].setAttribute('style', 'display: none;');
+                    allInput[allInput.length - 1].setAttribute('style', 'display: inline;');
+                }
+			
+            </script>
     </head>
     <body>
         <!---------------------------------------------------------------->
