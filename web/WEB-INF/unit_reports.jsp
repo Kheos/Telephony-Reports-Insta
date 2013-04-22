@@ -112,7 +112,7 @@
                     <div id="displayDeleteUnitContract"> 
                         <td>
                             <a href="Delete_Unit_Reports">
-                                <h4><img src="inc/pictures/trash.png" alt="" width="30px" style="margin-bottom: -5px;" /> &nbsp Delete a UnitContract</h4>
+                                <h6><img src="inc/pictures/trash.png" alt="" width="30px" style="margin-bottom: -5px;" /> &nbsp Delete a UnitContract</h6>
                                 <p>This part let you to delete a Unit Contract.</p>
                             </a>
                         </td>

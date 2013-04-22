@@ -23,7 +23,7 @@
         <div class="footer">
             <div class="footerContent">
                 <div class="linkFooter">
-                    <p><a href="Site" class="alinkFooter">Site</a></p>
+                    <p><a href="Site" class="alinkFooter">Map Site</a></p>
                     <p><a href="Faq" class="alinkFooter">Help</a></p>
                     <p><a href="Support" class="alinkFooter">Support</a></p>
                 </div>
