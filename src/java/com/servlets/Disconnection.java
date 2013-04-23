@@ -5,23 +5,19 @@
 package com.servlets;
 
 import java.io.IOException;
-import java.util.List;
-
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import com.bdd.JDBC;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author Enji
  */
-public class GestionJDBC extends HttpServlet {
-    public static final String ATT_MESSAGES = "messages";
-    public static final String VUE          = "/WEB-INF/gestionJDBC.jsp";
+public class Disconnection extends HttpServlet {
+
     /**
      * Processes requests for both HTTP
      * <code>GET</code> and
@@ -32,6 +28,10 @@ public class GestionJDBC extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    public static final String ATT_SESSION_USER = "sessionUser";
+    public static final String urlRedirection = "/Index";
+    public static final String ATT_REDIRECT_BOOL = "redirectBool";
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -40,13 +40,13 @@ public class GestionJDBC extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet GestionJDBC</title>");            
+            out.println("<title>Servlet Disconnection</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet GestionJDBC at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet Disconnection at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
-        } finally {            
+        } finally {
             out.close();
         }
     }
@@ -64,14 +64,14 @@ public class GestionJDBC extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        JDBC test = new JDBC();
-        List<String> messages = test.execute( request );
+        HttpSession session = request.getSession();
 
-        /* Enregistrement de la liste des messages dans l'objet requête */
-        request.setAttribute( ATT_MESSAGES, messages );
-
-        /* Transmission vers la page en charge de l'affichage des résultats */
-        this.getServletContext().getRequestDispatcher( VUE ).forward( request, response );
+        if (session.getAttribute(ATT_SESSION_USER) != null) {
+            session.removeAttribute(ATT_SESSION_USER);
+            this.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
+        } else {
+            this.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
+        }
     }
 
     /**

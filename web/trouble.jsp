@@ -11,8 +11,11 @@
         <title>Trouble</title>
         <link href="inc/styles/styles.css" rel="stylesheet" type="text/css" />
         <link rel="stylesheet" href="inc/styles/styles.css" type="text/css" media="screen"/>
-        <link rel="shortcut icon" href="pictures/oAlstom.ico" type="image/x-icon"/> 
-        <link rel="icon" href="pictures/oAlstom.ico" type="image/x-icon"/>
+        <meta content="TRAN-NGUYEN" name="author" />
+        <meta content="Telephony Reports" name="description" />
+        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+            <link href="inc/pictures/icone.png" rel="shortcut icon" type="image/x-icon" />
+            <link href="inc/pictures/icone.png" rel="icon" type="image/x-icon" />
     </head>
 
     <!---------------------------------------------------------------->
@@ -29,8 +32,8 @@
                 <img src="inc/pictures/supportPart.png" alt="" width="70px" style="margin-top:-15px;"/> &nbsp  Trouble
             </h2>
             <p>For any connection problems, contact the support with the informations below.</p><br />
-            <h3 style="margin-bottom : -30px;">Contacts Informations</h3>
-            <table style="margin:auto;">
+            <h3 style="margin-bottom : 30px;">Contacts Informations</h3>
+            <table style="margin:auto; margin-bottom: 30px;">
                 <tr>
                     <td style="padding:30px 30px 0 30px;"><h4>TRAN NGUYEN Enji</h4></td>
                     <td style="padding:30px 30px 0 30px;;"><h4>CROZE Nicolas</h4></td>
@@ -47,9 +50,9 @@
                 </tr>
                 <tr>
                     <td style="padding:10px 30px 0 30px;"><p class="text2">Phone: +33 149 01 67 61<br /><br />
-                            E-mail: &nbsp; <a href="mailto:" class="button" style="width:150px">enji.tran-nguyen@alstom.com</a></p></td>
+                            E-mail: &nbsp; <a href="mailto:" style="width:150px">enji.tran-nguyen@alstom.com</a></p></td>
                     <td style="padding:10px 30px 0 30px;;"><p class="text2">Phone: +33 149 01 66 19<br /><br />
-                            E-mail: &nbsp; <a href="mailto:" class="button" style="width:150px">nicolas.croze@alstom.com</a></p></td>
+                            E-mail: &nbsp; <a href="mailto:" style="width:150px">nicolas.croze@alstom.com</a></p></td>
                 </tr>
             </table>
         </div>

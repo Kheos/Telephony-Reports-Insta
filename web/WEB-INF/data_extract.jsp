@@ -1,20 +1,21 @@
 <%-- 
-    Document   : error
-    Created on : 28 nov. 2012, 14:47:08
-    Author     : Nico
+    Document   : data_extract
+    Created on : 8 avr. 2013, 16:03:48
+    Author     : Enji
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
-        <title>Error</title>
-        <link href="styles/styles.css" rel="stylesheet" type="text/css" />
+        <title>Data Extract</title>
         <meta content="TRAN-NGUYEN" name="author" />
         <meta content="Telephony Reports" name="description" />
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
             <link href="inc/pictures/icone.png" rel="shortcut icon" type="image/x-icon" />
             <link href="inc/pictures/icone.png" rel="icon" type="image/x-icon" />
+            <link href="styles/styles.css" rel="stylesheet" type="text/css" />
+            <link rel="stylesheet" href="styles/styles.css" type="text/css" media="screen"/>  
     </head>
     <body>
         <!---------------------------------------------------------------->
@@ -22,33 +23,29 @@
         <%@include file="header/header.jsp"%>
         <!---------------------- HEADER END ------------------------------>
         <!---------------------------------------------------------------->
-        <!---------------------- CONTENT START --------------------------->
+        <!---------------------- CONTENT START --------------------------->       
         <div class="content">
             <h2>
-                <img src="inc/pictures/warning.png" alt="" width="70px" style="margin-top:-15px;"/> &nbsp Error
-            </h2>
-            <p style="color: red; font-weight: bold; font-size: 15px;">
-                Warning :
-            </p>
-            <p style="color: red; font-size: 15px;">
-                You can't access to the login page if you are already connected.
-                </br>
-                You can go to :
-                <ul>
-                    <li>
-                        <a style="color: blue; font-weight: bold;" href="/Telephony-Reports/Reports">- Reports Per Contract</a>
-                    </li>
-                    <li>
-                        <a style="color: blue; font-weight: bold;" href="/Telephony-Reports/Unit_Reports">- Unit Reports</a>
-                    </li>
-                    <li>
-                        <a style="color: blue; font-weight: bold;" href="/Telephony-Reports/Extract">- Extract</a>
-                    </li>
-                    <li>
-                        <a style="color: blue; font-weight: bold;" href="/Telephony-Reports/Faq">- FAQ</a>
-                    </li>
-                </ul>
-            </p>
+                <img src="inc/pictures/extract.png" alt="" width="50px" style="margin-top:0px;"/> &nbsp  Data Extract
+            </h2><br />
+            <p>In this module, you could download tha data of a report.
+                Select below the mode of data that you want:</p>
+
+            <h3>
+                <img src="inc/pictures/workProgress.png" alt="Unit Contract" width="35px" style="margin-bottom:-5px;"/> &nbsp Actions
+            </h3>
+            <table class="tableDisplayOption">
+                <tr>
+                    <div id="displayExtractReport">
+                        <td>
+                            <a href="Download_Extract">
+                                <h6><img src="inc/pictures/excel.png" alt="" width="30px" style="margin-bottom: -5px;" /> &nbsp Export in Excel Mode</h6>
+                                <p>This part let you to export a report into a Microsoft Excel document.</p>
+                            </a>
+                        </td>
+                    </div>
+                </tr>
+            </table><br /><br />
         </div>
         <!---------------------- CONTENT END ---------------------------->
         <!--------------------------------------------------------------->

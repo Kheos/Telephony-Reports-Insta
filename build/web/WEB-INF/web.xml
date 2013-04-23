@@ -41,18 +41,6 @@
         <servlet-class>com.servlets.Support</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>Add_Report</servlet-name>
-        <servlet-class>com.servlets.Add_Report</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>Edit_Report</servlet-name>
-        <servlet-class>com.servlets.Edit_Report</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>Search_Report</servlet-name>
-        <servlet-class>com.servlets.Search_Report</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>Unit_Reports</servlet-name>
         <servlet-class>com.servlets.Unit_Reports</servlet-class>
     </servlet>
@@ -67,10 +55,6 @@
     <servlet>
         <servlet-name>Delete_Unit_Reports</servlet-name>
         <servlet-class>com.servlets.Delete_Unit_Reports</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>GestionJDBC</servlet-name>
-        <servlet-class>com.servlets.GestionJDBC</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>Display_Unit_Reports</servlet-name>
@@ -144,6 +128,18 @@
         <servlet-name>Work_In_Progress</servlet-name>
         <servlet-class>com.servlets.Work_In_Progress</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Data_Extract</servlet-name>
+        <servlet-class>com.servlets.Data_Extract</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Disconnection</servlet-name>
+        <servlet-class>com.servlets.Disconnection</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Site</servlet-name>
+        <servlet-class>com.servlets.Site</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Home</servlet-name>
         <url-pattern>/Home</url-pattern>
@@ -165,18 +161,6 @@
         <url-pattern>/Support</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>Add_Report</servlet-name>
-        <url-pattern>/Add_Report</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>Edit_Report</servlet-name>
-        <url-pattern>/Edit_Report</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>Search_Report</servlet-name>
-        <url-pattern>/Search_Report</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>Unit_Reports</servlet-name>
         <url-pattern>/Unit_Reports</url-pattern>
     </servlet-mapping>
@@ -191,10 +175,6 @@
     <servlet-mapping>
         <servlet-name>Delete_Unit_Reports</servlet-name>
         <url-pattern>/Delete_Unit_Reports</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>GestionJDBC</servlet-name>
-        <url-pattern>/GestionJDBC</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>Display_Unit_Reports</servlet-name>
@@ -267,6 +247,18 @@
     <servlet-mapping>
         <servlet-name>Work_In_Progress</servlet-name>
         <url-pattern>/Work_In_Progress</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Data_Extract</servlet-name>
+        <url-pattern>/Data_Extract</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Disconnection</servlet-name>
+        <url-pattern>/Disconnection</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Site</servlet-name>
+        <url-pattern>/Site</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

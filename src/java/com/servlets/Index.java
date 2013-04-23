@@ -119,7 +119,7 @@ public class Index extends HttpServlet {
 		System.out.println("- password : " + password);
 
 		HttpSession session = request.getSession();
-
+                
 		if (connectionDao.bind(login, password)) {
 			System.out.println("<h2>Ok</h2>");
 			session.setAttribute(ATT_SESSION_USER, login);

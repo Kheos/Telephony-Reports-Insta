@@ -1,20 +1,20 @@
 <%-- 
-    Document   : error
-    Created on : 28 nov. 2012, 14:47:08
-    Author     : Nico
+    Document   : site
+    Created on : 12 avr. 2013, 13:23:22
+    Author     : Enji
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
-        <title>Error</title>
+        <title>Site</title>
         <link href="styles/styles.css" rel="stylesheet" type="text/css" />
         <meta content="TRAN-NGUYEN" name="author" />
         <meta content="Telephony Reports" name="description" />
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
             <link href="inc/pictures/icone.png" rel="shortcut icon" type="image/x-icon" />
-            <link href="inc/pictures/icone.png" rel="icon" type="image/x-icon" />
+            <link href="inc/pictures/icone.png" rel="icon" type="image/x-icon" />  
     </head>
     <body>
         <!---------------------------------------------------------------->
@@ -22,33 +22,39 @@
         <%@include file="header/header.jsp"%>
         <!---------------------- HEADER END ------------------------------>
         <!---------------------------------------------------------------->
-        <!---------------------- CONTENT START --------------------------->
+        <!---------------------- CONTENT START --------------------------->       
         <div class="content">
             <h2>
-                <img src="inc/pictures/warning.png" alt="" width="70px" style="margin-top:-15px;"/> &nbsp Error
-            </h2>
-            <p style="color: red; font-weight: bold; font-size: 15px;">
-                Warning :
-            </p>
-            <p style="color: red; font-size: 15px;">
-                You can't access to the login page if you are already connected.
-                </br>
-                You can go to :
-                <ul>
-                    <li>
-                        <a style="color: blue; font-weight: bold;" href="/Telephony-Reports/Reports">- Reports Per Contract</a>
-                    </li>
-                    <li>
-                        <a style="color: blue; font-weight: bold;" href="/Telephony-Reports/Unit_Reports">- Unit Reports</a>
-                    </li>
-                    <li>
-                        <a style="color: blue; font-weight: bold;" href="/Telephony-Reports/Extract">- Extract</a>
-                    </li>
-                    <li>
-                        <a style="color: blue; font-weight: bold;" href="/Telephony-Reports/Faq">- FAQ</a>
-                    </li>
-                </ul>
-            </p>
+                <img src="inc/pictures/tree.png" alt="" width="70px" style="margin-bottom:-10px;"/> &nbsp  Map Site
+            </h2><br />
+            <ul>
+                <li>
+                    <a href="Reports" class="lienSite1">Reports</a>
+                    <ul>
+                        <li>
+
+                        </li>
+                    </ul>
+                </li>
+
+                <li>
+                    <a href="Unit_Reports" class="lienSite1">Unit Contract</a>
+                </li>
+                <li>
+                    <a href="Data_Extract" class="lienSite1">Data Extract</a>
+                    <ul>
+                        <li>
+                            <a href="Download_Extract" class="lienSite2">Export in Excel Mode</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="Faq" class="lienSite1">FAQ</a>
+                </li>
+                <li>
+                    <a href="Support" class="lienSite1">Support</a>
+                </li>
+            </ul>
         </div>
         <!---------------------- CONTENT END ---------------------------->
         <!--------------------------------------------------------------->
