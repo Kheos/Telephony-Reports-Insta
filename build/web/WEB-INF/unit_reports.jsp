@@ -119,34 +119,6 @@
                     </div>
                 </tr>
             </table><br /><br />
-            <h3>
-                <img src="inc/pictures/contract.png" alt="Unit Contract" width="35px" style="margin-bottom:-5px;"/> &nbsp Existing Contracts
-            </h3>
-            <p>Find below the existing contracts :</p>
-            <form action="Modify_Unit_Reports_Site" method="GET" class="formContact">
-
-                <label for="site">
-
-                    <table style="margin-left:40px;">
-                        <tr>
-                            <td style="width:40px;"><h3 style="text-align:center; color:#FFFFFF;">Select</h3></td><td><h3 style="text-align:center; padding-left:10px; color:#FFFFFF;">Contract name</h3></td><td><h3 style="text-align:center; padding-left:15px; color:#FFFFFF;">Contract Type</h3></td>
-                        </tr>
-                        ${ messageListUnitReports }
-                    </table>
-
-                </label><br />
-
-
-                <div id="operationModifyUnitReports" style="display: none;">
-                    <label><span>Operation :</span>
-                        <select name="operationUnitReports" id="operationUnitReports" tabindex="10" style="width:290px; margin-right: 20px;" onclick="modifyUnitContractValidate();">
-                            <option value="">- Choose an operation -</option>
-                            <option value="addSites">Add Sites</option>	   
-                            <option value="removeSites">Remove Sites</option>
-                        </select>
-                    </label><br />
-                </div>   
-            </form>
         </div>
         <!---------------------- CONTENT END ---------------------------->
 

@@ -30,9 +30,9 @@
                     <p style="color:red;">Please, confirm the delete of the Unit Contract</p>
                     <label for="login"><span>Name :</span>
                         <input type="text" id="nameUnitReports" class="input_text" name="nameUnitReports" value="<%
-                            String parametreDisplayName = request.getParameter("nameUnitReports");
-                            out.println(parametreDisplayName);
-                               %>" size="30" maxlength="60" />
+							String parametreDisplayName = request.getParameter("nameUnitReports");
+							out.println(parametreDisplayName);
+                               %>" size="30" maxlength="60" readonly="true" />
                     </label><br />
                     <center>
                         <input id="buttonDelete" class="validButton" type="reset" value="Cancel" OnClick="window.location.href='Unit_Reports'" tabindex="30" style="margin-right: 20px;"/>

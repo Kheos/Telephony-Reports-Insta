@@ -6,10 +6,10 @@ package com.servlets;
 
 import com.bdd.DaoFactory;
 import com.bdd.ExtractDao;
-import com.bdd.UnitReports.CountryUnitReports;
-import com.bdd.UnitReports.NameUnitReports;
+import com.bdd.UnitReportDao;
 import com.beans.ExtractTab;
 import com.forms.ExtractForm;
+import com.forms.UnitReportForm;
 import java.io.IOException;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
@@ -39,6 +39,7 @@ public class Download_Extract extends HttpServlet {
 	public static final String CONF_DAO_FACTORY = "daofactory";
 	public static final String VUE = "/WEB-INF/download_extract.jsp";
 	private ExtractDao extractDao;
+	private UnitReportDao unitReportDao;
 	public Map<Integer, String> monthList = new HashMap<Integer, String>();
 
 	/**
@@ -57,6 +58,8 @@ public class Download_Extract extends HttpServlet {
 		 * Récupération d'une instance de notre DAO Utilisateur
 		 */
 		this.extractDao = ((DaoFactory) getServletContext().getAttribute(CONF_DAO_FACTORY)).getExtractDao();
+		this.unitReportDao = ((DaoFactory) getServletContext().getAttribute(CONF_DAO_FACTORY)).getUnitReportDao();
+		
 
 		//Configuration d'une liste de mois
 		this.monthList.put(1, "January");
@@ -86,15 +89,16 @@ public class Download_Extract extends HttpServlet {
 		request.setAttribute(ATT_MONTH_LIST, this.monthList);
 		request.setAttribute(ATT_CURRENT_MONTH, currentMonth);
 		request.setAttribute(ATT_CURRENT_YEAR, currentYear);
-
+		
+		//Préparation de l'objet formulaire
+		UnitReportForm form = new UnitReportForm(unitReportDao);
+		
 		//Chargement des noms de contrats et mise en attribut
-		NameUnitReports connect = new NameUnitReports();
-		List<String> messageNameUnitReports = connect.execute(request);
+		List<String> messageNameUnitReports = form.listContractNames();
 		request.setAttribute(ATT_MESSAGES_NAME_UNITREPORTS, messageNameUnitReports);
 
 		//Chargement des pays des contrats et mise en attribut
-		CountryUnitReports connect2 = new CountryUnitReports();
-		List<String> messageCountry = connect2.execute(request);
+		List<String> messageCountry = form.listActiveCountries();
 		request.setAttribute(ATT_MESSAGES_COUNTRY, messageCountry);
 
 		//Retourne la requête à laquelle des attributs ont été ajoutés

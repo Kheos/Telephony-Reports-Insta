@@ -101,5 +101,13 @@ public class DaoFactory {
 	public ConnectionDao getConnectionDao() {
         return new ConnectionDaoImpl( this );
     }
+	
+	/**
+	 * Méthode de récupération de l'implémentation du DAO de la partie Unit Report (seulement en local)
+	 * @return Instance de l'implémentation du DAO de la partie Unit Report
+	 */
+	public UnitReportDao getUnitReportDao() {
+        return new UnitReportDaoImpl( this );
+    }
 
 }

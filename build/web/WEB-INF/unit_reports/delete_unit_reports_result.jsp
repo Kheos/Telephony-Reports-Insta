@@ -27,8 +27,8 @@
             </h2><br />
             <div id="filter" style=" width:960px; margin:auto; padding: 5px;">               
 
-                            ${ messageDelete }
-                    
+				${ messageDelete }
+
             </div>
         </div>
         <!---------------------- CONTENT END ---------------------------->

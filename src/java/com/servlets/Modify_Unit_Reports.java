@@ -10,7 +10,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import com.bdd.UnitReports.NameUnitReports;
 import java.util.List;
 
 /**
@@ -63,10 +62,7 @@ public class Modify_Unit_Reports extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        NameUnitReports connect = new NameUnitReports();
-        List<String> messageNameUnitReports = connect.execute(request);
 
-        request.setAttribute(ATT_MESSAGES_NAME_UNITREPORTS, messageNameUnitReports);
         this.getServletContext().getRequestDispatcher("/WEB-INF/unit_reports/modify_unit_reports.jsp").forward(request, response);
     }
 

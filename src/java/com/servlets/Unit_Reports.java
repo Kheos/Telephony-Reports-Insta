@@ -11,8 +11,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import com.bdd.UnitReports.ListUnitReports;
 /**
  *
  * @author Enji
@@ -61,10 +59,6 @@ public class Unit_Reports extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-                  ListUnitReports connect = new ListUnitReports();
-        String messageListUnitReports = connect.execute(request);
-        
-        request.setAttribute(ATT_MESSAGES_LIST, messageListUnitReports);
         /*request.setAttribute(ATT_MESSAGES_DATA, messageData);*/
         this.getServletContext().getRequestDispatcher( "/WEB-INF/unit_reports.jsp" ).forward( request, response );
     }

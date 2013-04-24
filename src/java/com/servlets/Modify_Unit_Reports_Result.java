@@ -4,7 +4,6 @@
  */
 package com.servlets;
 
-import com.bdd.UnitReports.UpdateUnitReports;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -61,10 +60,6 @@ public class Modify_Unit_Reports_Result extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-         UpdateUnitReports connect = new UpdateUnitReports();
-        String messageModifyResult = connect.execute(request);
-        
-        request.setAttribute(ATT_MESSAGES_MODIFY_RESULT, messageModifyResult);
         this.getServletContext().getRequestDispatcher( "/WEB-INF/unit_reports/modify_unit_reports_result.jsp" ).forward( request, response );
     }
 
