@@ -50,7 +50,6 @@ public class Add_Site_Unit_Reports extends HttpServlet {
 		//Préparation de l'objet formulaire
 		UnitReportForm form = new UnitReportForm(unitReportDao);
 		String messageSite = form.listActiveSites(request);
-
 		request.setAttribute(ATT_MESSAGES_SITE, messageSite);
 		this.getServletContext().getRequestDispatcher("/WEB-INF/unit_reports/add_site_unit_reports.jsp").forward(request, response);
 	}

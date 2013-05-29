@@ -101,4 +101,12 @@ public class UnitReportForm {
 		return messageDelete;
 
 	}
+	
+	public boolean checkUnitReportName(String nameUnitReport) {
+		
+		boolean check = false;
+		check = unitReportDao.checkUnitReportName(nameUnitReport, check);
+		
+		return check;
+	}
 }

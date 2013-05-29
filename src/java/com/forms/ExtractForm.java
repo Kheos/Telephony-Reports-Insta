@@ -106,9 +106,12 @@ public class ExtractForm {
 		if ("country".equals(typeExtract)) {
 			//Si le type d'Extract est par pays, on lance la méthode d'extract par pays avec les paramètres du filtre
 			extractMap = extractDao.extractCountryMonth(extractMap, nameExtract, calendar, allMonth);
-		} else {
-			//Sinon, le type d'Extract est par contrat, on lance la méthode d'extract par contrat avec les paramètres du filtre
+		} else if ("contract".equals(typeExtract)) {
+			//Si le type d'Extract est par contrat, on lance la méthode d'extract par contrat avec les paramètres du filtre
 			extractMap = extractDao.extractContractMonth(extractMap, nameExtract, calendar, allMonth);
+		} else {
+			//Sinon le type d'Extract est global, on lance la méthode d'extract global avec les paramètres du filtre
+			extractMap = extractDao.extractGlobalMonth(extractMap, calendar, allMonth);
 		}
 
 		//On retourne la Map remplie, contenant maintenant les lignes d'extract
@@ -130,9 +133,12 @@ public class ExtractForm {
 		if ("country".equals(typeExtract)) {
 			//Si le type d'Extract est par pays, on lance la méthode d'extract par pays avec les paramètres du filtre
 			extractMap = extractDao.extractCountryFiscalYear(extractMap, nameExtract, year);
-		} else {
-			//Sinon, le type d'Extract est par contrat, on lance la méthode d'extract par contrat avec les paramètres du filtre
+		} else if ("contract".equals(typeExtract)) {
+			//Si le type d'Extract est par contrat, on lance la méthode d'extract par contrat avec les paramètres du filtre
 			extractMap = extractDao.extractContractFiscalYear(extractMap, nameExtract, year);
+		} else {
+			//Sinon le type d'Extract est global, on lance la méthode d'extract global avec les paramètres du filtre
+			extractMap = extractDao.extractGlobalFiscalYear(extractMap, year);
 		}
 
 		//On retourne la Map remplie, contenant maintenant les lignes d'extract
@@ -331,7 +337,8 @@ public class ExtractForm {
 					}
 				} else if (!contractName.equals(extract.getContractName()) || !type.equals(extract.getType())) {
 					System.out.println("TOTAL");
-					if ((nbMonth - nbEmptyLine) > 1 || (this.fiscalYear != 0 && nbEmptyLine < 11)) {
+					//if ((nbMonth - nbEmptyLine) > 1 || (this.fiscalYear != 0 && nbEmptyLine < 11)) {
+						System.out.println("MOIS MANQUANT - nbEmptyLine : "+nbEmptyLine+" nbMonth : "+nbMonth);
 						/*
 						 * Si il y a au moins deux lignes qui ont été ajoutées pour l'extract courant (depuis la dernière ligne de total par exemple), 
 						 * on peut ajouter une dernière ligne de total
@@ -352,14 +359,8 @@ public class ExtractForm {
 							numLine++;
 							nbEmptyLine++;
 						}
-						if ((this.fiscalYear != 0 && nbEmptyLine < 11) || (this.fiscalYear == 0 && (nbMonth - nbEmptyLine) > 1)) {
-							/*
-							 * Si il y a au moins deux lignes qui ont été ajoutées pour l'extract courant (depuis la dernière ligne de total par exemple), 
-							 * on peut ajouter une dernière ligne de total
-							 */
-							workbook = addTotalRow(workbook, numSheet);
-						}
-					}
+						workbook = addTotalRow(workbook, numSheet);
+					//}
 
 					if (!type.equals(extract.getType())) {
 						//Si le type (Fix ou Mobile) n'est plus le même, on change de feuille et on réinitialise le numéro de ligne à 1

@@ -54,5 +54,12 @@ public interface UnitReportDao {
 	 * @return La châine de caractères contenant le code HTML à afficher
 	 */
 	public String deleteUnitReport(String messageDelete, String nameUnitReport);
+	
+	/**
+	 *
+	 * @param nameUnitReport String qui contiendra le nom du Unit Report
+	 * @return Le booléen vérifiant si le nom du Unit Report n'existe pas déjà
+	 */
+	public boolean checkUnitReportName(String nameUnitReport, boolean check);
 
 }

@@ -21,9 +21,12 @@ import javax.servlet.http.HttpSession;
  * @author Enji
  */
 public class Add_Unit_Reports extends HttpServlet {
-
+	
+	public static final String ATT_MESSAGES_SITE = "messageSite";
 	public static final String ATT_MESSAGES_COUNTRY = "messageCountry";
 	public static final String ATT_REDIRECT_BOOL = "redirectBool";
+	public static final String ATT_NAME_ERROR = "nameError";
+	public static final String urlRedirection = "/Add_Unit_Reports";
 	public static final String CONF_DAO_FACTORY = "daofactory";
 	private UnitReportDao unitReportDao;
 
@@ -75,6 +78,24 @@ public class Add_Unit_Reports extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+
+		//Préparation de l'objet formulaire
+		UnitReportForm form = new UnitReportForm(unitReportDao);
+
+		//Récupération du paramètre "filter", étant le bouton d'envoi d'un filtre d'affichage
+		String nameUnitReport = request.getParameter("nameUnitReports");
+
+		if (!form.checkUnitReportName(nameUnitReport)) {
+			request.setAttribute(ATT_NAME_ERROR, Boolean.TRUE);
+			List<String> messageCountry = form.listActiveCountries();
+			request.setAttribute(ATT_MESSAGES_COUNTRY, messageCountry);
+			this.getServletContext().getRequestDispatcher("/WEB-INF/unit_reports/add_unit_reports.jsp").forward(request, response);
+		}
+		else {
+			String messageSite = form.listActiveSites(request);
+			request.setAttribute(ATT_MESSAGES_SITE, messageSite);
+			this.getServletContext().getRequestDispatcher("/WEB-INF/unit_reports/add_site_unit_reports.jsp").forward(request, response);
+		}		
 	}
 
 	/**

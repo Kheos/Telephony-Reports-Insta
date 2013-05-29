@@ -164,12 +164,17 @@ public class Download_Extract extends HttpServlet {
 			month = Integer.parseInt(request.getParameter("monthCountry"));
 			year = Integer.parseInt(request.getParameter("yearCountry"));
 			fiscalYear = Integer.parseInt(request.getParameter("fiscalYearCountry"));
-		} else {
+		} else if ("contract".equals(typeExtract)) {
 			nameExtract = request.getParameter("nameExtractContract");
 			dateMode = request.getParameter("dateModeContract");
 			month = Integer.parseInt(request.getParameter("monthContract"));
 			year = Integer.parseInt(request.getParameter("yearContract"));
 			fiscalYear = Integer.parseInt(request.getParameter("fiscalYearContract"));
+		} else {
+			dateMode = request.getParameter("dateModeGlobal");
+			month = Integer.parseInt(request.getParameter("monthGlobal"));
+			year = Integer.parseInt(request.getParameter("yearGlobal"));
+			fiscalYear = Integer.parseInt(request.getParameter("fiscalYearGlobal"));
 		}
 
 		//Initialisation d'une Map qui contiendra les lignes d'extract (sous forme de Bean "ExtractTab"

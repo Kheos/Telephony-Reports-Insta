@@ -21,7 +21,7 @@
                 function changementType() { 
                     var typeExtract = document.getElementById("typeExtract").value; 
                     if (typeExtract == "country") { 
-                        document.getElementById("country").style.display="block"; 
+                        document.getElementById("country").style.display="block";
                     } else{ 
                         document.getElementById("country").style.display="none"; 
                     } 
@@ -29,6 +29,11 @@
                         document.getElementById("contract").style.display="block"; 
                     }else{ 
                         document.getElementById("contract").style.display="none"; 
+                    }
+					if (typeExtract == "global"){ 
+                        document.getElementById("global").style.display="block";
+                    }else{ 
+                        document.getElementById("global").style.display="none"; 
                     } 
                 } 
             
@@ -51,7 +56,7 @@
                 function DateDetail() { 
                     var selectDateModeCountry = document.getElementById("selectDateModeCountry").value;
                     var selectDateModeContract = document.getElementById("selectDateModeContract").value;
-                
+					var selectDateModeGlobal = document.getElementById("selectDateModeGlobal").value;
                  
                     if (selectDateModeCountry == "monthlyMode") { 
                         document.getElementById("dateMonthlyCountry").style.display="block"; 
@@ -66,6 +71,13 @@
                     } if (selectDateModeContract == "fiscalYearMode"){ 
                         document.getElementById("dateMonthlyContract").style.display="none"; 
                         document.getElementById("dateFiscalYearContract").style.display="block";
+                    }
+					if (selectDateModeGlobal == "monthlyMode") { 
+                        document.getElementById("dateMonthlyGlobal").style.display="block"; 
+                        document.getElementById("dateFiscalYearGlobal").style.display="none";
+                    } if (selectDateModeGlobal == "fiscalYearMode"){ 
+                        document.getElementById("dateMonthlyGlobal").style.display="none"; 
+                        document.getElementById("dateFiscalYearGlobal").style.display="block";
                     }
 
                 }
@@ -95,6 +107,7 @@
                             <option value="">- Choose a type -</option>
                             <option value="country">Country</option>	   
                             <option value="contract">Contract</option>
+							<option value="global">Global</option>
                         </select>
                     </label>
                     <br />
@@ -186,16 +199,6 @@
                         </div>
                     </div>
 
-
-
-
-
-
-
-
-
-
-
                     <div id="contract" style="display:none">
                         <center><h3 style="margin-bottom:-12px; margin-left: -350px;">
                                 <img src="inc/pictures/contract.png" alt="" width="50px" style="margin-bottom:-8px;"/> &nbsp  Contract
@@ -283,6 +286,88 @@
                             <br />
                             <input id="buttonDelete" class="button" type="submit" value="Generate >" tabindex="30" />
                         </div>
+					</div>
+
+						<div id="global" style="display:none">
+							<center><h3 style="margin-bottom:-12px; margin-left: -350px;">
+									<img src="inc/pictures/globe.png" alt="" width="50px" style="margin-bottom: -8px;"/> &nbsp  Global
+								</h3></center>
+							<br />
+							<div id="dateModeGlobal">
+								<label>
+									<span>Period :</span>
+									<select name="dateModeGlobal" id="selectDateModeGlobal" tabindex="10" style="width:290px; margin-right: 20px;" onclick="DateDetail();">
+										<option value="">- Choose a period -</option> 
+										<option value="monthlyMode">Monthly</option>
+										<option value="fiscalYearMode">Fiscal Year</option>                                
+									</select>
+								</label>
+								<br />
+							</div>
+							<div id="dateMonthlyGlobal" style="display:none">
+								<label><span>Month :</span>
+									<select name="monthGlobal" id="monthGlobal" tabindex="40" style="width:290px; margin-right: 20px;" >
+										<option value="0">All</option>
+										<c:forEach var="i" begin="1" end="12" step="1">
+											<option value="<c:out value='${i}'/>"><c:out value='${monthList[i]}'/></option>
+										</c:forEach>
+									</select></label><br />
+								<label><span>Year :</span>
+									<select id='yearGlobal' name='yearGlobal' tabindex="30" style="width:290px; margin-right: 20px;" >
+										<c:forEach var="i" begin="2011" end="${currentYear}" step="1">
+											<option value="<c:out value='${i}'/>"><c:out value='${i}'/></option>
+										</c:forEach>
+									</select></label><br />
+								<input id="buttonDelete" name="buttonValidationForm" class="button" type="submit" value="Generate >" tabindex="30" />
+							</div>
+							<div id="dateFiscalYearGlobal" style="display:none">
+								<label><span>Fiscal Year :</span>
+									<select id='fiscalYearGlobal' name='fiscalYearGlobal' fiscalYear="30" style="width:290px; margin-right: 20px;" >
+										<c:choose>
+											<c:when test="${currentMonth > 3}">
+												<c:forEach var="i" begin="2011" end="${currentYear}" step="1">
+													<c:choose>
+														<c:when test="${filter != null}">
+															<c:choose>
+																<c:when test="${i == filter['year']}">
+																	<option selected value="<c:out value='${i}'/>"><c:out value='${i} - ${i + 1}'/></option>
+																</c:when>
+																<c:otherwise>
+																	<option value="<c:out value='${i}'/>"><c:out value='${i} - ${i + 1}'/></option>
+																</c:otherwise>
+															</c:choose>
+														</c:when>
+														<c:otherwise>
+															<option value="<c:out value='${i}'/>"><c:out value='${i} - ${i + 1}'/></option>
+														</c:otherwise>
+													</c:choose>
+												</c:forEach>
+											</c:when>
+											<c:otherwise>
+												<c:forEach var="i" begin="2011" end="${currentYear - 1}" step="1">
+													<c:choose>
+														<c:when test="${filter != null}">
+															<c:choose>
+																<c:when test="${i == filter['year']}">
+																	<option selected value="<c:out value='${i}'/>"><c:out value='${i} - ${i + 1}'/></option>
+																</c:when>
+																<c:otherwise>
+																	<option value="<c:out value='${i}'/>"><c:out value='${i} - ${i + 1}'/></option>
+																</c:otherwise>
+															</c:choose>
+														</c:when>
+														<c:otherwise>
+															<option value="<c:out value='${i}'/>"><c:out value='${i} - ${i + 1}'/></option>
+														</c:otherwise>
+													</c:choose>
+												</c:forEach>
+											</c:otherwise>
+										</c:choose>
+									</select></label><br />
+								<br />
+								<input id="buttonDelete" name="buttonValidationForm" class="button" type="submit" value="Generate >" tabindex="30" />
+							</div>
+						</div>
                 </form>
             </div>
         </div>

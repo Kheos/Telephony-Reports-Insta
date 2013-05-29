@@ -266,4 +266,47 @@ public class UnitReportDaoImpl implements UnitReportDao {
 
 		return messageDelete;
 	}
+	
+	private static final String SQL_CHECK_CONTRACT_NAME = "SELECT CONTRACT_NAME FROM WEBIDMINT.TELEPHONY_UNITCONTRACT WHERE CONTRACT_NAME = ?";
+
+	public boolean checkUnitReportName(String nameUnitReport, boolean check) {
+		
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+
+		try {
+			try {
+				/*
+				 * Récupération d'une connexion depuis la Factory
+				 */
+				connexion = daoFactory.getConnection();
+			} catch (SQLException ex) {
+				Logger.getLogger(UnitReportDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+			}
+
+			//On prépare la requête SQL en la construisant avec la méthode "initPreparedRequest"
+			preparedStatement = initPreparedRequest(connexion, SQL_CHECK_CONTRACT_NAME, false, nameUnitReport);
+			resultSet = preparedStatement.executeQuery();
+
+			/**
+			 *
+			 * Vérification qu'il n'y est pas le même nom présent en base
+			 *
+			 */
+			if (resultSet.next()) {
+				check = false;
+			} else {
+				check = true;
+			}
+
+		} catch (SQLException e) {
+			throw new DaoException(e);
+		} finally {
+			//On ferme le PreparedStatement et la connexion
+			silentClosures(resultSet, preparedStatement, connexion);
+		}
+		
+		return check;
+	}
 }

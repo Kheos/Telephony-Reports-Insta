@@ -76,7 +76,12 @@
                 Enter the informations below to create a Unit Reports :
             </p>
             <div id="filter" style=" width:930px; margin:auto; padding: 5px;">
-                <form action="Add_Site_Unit_Reports" method="GET" class="formContact" onsubmit="return verifForm(this)" >
+                <form method="POST" class="formContact" onsubmit="return verifForm(this)" >
+					<c:if test="${nameError}">
+						<p class="errors">
+							Error : Unit Contract's name is already used.
+						</p>
+					</c:if>
                     <label for="login"><span>Name :</span>
                         <input type="text" id="nameUnitReports" class="input_text" name="nameUnitReports" value="" size="30" maxlength="60" onblur="verifInput(this)" />
                     </label><br />

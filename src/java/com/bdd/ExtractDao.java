@@ -34,6 +34,15 @@ public interface ExtractDao {
 	 */
 	public Map<Integer, ExtractTab> extractContractMonth(Map<Integer, ExtractTab> extractMap, String nameExtract, GregorianCalendar calendar, Boolean allMonth);
 	
+	/**
+	 *
+	 * @param extractMap Map contenant tous les Beans nécessaires à la réalisation de l'extract
+	 * @param calendar Calendrier où sont enregistrés le mois et l'année des données de l'extract
+	 * @param allMonth Booléen étant True si tous les mois de l'année sont à extraire, False sinon
+	 * @return La Map contenant tous les Beans complétés de l'extract
+	 */
+	public Map<Integer, ExtractTab> extractGlobalMonth(Map<Integer, ExtractTab> extractMap, GregorianCalendar calendar, Boolean allMonth);
+	
     /**
 	 *
 	 * @param extractMap Map contenant tous les Beans nécessaires à la réalisation de l'extract
@@ -51,5 +60,13 @@ public interface ExtractDao {
 	 * @return La Map contenant tous les Beans complétés de l'extract
 	 */
 	public Map<Integer, ExtractTab> extractContractFiscalYear(Map<Integer, ExtractTab> extractMap, String nameExtract, int year);
+    
+	/**
+	 *
+	 * @param extractMap Map contenant tous les Beans nécessaires à la réalisation de l'extract
+	 * @param year Année des données à extraire
+	 * @return La Map contenant tous les Beans complétés de l'extract
+	 */
+	public Map<Integer, ExtractTab> extractGlobalFiscalYear(Map<Integer, ExtractTab> extractMap, int year);
     
 }
