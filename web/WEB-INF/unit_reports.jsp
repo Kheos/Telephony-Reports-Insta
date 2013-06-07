@@ -94,7 +94,7 @@
                     <div id="displayAddReport">
                         <td>
                             <a href="Add_Unit_Reports">
-                                <h6><img src="inc/pictures/add.png" alt="" width="30px" style="margin-bottom: -5px;" /> &nbsp Add a UnitContract</h6>
+                                <h6><img src="inc/pictures/add.png" alt="" width="30px" style="margin-bottom: -5px;" /> &nbsp Add a Unit Contract</h6>
                                 <p>This part let you to create a Unit Contract.</p>
                             </a>
                         </td>
@@ -102,7 +102,7 @@
                     <div id="displayModifyUnitContract"> 
                         <td>
                             <a href="Modify_Unit_Reports">
-                                <h6><img src="inc/pictures/edit.png" alt="" height="30px" style="margin-bottom: -5px;" /> &nbsp Modify a UnitContract</h6>
+                                <h6><img src="inc/pictures/edit.png" alt="" height="30px" style="margin-bottom: -5px;" /> &nbsp Modify a Unit Contract</h6>
                                 <p>This part let you to modify a Unit Contract.</p>
                             </a>
                         </td>
@@ -112,7 +112,7 @@
                     <div id="displayDeleteUnitContract"> 
                         <td>
                             <a href="Delete_Unit_Reports">
-                                <h6><img src="inc/pictures/trash.png" alt="" width="30px" style="margin-bottom: -5px;" /> &nbsp Delete a UnitContract</h6>
+                                <h6><img src="inc/pictures/trash.png" alt="" width="30px" style="margin-bottom: -5px;" /> &nbsp Delete a Unit Contract</h6>
                                 <p>This part let you to delete a Unit Contract.</p>
                             </a>
                         </td>

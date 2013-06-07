@@ -65,7 +65,7 @@
         <!---------------------- CONTENT START --------------------------->       
         <div class="content">    
             <h2>
-                <img src="inc/pictures/add.png" alt="" width="70px" style="margin-top:-15px;"/> &nbsp  Add a Unit Reports Step 1/2
+                <img src="inc/pictures/add.png" alt="" width="70px" style="margin-top:-15px;"/> &nbsp  Add a Unit Reports Step 1/3
             </h2>
             <c:if test="${redirectBool}">
                 <p style="color: red; font-weight: bold;">

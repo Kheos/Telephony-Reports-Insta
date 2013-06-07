@@ -22,8 +22,8 @@
         <!---------------------------------------------------------------->
         <!---------------------- CONTENT START --------------------------->       
         <div class="content">    
-            <h2>
-                <img src="inc/pictures/Database.png" alt="" width="70px" style="margin-top:-15px;"/> &nbsp  Unit Contract
+             <h2>
+                <img src="inc/pictures/add.png" alt="" width="70px" style="margin-top:-15px;"/> &nbsp  Add a Unit Reports Step 3/3
             </h2><br />
 
             <c:forEach items="${ messageResult }" var="message" varStatus="boucle">

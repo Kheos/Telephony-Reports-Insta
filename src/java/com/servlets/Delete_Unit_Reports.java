@@ -51,12 +51,9 @@ public class Delete_Unit_Reports extends HttpServlet {
 		UnitReportForm form = new UnitReportForm(unitReportDao);
         List<String> messageContractNames = form.listContractNames();
         
-        /*DisplayUnitReports connect = new DisplayUnitReports();
-        List<String> messageData = connect.execute(request);*/
-
-        /* Enregistrement de la liste des messages dans l'objet requête */
+        /* Enregistrement de la liste des contrats dans l'objet requête */
         request.setAttribute(ATT_MESSAGES_NAME_UNITREPORTS, messageContractNames);
-        /*request.setAttribute(ATT_MESSAGES_DATA, messageData);*/
+		
         this.getServletContext().getRequestDispatcher( "/WEB-INF/unit_reports/delete_unit_reports.jsp" ).forward( request, response );
     }
 

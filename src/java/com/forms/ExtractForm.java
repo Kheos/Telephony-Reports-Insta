@@ -198,12 +198,22 @@ public class ExtractForm {
 		//Récupération des données contenues dans les variables private de l'objet et calculs et/ou manipulations pour l'ajout de la ligne de total
 		countryCell = new Label(0, numLine, country, totalCellFormat);
 		contractNameCell = new Label(1, numLine, contractName, totalCellFormat);
-		if (fiscalYear != 0) {
-			//Si c'est un extract sur une année fiscale
-			periodCell = new Label(2, numLine, Integer.toString(firstMonth) + "/" + Integer.toString(fiscalYear) + " - " + Integer.toString(lastMonth) + "/" + Integer.toString(fiscalYear + 1) + " (" + Integer.toString(12 - nbEmptyLine) + " months)", totalCellFormat);
+		if (nbMonth - nbEmptyLine < 2) {
+			if (fiscalYear != 0) {
+				//Si c'est un extract sur une année fiscale
+				periodCell = new Label(2, numLine, Integer.toString(firstMonth) + "/" + Integer.toString(fiscalYear) + " - " + Integer.toString(lastMonth) + "/" + Integer.toString(fiscalYear + 1) + " (" + Integer.toString(12 - nbEmptyLine) + " month)", totalCellFormat);
+			} else {
+				//Sinon
+				periodCell = new Label(2, numLine, Integer.toString(firstMonth) + "/" + Integer.toString(year) + " - " + Integer.toString(lastMonth) + "/" + Integer.toString(year) + " (" + Integer.toString(nbMonth - nbEmptyLine) + " month)", totalCellFormat);
+			}
 		} else {
-			//Sinon
-			periodCell = new Label(2, numLine, Integer.toString(firstMonth) + "/" + Integer.toString(year) + " - " + Integer.toString(lastMonth) + "/" + Integer.toString(year) + " (" + Integer.toString(nbMonth - nbEmptyLine) + " months)", totalCellFormat);
+			if (fiscalYear != 0) {
+				//Si c'est un extract sur une année fiscale
+				periodCell = new Label(2, numLine, Integer.toString(firstMonth) + "/" + Integer.toString(fiscalYear) + " - " + Integer.toString(lastMonth) + "/" + Integer.toString(fiscalYear + 1) + " (" + Integer.toString(12 - nbEmptyLine) + " months)", totalCellFormat);
+			} else {
+				//Sinon
+				periodCell = new Label(2, numLine, Integer.toString(firstMonth) + "/" + Integer.toString(year) + " - " + Integer.toString(lastMonth) + "/" + Integer.toString(year) + " (" + Integer.toString(nbMonth - nbEmptyLine) + " months)", totalCellFormat);
+			}
 		}
 		arpu = totalCostComplete / quantityComplete;
 		quantityCell = new jxl.write.Number(3, numLine, quantityComplete, totalCellFormat);
@@ -338,28 +348,28 @@ public class ExtractForm {
 				} else if (!contractName.equals(extract.getContractName()) || !type.equals(extract.getType())) {
 					System.out.println("TOTAL");
 					//if ((nbMonth - nbEmptyLine) > 1 || (this.fiscalYear != 0 && nbEmptyLine < 11)) {
-						System.out.println("MOIS MANQUANT - nbEmptyLine : "+nbEmptyLine+" nbMonth : "+nbMonth);
-						/*
-						 * Si il y a au moins deux lignes qui ont été ajoutées pour l'extract courant (depuis la dernière ligne de total par exemple), 
-						 * on peut ajouter une dernière ligne de total
-						 */
-						while (nbMonth < lastMonth || (this.fiscalYear != 0 && !fiscalYearCompleted)) {
-							//Tant que l'extract courant n'a pas les lignes de tous ces mois, on ajoute des lignes vides
-							System.out.println("MOIS MANQUANT");
-							if (this.fiscalYear != 0 && nbMonth >= 8) {
-								//Si c'est un extract par année fiscale, on passe le booléen disant qu'une année fiscale d'extract a été remplie à true
-								fiscalYearCompleted = true;
-								firstMonth = 1;
-								nbMonth = 0;
-							} else {
-								//On incrémente le nombre de mois parcourus
-								nbMonth++;
-							}
-							//On incrémente le numéro de la ligne où écrire et le nombre de lignes vides
-							numLine++;
-							nbEmptyLine++;
+					System.out.println("MOIS MANQUANT - nbEmptyLine : " + nbEmptyLine + " nbMonth : " + nbMonth);
+					/*
+					 * Si il y a au moins deux lignes qui ont été ajoutées pour l'extract courant (depuis la dernière ligne de total par exemple), 
+					 * on peut ajouter une dernière ligne de total
+					 */
+					while (nbMonth < lastMonth || (this.fiscalYear != 0 && !fiscalYearCompleted)) {
+						//Tant que l'extract courant n'a pas les lignes de tous ces mois, on ajoute des lignes vides
+						System.out.println("MOIS MANQUANT");
+						if (this.fiscalYear != 0 && nbMonth >= 8) {
+							//Si c'est un extract par année fiscale, on passe le booléen disant qu'une année fiscale d'extract a été remplie à true
+							fiscalYearCompleted = true;
+							firstMonth = 1;
+							nbMonth = 0;
+						} else {
+							//On incrémente le nombre de mois parcourus
+							nbMonth++;
 						}
-						workbook = addTotalRow(workbook, numSheet);
+						//On incrémente le numéro de la ligne où écrire et le nombre de lignes vides
+						numLine++;
+						nbEmptyLine++;
+					}
+					workbook = addTotalRow(workbook, numSheet);
 					//}
 
 					if (!type.equals(extract.getType())) {

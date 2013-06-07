@@ -24,6 +24,9 @@ public class Add_Unit_Reports extends HttpServlet {
 	
 	public static final String ATT_MESSAGES_SITE = "messageSite";
 	public static final String ATT_MESSAGES_COUNTRY = "messageCountry";
+	public static final String ATT_NAME_UNIT_REPORT = "nameUnitReports";
+	public static final String ATT_TYPE_UNIT_REPORT = "typeUnitReports";
+	public static final String ATT_COUNTRY_UNIT_REPORT = "countryUnitReports";
 	public static final String ATT_REDIRECT_BOOL = "redirectBool";
 	public static final String ATT_NAME_ERROR = "nameError";
 	public static final String urlRedirection = "/Add_Unit_Reports";
@@ -82,10 +85,10 @@ public class Add_Unit_Reports extends HttpServlet {
 		//Préparation de l'objet formulaire
 		UnitReportForm form = new UnitReportForm(unitReportDao);
 
-		//Récupération du paramètre "filter", étant le bouton d'envoi d'un filtre d'affichage
+		//Récupération du paramètre "nameUnitReports"
 		String nameUnitReport = request.getParameter("nameUnitReports");
 
-		if (!form.checkUnitReportName(nameUnitReport)) {
+		if (!form.checkUnitReportName(nameUnitReport) || "".equals(nameUnitReport)) {
 			request.setAttribute(ATT_NAME_ERROR, Boolean.TRUE);
 			List<String> messageCountry = form.listActiveCountries();
 			request.setAttribute(ATT_MESSAGES_COUNTRY, messageCountry);
@@ -94,6 +97,9 @@ public class Add_Unit_Reports extends HttpServlet {
 		else {
 			String messageSite = form.listActiveSites(request);
 			request.setAttribute(ATT_MESSAGES_SITE, messageSite);
+			request.setAttribute(ATT_NAME_UNIT_REPORT, nameUnitReport);
+			request.setAttribute(ATT_TYPE_UNIT_REPORT, request.getParameter("typeUnitReports"));
+			request.setAttribute(ATT_COUNTRY_UNIT_REPORT, request.getParameter("countryUnitReports"));
 			this.getServletContext().getRequestDispatcher("/WEB-INF/unit_reports/add_site_unit_reports.jsp").forward(request, response);
 		}		
 	}

@@ -46,7 +46,7 @@
         <!---------------------- CONTENT START --------------------------->       
         <div class="content">    
             <h2>
-                <img src="inc/pictures/add.png" alt="" width="70px" style="margin-top:-15px;"/> &nbsp  Add a Unit Reports Step 2/2
+                <img src="inc/pictures/add.png" alt="" width="70px" style="margin-top:-15px;"/> &nbsp  Add a Unit Reports Step 2/3
             </h2>
             <p>
                 Select below the site of your contract:
@@ -54,22 +54,13 @@
             <div id="filter" style=" width:930px; margin:auto; padding: 5px;">
                 <form action="Add_Unit_Reports_Result" method="GET" id="formSite" class="formContact">
                     <label for="login"><span>Name :</span>
-                        <input type="text" id="nameUnitReports" class="input_text" name="nameUnitReports" value="<%
-                            String parametreName = request.getParameter("nameUnitReports");
-                            out.println(parametreName);
-                               %>" readonly="readonly" size="30" maxlength="60" />
+                        <input type="text" id="nameUnitReports" class="input_text" name="nameUnitReports" value="<c:out value='${nameUnitReports}'/>" readonly="readonly" size="30" maxlength="60" />
                     </label><br />
                     <label for="type"><span>Type :</span>
-                        <input type="text" id="typeUnitReports" class="input_text" name="typeUnitReports" value="<%
-                            String parametreType = request.getParameter("typeUnitReports");
-                            out.println(parametreType);
-                               %>" readonly="readonly" size="30" maxlength="60" />
+                        <input type="text" id="typeUnitReports" class="input_text" name="typeUnitReports" value="<c:out value='${typeUnitReports}'/>" readonly="readonly" size="30" maxlength="60" />
                     </label><br />
                     <label for="country"><span>Country :</span>
-                        <input type="text" id="countryUnitReports" class="input_text" name="countryUnitReports" value="<%
-                            String parametreCountry = request.getParameter("countryUnitReports");
-                            out.println(parametreCountry);
-                               %>" size="30" maxlength="60" />
+                        <input type="text" id="countryUnitReports" class="input_text" name="countryUnitReports" value="<c:out value='${countryUnitReports}'/>" readonly="readonly" size="30" maxlength="60" />
                     </label><br />
                     <label for="site"><span>Sites :</span>
 

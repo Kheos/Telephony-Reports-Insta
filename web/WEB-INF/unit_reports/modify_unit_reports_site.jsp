@@ -17,12 +17,16 @@
             checked=false;
             function checkedAll (formSite) {
                 var aa= document.getElementById('formSite');
-                if (checked == false){
+                if (checked == false)
+                {
                     checked = true
-                } else {
+                }
+                else
+                {
                     checked = false
-                } 
-                for (var i =0; i < aa.elements.length; i++) {
+                }
+                for (var i =0; i < aa.elements.length; i++) 
+                {
                     aa.elements[i].checked = checked;
                 }
             }
@@ -42,45 +46,38 @@
         <!---------------------- CONTENT START --------------------------->       
         <div class="content">    
             <h2>
-                <img src="inc/pictures/edit.png" alt="" width="70px" style="margin-top:-15px;"/> &nbsp  Modify Unit Reports, step 2/2
-                </h2>
-                <p>Find below the sites of the 
-                    <%
-                        String parametre = request.getParameter("nameUnitReports");
-                        out.println(parametre);
-                    %>'s unit reports :</p>
+                <img src="inc/pictures/edit.png" alt="" width="70px" style="margin-top:-15px;"/> &nbsp  Modify Unit Reports Step 2/3
+			</h2>
+			<p>Find below the sites of the <c:out value='${nameUnitReports}'/>'s unit reports :</p>
 
-                <form action="Modify_Unit_Reports_Result" method="GET" id="formSite" class="formContact">
-                    <label for="login"><span>Name :</span>
-                        <input type="text" id="nameUnitReports" class="input_text" name="nameUnitReports" value="<%
-                            String parametreDisplayName = request.getParameter("nameUnitReports");
-                            out.println(parametreDisplayName);
-                               %>" size="30" maxlength="60" />
-                    </label><br />
+			<form action="Modify_Unit_Reports_Result" method="POST" id="formSite" class="formContact">
+				<c:if test="${nameError}">
+					<p class="errors">
+						Error : Unit Contract's name is already used.
+					</p>
+				</c:if>
+				<label for="login"><span>Name :</span>
+					<input type="text" id="nameUnitReports" class="input_text" name="nameUnitReports" value="<c:out value='${nameUnitReports}'/>" size="30" maxlength="60" />
+				</label><br />
 
-                    <label for="site"><span>Sites already checked:</span><br />
+				<label for="site"><span>Sites :</span>
 
-                        ${ messageDisplay }
+					<table style="margin-left:40px;">
+						<tr><td style="width:40px;"><input type="checkbox" name="checkall"  onclick="checkedAll(formSite);"/></td><td><span class="displaySite" style="font-weight: bold; font-size:14px; text-align: left;">Select all</span></td></tr>
+						${ messageSite }
+					</table>
 
-                    </label><br />
+				</label><br />
 
-                    <label for="siteUnchecked"><span>Sites unchecked :</span><br /><br />
-
-                        <table style="margin-left:40px;">
-                            <tr><td style="width:40px;"><input type="checkbox" name="checkall"  onclick="checkedAll(formSite);"/></td><td><span class="displaySite" style="font-weight: bold; font-size:14px; text-align: left;">Select all</span></td></tr>
-                            ${ messageDisplayAll }
-                        </table>
-                    </label><br />
-
-                    <input id="buttonModify" class="button" type="submit" value="Modify" tabindex="30"/>
-                </form>
-            </div>
-            <!---------------------- CONTENT END ---------------------------->
-            <!--------------------------------------------------------------->
-            <!---------------------- FOOTER START --------------------------->
-            <%@include file="../footer/footer.jsp"%>
-            <!---------------------- FOOTER END -----------------------------> 
-            <!--------------------------------------------------------------->
-        </body>
-    </html>
+				<input id="buttonModify" class="button" type="submit" value="Modify" tabindex="30"/>
+			</form>
+		</div>
+		<!---------------------- CONTENT END ---------------------------->
+		<!--------------------------------------------------------------->
+		<!---------------------- FOOTER START --------------------------->
+		<%@include file="../footer/footer.jsp"%>
+		<!---------------------- FOOTER END -----------------------------> 
+		<!--------------------------------------------------------------->
+	</body>
+</html>
 

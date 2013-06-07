@@ -110,7 +110,7 @@ public class UnitReportDaoImpl implements UnitReportDao {
 				i++;
 			}
 
-			if (messageSite != null && i > 0) {
+			if (messageSite != null && i > 1) {
 				messageSite += "<input id=\"nbCheckBoxes\" name=\"nbCheckBoxes\" type=\"hidden\" readonly=\"readonly\" value=\"" + i + "\"/>";
 			}
 
@@ -122,6 +122,117 @@ public class UnitReportDaoImpl implements UnitReportDao {
 		}
 
 		return messageSite;
+	}
+	private static final String SQL_SELECT_CONTRACT_COUNTRY = "SELECT REF_COUNTRY_CODE FROM WEBIDMINT.TELEPHONY_UNITCONTRACT WHERE CONTRACT_NAME = ?";
+	private static final String SQL_SELECT_CHECK_UNCHECKED_SITES = "SELECT DISTINCT SITE_CODE, SITE_NAME, CASE WHEN SITE_CODE IN (SELECT REF_SITE_CODE FROM WEBIDMINT.TELEPHONY_UNITCONTRACT_LINK WHERE REF_UNITCONTRACT = ?) THEN 'CHECKED' ELSE 'UNCHECKED' END AS CHECKED FROM WEBIDMINT.LOCATION_SITE WHERE SITE_STATUS = 'ACTIVE' AND REF_COUNTRY_CODE = ? ORDER BY SITE_NAME ASC";
+
+	public String listCheckedUncheckedSites(String messageSite, String contractName) {
+
+		Connection connexion = null;
+		PreparedStatement preparedStatementCountry = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSetCountry = null;
+		ResultSet resultSet = null;
+
+		try {
+			try {
+				/*
+				 * Récupération d'une connexion depuis la Factory
+				 */
+				connexion = daoFactory.getConnection();
+			} catch (SQLException ex) {
+				Logger.getLogger(UnitReportDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+			}
+
+			//On prépare la requête SQL en la construisant avec la méthode "initPreparedRequest" et on récupère le ResultSet en l'exécutant
+			preparedStatementCountry = initPreparedRequest(connexion, SQL_SELECT_CONTRACT_COUNTRY, false, contractName);
+			resultSetCountry = preparedStatementCountry.executeQuery();
+
+			String parametreCountry = "";
+
+			if (resultSetCountry.next()) {
+				parametreCountry = resultSetCountry.getString("REF_COUNTRY_CODE");
+			}
+
+			if (!"".equals(parametreCountry)) {
+				//On prépare la requête SQL en la construisant avec la méthode "initPreparedRequest" et on récupère le ResultSet en l'exécutant
+				preparedStatement = initPreparedRequest(connexion, SQL_SELECT_CHECK_UNCHECKED_SITES, false, contractName, parametreCountry);
+				resultSet = preparedStatement.executeQuery();
+
+				int i = 1;
+				String siteCodeUnitReports = "";
+				String siteNameUnitReports = "";
+				String siteCheck = "";
+
+				//Parcours des lignes de données de l'éventuel ResulSet retourné
+				while (resultSet.next()) {
+					siteCodeUnitReports = resultSet.getString("SITE_CODE");
+					siteNameUnitReports = resultSet.getString("SITE_NAME");
+					siteCheck = resultSet.getString("CHECKED");
+					System.out.println(siteCodeUnitReports);
+					System.out.println(siteNameUnitReports);
+					/* Formatage des données pour affichage dans la JSP finale. */
+					if ("CHECKED".equals(siteCheck)) {
+						messageSite += "<tr><td style=\"width:40px;\"><input type=\"checkbox\" name=\"site" + i + "\" id=\"" + siteCodeUnitReports + "\" value=\"" + siteCodeUnitReports + "\" checked/></td><td><span class=\"displaySite\" style=\"text-align:left;\">" + siteCodeUnitReports + "</span></td><td><span class=\"displaySite\" style=\"text-align:left;\">" + siteNameUnitReports + "</span></td></tr>";
+					} else {
+						messageSite += "<tr><td style=\"width:40px;\"><input type=\"checkbox\" name=\"site" + i + "\" id=\"" + siteCodeUnitReports + "\" value=\"" + siteCodeUnitReports + "\"/></td><td><span class=\"displaySite\" style=\"text-align:left;\">" + siteCodeUnitReports + "</span></td><td><span class=\"displaySite\" style=\"text-align:left;\">" + siteNameUnitReports + "</span></td></tr>";
+					}
+					i++;
+				}
+
+				if (messageSite != null && i > 1) {
+					messageSite += "<input id=\"nbCheckBoxes\" name=\"nbCheckBoxes\" type=\"hidden\" readonly=\"readonly\" value=\"" + i + "\"/>";
+				}
+			}
+
+		} catch (SQLException e) {
+			throw new DaoException(e);
+		} finally {
+			//On ferme le ResultSet, le PreparedStatement et la connexion
+			silentClosures(resultSetCountry, preparedStatementCountry, connexion);
+			silentClosures(resultSet, preparedStatement, connexion);
+		}
+
+		return messageSite;
+	}
+	private static final String SQL_SELECT_CONTRACT_NAMES = "SELECT CONTRACT_NAME FROM WEBIDMINT.TELEPHONY_UNITCONTRACT ORDER BY CONTRACT_NAME";
+
+	public List<String> listContractNames(List<String> messageContractName) {
+
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+
+		try {
+			try {
+				/*
+				 * Récupération d'une connexion depuis la Factory
+				 */
+				connexion = daoFactory.getConnection();
+			} catch (SQLException ex) {
+				Logger.getLogger(UnitReportDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+			}
+
+			//On prépare la requête SQL en la construisant avec la méthode "initPreparedRequest" et on récupère le ResultSet en l'exécutant
+			preparedStatement = initPreparedRequest(connexion, SQL_SELECT_CONTRACT_NAMES, false);
+			resultSet = preparedStatement.executeQuery();
+
+			String contractName = null;
+
+			while (resultSet.next()) {
+				contractName = resultSet.getString("CONTRACT_NAME");
+				/* Formatage des données pour affichage dans la JSP finale. */
+				messageContractName.add("<option value='" + contractName + "'>" + contractName + "</option>");
+			}
+
+		} catch (SQLException e) {
+			throw new DaoException(e);
+		} finally {
+			//On ferme le ResultSet, le PreparedStatement et la connexion
+			silentClosures(resultSet, preparedStatement, connexion);
+		}
+
+		return messageContractName;
 	}
 	private static final String SQL_INSERT_UNIT_REPORT = "INSERT INTO WEBIDMINT.TELEPHONY_UNITCONTRACT (REF_COUNTRY_CODE, CONTRACT_NAME, DESCRIPTION, REF_OWNER_ID)" + "VALUES (?, ?, ?, ?)";
 	private static final String SQL_INSERT_SITES_UNIT_REPORT = "INSERT INTO WEBIDMINT.TELEPHONY_UNITCONTRACT_LINK (REF_UNITCONTRACT, REF_SITE_CODE) VALUES (?, ?)";
@@ -178,52 +289,11 @@ public class UnitReportDaoImpl implements UnitReportDao {
 
 		return messageResult;
 	}
-	
-	private static final String SQL_SELECT_CONTRACT_NAMES = "SELECT CONTRACT_NAME FROM WEBIDMINT.TELEPHONY_UNITCONTRACT ORDER BY CONTRACT_NAME";
-
-	public List<String> listContractNames(List<String> messageContractName) {
-		
-		Connection connexion = null;
-		PreparedStatement preparedStatement = null;
-		ResultSet resultSet = null;
-
-		try {
-			try {
-				/*
-				 * Récupération d'une connexion depuis la Factory
-				 */
-				connexion = daoFactory.getConnection();
-			} catch (SQLException ex) {
-				Logger.getLogger(UnitReportDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
-			}
-
-			//On prépare la requête SQL en la construisant avec la méthode "initPreparedRequest" et on récupère le ResultSet en l'exécutant
-			preparedStatement = initPreparedRequest(connexion, SQL_SELECT_CONTRACT_NAMES, false);
-			resultSet = preparedStatement.executeQuery();
-
-			String contractName = null;
-
-			while (resultSet.next()) {
-                contractName = resultSet.getString("CONTRACT_NAME");
-                /* Formatage des données pour affichage dans la JSP finale. */
-                messageContractName.add("<option value='" + contractName + "'>" + contractName + "</option>");
-            }
-
-		} catch (SQLException e) {
-			throw new DaoException(e);
-		} finally {
-			//On ferme le ResultSet, le PreparedStatement et la connexion
-			silentClosures(resultSet, preparedStatement, connexion);
-		}
-
-		return messageContractName;
-	}
-	
 	private static final String SQL_DELETE_UNIT_REPORT = "DELETE FROM WEBIDMINT.TELEPHONY_UNITCONTRACT WHERE CONTRACT_NAME = ?";
 	private static final String SQL_DELETE_UNIT_REPORT_LINK = "DELETE FROM WEBIDMINT.TELEPHONY_UNITCONTRACT_LINK WHERE REF_UNITCONTRACT = ?";
-	
+
 	public String deleteUnitReport(String messageDelete, String nameUnitReport) {
-		
+
 		Connection connexion = null;
 		PreparedStatement preparedStatementUnitReport = null;
 		PreparedStatement preparedStatementUnitReportLink = null;
@@ -251,10 +321,10 @@ public class UnitReportDaoImpl implements UnitReportDao {
 			 *
 			 */
 			if ((statut != 1)) {
-                messageDelete += ("<span style=\"color:red; font-weight:bold\">Error, your Unit Contract has not been deleted. Try again :</span><br /><br /><br /><center><br /><br /><br /><a href=\"Delete_Unit_Reports\" class=\"button\">Retry</a></center>");
-            } else {
-                messageDelete += ("<span style=\"color:green; font-weight:bold; \">Your Unit Contract has been deleted</span><br /><br /><br /><center><br /><br /><br /><a href=\"Unit_Reports\" class=\"button\">Return</a></center>");
-            }
+				messageDelete += ("<span style=\"color:red; font-weight:bold\">Error, your Unit Contract has not been deleted. Try again :</span><br /><br /><br /><center><br /><br /><br /><a href=\"Delete_Unit_Reports\" class=\"button\">Retry</a></center>");
+			} else {
+				messageDelete += ("<span style=\"color:green; font-weight:bold; \">Your Unit Contract has been deleted</span><br /><br /><br /><center><br /><br /><br /><a href=\"Unit_Reports\" class=\"button\">Return</a></center>");
+			}
 
 		} catch (SQLException e) {
 			throw new DaoException(e);
@@ -266,11 +336,75 @@ public class UnitReportDaoImpl implements UnitReportDao {
 
 		return messageDelete;
 	}
-	
+	private static final String SQL_UPDATE_UNIT_REPORT = "UPDATE WEBIDMINT.TELEPHONY_UNITCONTRACT SET CONTRACT_NAME = ? WHERE CONTRACT_NAME = ?";
+
+	public String modifyUnitReport(String messageResult, String oldName, String parametreName, List<String> parametreSite) {
+
+		Connection connexion = null;
+		PreparedStatement preparedStatementUnitReport = null;
+		PreparedStatement preparedStatementUnitReportLink = null;
+		PreparedStatement preparedStatementSites = null;
+
+		try {
+			try {
+				/*
+				 * Récupération d'une connexion depuis la Factory
+				 */
+				connexion = daoFactory.getConnection();
+			} catch (SQLException ex) {
+				Logger.getLogger(UnitReportDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+			}
+			
+			int statut = 1;
+			
+			if (!oldName.equals(parametreName)) {
+				//On prépare la requête SQL en la construisant avec la méthode "initPreparedRequest"
+				preparedStatementUnitReport = initPreparedRequest(connexion, SQL_UPDATE_UNIT_REPORT, false, parametreName, oldName);
+				 statut = preparedStatementUnitReport.executeUpdate();
+			}
+
+			//On prépare la requête SQL en la construisant avec la méthode "initPreparedRequest"
+			preparedStatementUnitReportLink = initPreparedRequest(connexion, SQL_DELETE_UNIT_REPORT_LINK, false, oldName);
+			preparedStatementUnitReportLink.executeUpdate();
+
+			String parametreSiteElement = "";
+			for (int i = 0; i < parametreSite.size(); i++) {
+				parametreSiteElement = parametreSite.get(i);
+				if (parametreSiteElement != null && parametreSiteElement.length() > 0) {
+					//On prépare la requête SQL en la construisant avec la méthode "initPreparedRequest"
+					preparedStatementSites = initPreparedRequest(connexion, SQL_INSERT_SITES_UNIT_REPORT, false, parametreName, parametreSiteElement);
+					/* Exécution d'une requête d'insertion */
+					preparedStatementSites.executeUpdate();
+				}
+			}
+
+			/**
+			 *
+			 * Récupération du résultat de la requête Préparation du résultat à
+			 * afficher dans la JSP finale
+			 *
+			 */
+			if ((statut != 1)) {
+				messageResult = "<span style=\"color:red; font-weight:bold\">Error, your Unit Contract has not been modified.</span><center><br /><br /><br /><a href=\"Modify_Unit_Reports\" class=\"button\">Retry</a></center>";
+			} else {
+				messageResult = "<span style=\"color:green; font-weight:bold; \">Your Unit Contract has been modified.</span><br /><br /><br /><center><br /><br /><br /><a href=\"Unit_Reports\" class=\"button\">Return</a></center>";
+			}
+
+		} catch (SQLException e) {
+			throw new DaoException(e);
+		} finally {
+			//On ferme le PreparedStatement et la connexion
+			silentClosures(preparedStatementUnitReport, connexion);
+			silentClosures(preparedStatementUnitReportLink, connexion);
+			silentClosures(preparedStatementSites, connexion);
+		}
+
+		return messageResult;
+	}
 	private static final String SQL_CHECK_CONTRACT_NAME = "SELECT CONTRACT_NAME FROM WEBIDMINT.TELEPHONY_UNITCONTRACT WHERE CONTRACT_NAME = ?";
 
 	public boolean checkUnitReportName(String nameUnitReport, boolean check) {
-		
+
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
@@ -306,7 +440,7 @@ public class UnitReportDaoImpl implements UnitReportDao {
 			//On ferme le PreparedStatement et la connexion
 			silentClosures(resultSet, preparedStatement, connexion);
 		}
-		
+
 		return check;
 	}
 }

@@ -23,7 +23,7 @@
         <!---------------------- CONTENT START --------------------------->       
         <div class="content">    
             <h2>
-                <img src="inc/pictures/Database.png" alt="" width="70px" style="margin-top:-15px;"/> &nbsp  Unit Contract
+                <img src="inc/pictures/edit.png" alt="" width="70px" style="margin-top:-15px;"/> &nbsp  Modify Unit Contract Step 3/3
             </h2><br />
 
             <c:forEach items="${ messageModifyResult }" var="message" varStatus="boucle">

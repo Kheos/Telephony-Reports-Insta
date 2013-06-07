@@ -4,6 +4,9 @@
  */
 package com.servlets;
 
+import com.bdd.DaoFactory;
+import com.bdd.UnitReportDao;
+import com.forms.UnitReportForm;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -19,36 +22,18 @@ import java.util.List;
 public class Modify_Unit_Reports extends HttpServlet {
 
     public static final String ATT_MESSAGES_NAME_UNITREPORTS = "messageNameUnitReports";
+	public static final String CONF_DAO_FACTORY = "daofactory";
+	private UnitReportDao unitReportDao;
+	
+	@Override
+	public void init() throws ServletException {
+		/*
+		 * Récupération d'une instance de notre DAO Utilisateur
+		 */
+		this.unitReportDao = ((DaoFactory) getServletContext().getAttribute(CONF_DAO_FACTORY)).getUnitReportDao();
 
-    /**
-     * Processes requests for both HTTP
-     * <code>GET</code> and
-     * <code>POST</code> methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        try {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet Modify_Unit_Reports</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet Modify_Unit_Reports at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        } finally {
-            out.close();
-        }
-    }
-
+	}
+	
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP
@@ -62,7 +47,14 @@ public class Modify_Unit_Reports extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+		
+		//Préparation de l'objet formulaire
+		UnitReportForm form = new UnitReportForm(unitReportDao);
+        List<String> messageContractNames = form.listContractNames();
+        
+        /* Enregistrement de la liste des contrats dans l'objet requête */
+        request.setAttribute(ATT_MESSAGES_NAME_UNITREPORTS, messageContractNames);
+		
         this.getServletContext().getRequestDispatcher("/WEB-INF/unit_reports/modify_unit_reports.jsp").forward(request, response);
     }
 
@@ -78,7 +70,6 @@ public class Modify_Unit_Reports extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
     }
 
     /**

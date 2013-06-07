@@ -206,6 +206,7 @@ public class Download_Extract extends HttpServlet {
 				int lastMonth = 0;
 				if ("monthlyMode".equals(dateMode) && month != 0) {
 					firstMonth = month;
+					lastMonth = month;
 				} else if ("fiscalYearMode".equals(dateMode)) {
 					firstMonth = 4;
 					firstYear = fiscalYear;

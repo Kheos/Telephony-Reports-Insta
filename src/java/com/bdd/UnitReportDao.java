@@ -31,6 +31,21 @@ public interface UnitReportDao {
 	
 	/**
 	 *
+	 * @param messageCounry String qui contiendra le code HTML concaténé à afficher dans la vue
+	 * @param contractName Contrat à modifier couvrant une partie ou tous les sites à récupérer
+	 * @return La chaîne de caractères contenant le code HTML à afficher
+	 */
+	public String listCheckedUncheckedSites(String messageSite, String contractName);
+	
+	/**
+	 *
+	 * @param messageContractName Liste qui contiendra le code HTML à afficher dans la vue
+	 * @return La liste contenant le code HTML à afficher
+	 */
+	public List<String> listContractNames(List<String> messageContractName);
+	
+	/**
+	 *
 	 * @param messageResult String qui contiendra le code HTML concaténé à afficher dans la vue
 	 * @param parametreLogin Login de l'utilisateur créant l'unité de report
 	 * @param parametreName Nom de l'unité de report à insérer dans la base
@@ -43,17 +58,19 @@ public interface UnitReportDao {
 	
 	/**
 	 *
-	 * @param messageContractName Liste qui contiendra le code HTML à afficher dans la vue
-	 * @return La liste contenant le code HTML à afficher
-	 */
-	public List<String> listContractNames(List<String> messageContractName);
-	
-	/**
-	 *
 	 * @param messageDelete String qui contiendra le code HTML à afficher dans la vue
 	 * @return La châine de caractères contenant le code HTML à afficher
 	 */
 	public String deleteUnitReport(String messageDelete, String nameUnitReport);
+	
+	/**
+	 *
+	 * @param messageResult String qui contiendra le code HTML concaténé à afficher dans la vue
+	 * @param parametreName Nom de l'unité de report à modifier dans la base
+	 * @param parametreSite Liste des sites de l'unité de report à modifier dans la base
+	 * @return La chaîne de caractères contenant le code HTML à afficher
+	 */
+	public String modifyUnitReport(String messageResult, String oldName, String parametreName, List<String> parametreSite);
 	
 	/**
 	 *

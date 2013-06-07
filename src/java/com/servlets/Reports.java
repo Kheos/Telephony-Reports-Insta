@@ -211,7 +211,6 @@ public class Reports extends HttpServlet {
 			request.setAttribute(ATT_SITE_LIST, siteList);
 			request.setAttribute(ATT_RESULT, result);
 		} else {
-
 			/*
 			 * Sinon, un filtre a été demandé :
 			 * Récupération des variables de date, du nom du contrat et de son type
